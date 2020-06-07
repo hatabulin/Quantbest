@@ -29,7 +29,7 @@ namespace Quantium
             this.textBoxPointX.Text = x.ToString();
             this.textBoxPointY.Text = y.ToString();
 
-            if (side == Form1.SIDE_FRONT) this.comboBoxPointSide.SelectedIndex = 0; else this.comboBoxPointSide.SelectedIndex = 1;
+            if (side == FormMain.SIDE_FRONT) this.comboBoxPointSide.SelectedIndex = 0; else this.comboBoxPointSide.SelectedIndex = 1;
         }
 
         public void AddPointToTable()
@@ -188,7 +188,7 @@ namespace Quantium
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(100, 143);
+            this.button1.Location = new System.Drawing.Point(100, 151);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 13;
@@ -198,7 +198,7 @@ namespace Quantium
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(207, 143);
+            this.button2.Location = new System.Drawing.Point(198, 151);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 14;
@@ -210,7 +210,7 @@ namespace Quantium
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 178);
+            this.ClientSize = new System.Drawing.Size(386, 188);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxPointName);

@@ -16,10 +16,11 @@ using System.Linq;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using Quantium.Model;
 
 namespace Quantium
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
         private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
@@ -33,7 +34,7 @@ namespace Quantium
         public const String SIDE_BACK = "Back";
 
         static float currentAlphaValue = 0.45f;
-        private string meredianFrontFileName, meredianBackFileName;
+        private string mapFrontFileName, mapBackFileName;
         private string humanModelFrontFileName, humanModelBackFileName;
         private readonly List<Brush> colorsBrush = new List<Brush> { Brushes.Red, Brushes.Green, Brushes.Yellow, Brushes.White, Brushes.Blue, Brushes.Black };
         private const byte RED = 0;
@@ -46,6 +47,9 @@ namespace Quantium
         private string[] ports;
 
         private List<PointModel> pointModels = new List<PointModel>();
+        private List<MethodicModel> methodicModels = new List<MethodicModel>();
+        private List<MethodicItemModel> methodicItemModels = new List<MethodicItemModel>();
+
         ToolTip ttip = new ToolTip();
 
         public static LaserChannel[] laserChannel = { 
@@ -54,22 +58,23 @@ namespace Quantium
 
         FormEnterMethodic formMethodic = new FormEnterMethodic();
         FormAddPointToMethodic formAddPointToMethodic;
+        FormDisease formDisease;
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             DataAccess.CreateTables();
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
-            comboBoxComPort.Items.Clear();
-            comboBoxComPort.Items.AddRange(SerialPort.GetPortNames());
-            if (comboBoxComPort.Items.Count != 0)
+            cbComPort.Items.Clear();
+            cbComPort.Items.AddRange(SerialPort.GetPortNames());
+            if (cbComPort.Items.Count != 0)
             {
                 ports = SerialPort.GetPortNames();
-                comboBoxComPort.SelectedIndex = comboBoxComPort.Items.Count - 1;
-                comboBoxDisease.SelectedIndex = 0;
-                comboBoxDiseaseType.SelectedIndex = 0;
+                cbComPort.SelectedIndex = cbComPort.Items.Count - 1;
+                cbDisease.SelectedIndex = 0;
+                cbDiseaseType.SelectedIndex = 0;
             }
             FillValuesToControls();
         }
@@ -89,38 +94,27 @@ namespace Quantium
         }
         void FillValuesToControls()
         {
-            numericUpDownLaser1.Value = laserChannel[0].myLevelPwm;
-            numericUpDownLaser2.Value = laserChannel[1].myLevelPwm;
-            numericUpDownLaser3.Value = laserChannel[2].myLevelPwm;
-            numericUpDownLaser4.Value = laserChannel[3].myLevelPwm;
-            numericUpDownLaser5.Value = laserChannel[4].myLevelPwm;
-            numericUpDownLaser6.Value = laserChannel[5].myLevelPwm;
-            numericUpDownLaser7.Value = laserChannel[6].myLevelPwm;
-            numericUpDownLaser8.Value = laserChannel[7].myLevelPwm;
-            numericUpDownLaser9.Value = laserChannel[8].myLevelPwm;
-            numericUpDownLaser10.Value = laserChannel[9].myLevelPwm;
+            nudLaser1.Value = laserChannel[0].myLevelPwm;
+            nudLaser2.Value = laserChannel[1].myLevelPwm;
+            nudLaser3.Value = laserChannel[2].myLevelPwm;
+            nudLaser4.Value = laserChannel[3].myLevelPwm;
+            nudLaser5.Value = laserChannel[4].myLevelPwm;
+            nudLaser6.Value = laserChannel[5].myLevelPwm;
+            nudLaser7.Value = laserChannel[6].myLevelPwm;
+            nudLaser8.Value = laserChannel[7].myLevelPwm;
+            nudLaser9.Value = laserChannel[8].myLevelPwm;
+            nudLaser10.Value = laserChannel[9].myLevelPwm;
 
-            trackBarLaser1.Value = laserChannel[0].myLevelPwm;
-            trackBarLaser2.Value = laserChannel[1].myLevelPwm;
-            trackBarLaser3.Value = laserChannel[2].myLevelPwm;
-            trackBarLaser4.Value = laserChannel[3].myLevelPwm;
-            trackBarLaser5.Value = laserChannel[4].myLevelPwm;
-            trackBarLaser6.Value = laserChannel[5].myLevelPwm;
-            trackBarLaser7.Value = laserChannel[6].myLevelPwm;
-            trackBarLaser8.Value = laserChannel[7].myLevelPwm;
-            trackBarLaser9.Value = laserChannel[8].myLevelPwm;
-            trackBarLaser10.Value = laserChannel[9].myLevelPwm;
-
-            numericUpDownTime1.Value = laserChannel[0].myTimeSeconds;
-            numericUpDownTime2.Value = laserChannel[1].myTimeSeconds;
-            numericUpDownTime3.Value = laserChannel[2].myTimeSeconds;
-            numericUpDownTime4.Value = laserChannel[3].myTimeSeconds;
-            numericUpDownTime5.Value = laserChannel[4].myTimeSeconds;
-            numericUpDownTime6.Value = laserChannel[5].myTimeSeconds;
-            numericUpDownTime7.Value = laserChannel[6].myTimeSeconds;
-            numericUpDownTime8.Value = laserChannel[7].myTimeSeconds;
-            numericUpDownTime9.Value = laserChannel[8].myTimeSeconds;
-            numericUpDownTime10.Value = laserChannel[9].myTimeSeconds;
+            tbLaser1.Value = laserChannel[0].myLevelPwm;
+            tbLaser2.Value = laserChannel[1].myLevelPwm;
+            tbLaser3.Value = laserChannel[2].myLevelPwm;
+            tbLaser4.Value = laserChannel[3].myLevelPwm;
+            tbLaser5.Value = laserChannel[4].myLevelPwm;
+            tbLaser6.Value = laserChannel[5].myLevelPwm;
+            tbLaser7.Value = laserChannel[6].myLevelPwm;
+            tbLaser8.Value = laserChannel[7].myLevelPwm;
+            tbLaser9.Value = laserChannel[8].myLevelPwm;
+            tbLaser10.Value = laserChannel[9].myLevelPwm;
         }
 
         private void SendValueToSerial(int channelNumber, int value)
@@ -129,15 +123,15 @@ namespace Quantium
             serialPort1.WriteLine(str);
         }
 
-        private void ButtonConnect_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
             if (buttonConnect.Text != TEXT_DISCONNECT)
             {
-                if (comboBoxComPort.SelectedIndex > -1)
+                if (cbComPort.SelectedIndex > -1)
                 {
                     try
                     {
-                        serialPort1.PortName = ports[comboBoxComPort.SelectedIndex];
+                        serialPort1.PortName = ports[cbComPort.SelectedIndex];
                         serialPort1.Open();
                         serialPort1.WriteLine(TEST_STRING_ON_ALL);
                         System.Threading.Thread.Sleep(100);
@@ -166,24 +160,24 @@ namespace Quantium
                 }
             }
         }
-        private void checkBoxShowMapImages_CheckedChanged(object sender, EventArgs e)
+        private void cbShowMapImages_CheckedChanged(object sender, EventArgs e)
         {
             Bitmap bitmap;
-            if (checkBoxShowMapImages.Checked)
+            if (cbShowMapImages.Checked)
             {
-                if (meredianFrontFileName != null && meredianBackFileName != null && humanModelFrontFileName != null && humanModelBackFileName != null)
+                if (mapFrontFileName != null && mapBackFileName != null && humanModelFrontFileName != null && humanModelBackFileName != null)
                 {
-                    bitmap = AlphaBlending(new Bitmap(humanModelFrontFileName), new Bitmap(meredianFrontFileName), currentAlphaValue);
+                    bitmap = AlphaBlending(new Bitmap(humanModelFrontFileName), new Bitmap(mapFrontFileName), currentAlphaValue);
                     pictureBox1.Image = bitmap;
 
-                    bitmap = AlphaBlending(new Bitmap(humanModelBackFileName), new Bitmap(meredianBackFileName), currentAlphaValue);
+                    bitmap = AlphaBlending(new Bitmap(humanModelBackFileName), new Bitmap(mapBackFileName), currentAlphaValue);
                     pictureBox2.Image = bitmap;
 
                     vScrollBar1.Enabled = true;
                 }
                 else
                 {
-                    checkBoxShowMapImages.Checked = false;
+                    cbShowMapImages.Checked = false;
                     MessageBox.Show("Сначала выберите файлы !");
                 }
             }
@@ -200,25 +194,25 @@ namespace Quantium
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
             Bitmap bitmap;
-            if (checkBoxShowMapImages.Checked)
+            if (cbShowMapImages.Checked)
             {
-                if (meredianFrontFileName != null && meredianBackFileName != null)
+                if (mapFrontFileName != null && mapBackFileName != null)
                 {
                     currentAlphaValue = (float)(vScrollBar1.Minimum + vScrollBar1.Maximum - vScrollBar1.Value) / 100;
                     if (humanModelFrontFileName != null) bitmap = new Bitmap(humanModelFrontFileName);
                     else bitmap = new Bitmap(Properties.Resources.no_file);
-                    bitmap = AlphaBlending(bitmap, new Bitmap(meredianFrontFileName), currentAlphaValue);
+                    bitmap = AlphaBlending(bitmap, new Bitmap(mapFrontFileName), currentAlphaValue);
                     pictureBox1.Image = bitmap;
 
                     if (humanModelBackFileName != null) bitmap = new Bitmap(humanModelBackFileName);
                     else bitmap = new Bitmap(Properties.Resources.no_file);
 
-                    bitmap = AlphaBlending(bitmap, new Bitmap(meredianBackFileName), currentAlphaValue);
+                    bitmap = AlphaBlending(bitmap, new Bitmap(mapBackFileName), currentAlphaValue);
                     pictureBox2.Image = bitmap;
                 }
                 else
                 {
-                    checkBoxShowMapImages.Checked = false;
+                    cbShowMapImages.Checked = false;
                     MessageBox.Show("Сначала выберите файл !");
                 }
             }
@@ -232,48 +226,118 @@ namespace Quantium
             }
         }
 
-        private void tabPagePoints_Enter(object sender, EventArgs e)
+        private void tpPoints_Enter(object sender, EventArgs e)
         {
-            DataAccess.ReadPointsTable(dataGridViewPoints, this, pointModels);
+            DataAccess.ReadPointsTable(pointModels);
             DrawHumanPictures();
             DrawPointsFromList(pointModels, colorsBrush[RED]);
         }
 
-        private void tabPageMethodic_Enter(object sender, EventArgs e)
+        private void tpMethodic_Enter(object sender, EventArgs e)
         {
-            DataAccess.ReadMethodicListTable(comboBoxMethodicList, this);
+            UpdateMethodicListComboBox();
         }
-        private void tabPagePoints_Leave(object sender, EventArgs e)
+        private void UpdateMethodicListComboBox()
+        {
+            cbMethodicList.Enabled = false;
+            DataAccess.ReadMethodicListTable(methodicItemModels);
+            if (methodicItemModels.Count > 0)
+            {
+                cbMethodicList.Items.Clear();
+                for (int i = 0; i < methodicItemModels.Count; i++)
+                {
+                    cbMethodicList.Items.Add(methodicItemModels[i].name);
+                }
+                cbMethodicList.SelectedIndex = 0;
+                cbMethodicList.Enabled = true;
+            }
+        }
+
+        private void UpdatePointsListComboBox()
+        {
+            DataAccess.ReadPointsTable(pointModels);
+            if (methodicItemModels.Count > 0)
+            {
+                cbPointsList.Items.Clear();
+                for (int i = 0; i < pointModels.Count; i++)
+                {
+                    cbPointsList.Items.Add(pointModels[i].pointname);
+                }
+            }
+        }
+
+        private void tpPoints_Leave(object sender, EventArgs e)
         {
             DrawHumanPictures();
         }
 
-        private void tabPageMethodic_Leave(object sender, EventArgs e)
+        private void tpMethodic_Leave(object sender, EventArgs e)
         {
             DrawHumanPictures();
         }
-        private void buttonAddNewMethodic_Click(object sender, EventArgs e)
+        private void btnAddNewMethodic_Click(object sender, EventArgs e)
         {
-            formMethodic.ShowDialog();
-            DataAccess.ReadMethodicListTable(comboBoxMethodicList, this);
+            if (mapFrontFileName !=null && mapBackFileName !=null && humanModelFrontFileName != null && humanModelBackFileName!=null)
+            {
+                formMethodic.setFileNames(mapFrontFileName, mapBackFileName, humanModelFrontFileName, humanModelBackFileName);
+                formMethodic.ShowDialog();
+                DataAccess.ReadMethodicListTable(methodicItemModels);
+                cbMethodicList.SelectedIndex = 0;
+            } else
+            {
+                MessageBox.Show("Не все файлы выбраны !");
+            }
         }
 
-        private void comboBoxMethodicList_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbMethodicList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataAccess.ReadMethodicTable(comboBoxPointsList, comboBoxMethodicList.SelectedIndex+1, pointModels);
-            toolTip1.ToolTipTitle = comboBoxMethodicList.Text;
+            cbShowMapImages.Checked = false;
+
+            pointModels.Clear();
+            cbPointsList.Items.Clear();
+            cbPointsList.Text = null;
+            cbPointsList.Enabled = false;
+            rtbMethodicMemo.Text = methodicItemModels[cbMethodicList.SelectedIndex].memo;
+
+            DataAccess.ReadMethodicTable(methodicModels,cbMethodicList.SelectedIndex + 1);
+            if (methodicModels.Count>0)
+            {
+                for (int i = 0; i < methodicModels.Count; i++)
+                {
+                    pointModels.Add(new PointModel(
+                        methodicModels[i].pointX,
+                        methodicModels[i].pointY,
+                        methodicModels[i].channel,
+                        methodicModels[i].side,
+                        methodicModels[i].pointName,
+                        methodicModels[i].pointId
+                        ));
+                    cbPointsList.Items.Add(methodicModels[i].pointName);
+                }
+                cbPointsList.SelectedIndex = 0;
+                cbPointsList.Enabled = true;
+                cbPointsList.Text = cbPointsList.Items[cbPointsList.SelectedIndex].ToString();
+            }
+
+            //            DataAccess.ReadMethodicTable(comboBoxPointsList, cbMethodicList.SelectedIndex+1, pointModels);
+            toolTip1.ToolTipTitle = cbMethodicList.Text;
+            ChangeFilePathPictures(
+                methodicItemModels[cbMethodicList.SelectedIndex].mapFrontFileName,
+                methodicItemModels[cbMethodicList.SelectedIndex].mapBackFileName,
+                methodicItemModels[cbMethodicList.SelectedIndex].humanModelFrontFileName,
+                methodicItemModels[cbMethodicList.SelectedIndex].humanModelBackFileName);
             DrawHumanPictures();
             FlashPointsFromList(pointModels);
         }
 
         private async void buttonAddPointToMethodic_Click(object sender, EventArgs e)
         {
-            formAddPointToMethodic = new FormAddPointToMethodic(comboBoxMethodicList.SelectedIndex + 1);
+            formAddPointToMethodic = new FormAddPointToMethodic(cbMethodicList.SelectedIndex + 1);
             formAddPointToMethodic.ShowDialog();
             formAddPointToMethodic.Dispose();
             await Task.Delay(1);
 
-            DataAccess.ReadMethodicTable(comboBoxPointsList, comboBoxMethodicList.SelectedIndex + 1, pointModels);
+            //DataAccess.ReadMethodicTable(comboBoxPointsList, cbMethodicList.SelectedIndex + 1, pointModels);
             DrawHumanPictures();
             FlashPointsFromList(pointModels);
         }
@@ -340,32 +404,32 @@ namespace Quantium
             SendValueToSerial(index_value, (sender as TrackBar).Value);
 
             switch (index_value) {
-                case 0: numericUpDownLaser1.Value = (sender as TrackBar).Value; break;
-                case 1: numericUpDownLaser2.Value = (sender as TrackBar).Value; break;
-                case 2: numericUpDownLaser3.Value = (sender as TrackBar).Value; break;
-                case 3: numericUpDownLaser4.Value = (sender as TrackBar).Value; break;
-                case 4: numericUpDownLaser5.Value = (sender as TrackBar).Value; break;
-                case 5: numericUpDownLaser6.Value = (sender as TrackBar).Value; break;
-                case 6: numericUpDownLaser7.Value = (sender as TrackBar).Value; break;
-                case 7: numericUpDownLaser8.Value = (sender as TrackBar).Value; break;
-                case 8: numericUpDownLaser9.Value = (sender as TrackBar).Value; break;
-                case 9: numericUpDownLaser10.Value = (sender as TrackBar).Value; break;
+                case 0: nudLaser1.Value = (sender as TrackBar).Value; break;
+                case 1: nudLaser2.Value = (sender as TrackBar).Value; break;
+                case 2: nudLaser3.Value = (sender as TrackBar).Value; break;
+                case 3: nudLaser4.Value = (sender as TrackBar).Value; break;
+                case 4: nudLaser5.Value = (sender as TrackBar).Value; break;
+                case 5: nudLaser6.Value = (sender as TrackBar).Value; break;
+                case 6: nudLaser7.Value = (sender as TrackBar).Value; break;
+                case 7: nudLaser8.Value = (sender as TrackBar).Value; break;
+                case 8: nudLaser9.Value = (sender as TrackBar).Value; break;
+                case 9: nudLaser10.Value = (sender as TrackBar).Value; break;
             }
         }
 
         private int GetIndexFromTrackBarLaser(object sender)
         {
             int index_value = 0;
-            if (sender == trackBarLaser1) index_value = 0;
-            else if (sender == trackBarLaser2) index_value = 1;
-            else if (sender == trackBarLaser3) index_value = 2;
-            else if (sender == trackBarLaser4) index_value = 3;
-            else if (sender == trackBarLaser5) index_value = 4;
-            else if (sender == trackBarLaser6) index_value = 5;
-            else if (sender == trackBarLaser7) index_value = 6;
-            else if (sender == trackBarLaser8) index_value = 7;
-            else if (sender == trackBarLaser9) index_value = 8;
-            else if (sender == trackBarLaser10) index_value = 9;
+            if (sender == tbLaser1) index_value = 0;
+            else if (sender == tbLaser2) index_value = 1;
+            else if (sender == tbLaser3) index_value = 2;
+            else if (sender == tbLaser4) index_value = 3;
+            else if (sender == tbLaser5) index_value = 4;
+            else if (sender == tbLaser6) index_value = 5;
+            else if (sender == tbLaser7) index_value = 6;
+            else if (sender == tbLaser8) index_value = 7;
+            else if (sender == tbLaser9) index_value = 8;
+            else if (sender == tbLaser10) index_value = 9;
             return index_value;
         }
 
@@ -395,7 +459,7 @@ namespace Quantium
             openFileDialog1.ShowDialog();
             if (File.Exists(openFileDialog1.FileName))
             {
-                meredianFrontFileName = openFileDialog1.FileName;
+                mapFrontFileName = openFileDialog1.FileName;
                 lblFrontMapFileName.Text = openFileDialog1.SafeFileName;
             }
             else
@@ -403,12 +467,37 @@ namespace Quantium
                 MessageBox.Show("Файл не выбран :(");
             }
         }
+
+        private void ChangeFilePathPictures(string mapFrontFileName, string mapBackFileName, string humanFrontFileName, string humanBackFileName)
+        {
+            this.humanModelFrontFileName = humanFrontFileName;
+            this.humanModelBackFileName = humanBackFileName;
+            this.mapFrontFileName = mapFrontFileName;
+            this.mapBackFileName = mapBackFileName;
+
+            if (humanModelBackFileName != null)
+            {
+                lblBackModelFileName.Text = humanModelBackFileName;
+                pictureBox2.Image = new Bitmap(humanModelBackFileName);
+            }
+            
+            if (humanModelFrontFileName != null)
+            {
+                lblFrontModelFileName.Text = humanModelFrontFileName;
+                pictureBox1.Image = new Bitmap(humanModelFrontFileName);
+            }
+
+            lblFrontMapFileName.Text = mapFrontFileName;
+            lblBackMapFileName.Text = mapBackFileName;
+
+            cbShowMapImages.Checked = false;
+        }
         private void buttonOpenMapBack_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
             if (File.Exists(openFileDialog1.FileName))
             {
-                meredianBackFileName = openFileDialog1.FileName;
+                mapBackFileName = openFileDialog1.FileName;
                 lblBackMapFileName.Text = openFileDialog1.SafeFileName;
             }
             else
@@ -416,13 +505,48 @@ namespace Quantium
                 MessageBox.Show("Файл не выбран :(");
             }
         }
+
+        private void btnAddMethodic_Click(object sender, EventArgs e)
+        {
+            if (mapFrontFileName !=null && mapBackFileName !=null && humanModelFrontFileName !=null && humanModelBackFileName !=null)
+            {
+                formMethodic.setFileNames(mapFrontFileName, mapBackFileName, humanModelFrontFileName, humanModelBackFileName);
+                formMethodic.ShowDialog();
+                UpdateMethodicListComboBox();
+            } else
+            {
+                MessageBox.Show("Сначала выберите файлы !");
+            }
+        }
+
+        private async void btnAddPoint_Click(object sender, EventArgs e)
+        {
+            int methodicId = cbMethodicList.SelectedIndex + 1;
+            formAddPointToMethodic = new FormAddPointToMethodic(methodicId);
+            formAddPointToMethodic.ShowDialog();
+            formAddPointToMethodic.Dispose();
+            await Task.Delay(1);
+
+            DataAccess.ReadMethodicTable(methodicModels, methodicId);
+            UpdatePointsListComboBox();
+            DrawHumanPictures();
+            FlashPointsFromList(pointModels);
+        }
+
+        private void btnAddDisease_Click(object sender, EventArgs e)
+        {
+            formDisease = new FormDisease();
+            formDisease.ShowDialog();
+            formDisease.Dispose();
+        }
+
         private void btnOpenHumanModelBack_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
             if (File.Exists(openFileDialog1.FileName))
             {
                 humanModelBackFileName = openFileDialog1.FileName;
-                lblBackModelFileName.Text = openFileDialog1.SafeFileName;
+                lblBackModelFileName.Text =  openFileDialog1.SafeFileName;
                 pictureBox2.Image = new Bitmap(humanModelBackFileName);
             }
             else
@@ -456,16 +580,16 @@ namespace Quantium
         private void NumericUpDownLaser_ValueChanged(object sender, EventArgs e)
         {
             int index = 0;
-            if (sender == numericUpDownLaser1) trackBarLaser1.Value = 0;
-            else if (sender == numericUpDownLaser1) index = 1;
-            else if (sender == numericUpDownLaser2) index = 2;
-            else if (sender == numericUpDownLaser3) index = 3;
-            else if (sender == numericUpDownLaser4) index = 4;
-            else if (sender == numericUpDownLaser5) index = 5;
-            else if (sender == numericUpDownLaser6) index = 6;
-            else if (sender == numericUpDownLaser7) index = 7;
-            else if (sender == numericUpDownLaser8) index = 8;
-            else if (sender == numericUpDownLaser9) index = 9;
+            if (sender == nudLaser1) tbLaser1.Value = 0;
+            else if (sender == nudLaser1) index = 1;
+            else if (sender == nudLaser2) index = 2;
+            else if (sender == nudLaser3) index = 3;
+            else if (sender == nudLaser4) index = 4;
+            else if (sender == nudLaser5) index = 5;
+            else if (sender == nudLaser6) index = 6;
+            else if (sender == nudLaser7) index = 7;
+            else if (sender == nudLaser8) index = 8;
+            else if (sender == nudLaser9) index = 9;
 
             //laserChannel[index].myLevelPwm = .Value;
         }
@@ -493,23 +617,6 @@ namespace Quantium
                 brush = Brushes.Green;
             }
             e.Graphics.DrawString(text, currComboBox.Font, brush, e.Bounds.X, e.Bounds.Y);
-        }
-
-        private void NumericUpDownTime_ValueChanged(object sender, EventArgs e)
-        {
-            int index = 0;
-            if (sender == numericUpDownTime1) index = 0;
-            else if (sender == numericUpDownTime2) index = 1;
-            else if (sender == numericUpDownTime3) index = 2;
-            else if (sender == numericUpDownTime4) index = 3;
-            else if (sender == numericUpDownTime5) index = 4;
-            else if (sender == numericUpDownTime6) index = 5;
-            else if (sender == numericUpDownTime7) index = 6;
-            else if (sender == numericUpDownTime8) index = 7;
-            else if (sender == numericUpDownTime9) index = 8;
-            else if (sender == numericUpDownTime10) index = 9;
-
-            laserChannel[index].myTimeSeconds = (sender as NumericUpDown).Value;
         }
 
         public  void DrawPoint(int x, int y,String sideHuman)

@@ -12,11 +12,11 @@ namespace Quantium
 {
     public partial class FormAddPoint : Form
     {
-        Form1 form;
+        FormMain form;
         int x, y;
         String humanSide;
 
-        public FormAddPoint(Form1 form, int x, int y,String humanSide)
+        public FormAddPoint(FormMain form, int x, int y,String humanSide)
         {
             this.form = form;
             this.x = x;

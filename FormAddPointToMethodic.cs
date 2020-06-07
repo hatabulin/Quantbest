@@ -14,6 +14,9 @@ namespace Quantium
     {
         int methodicId;
         int pointid;
+        List<int> listPointsId = new List<int>();
+        List<PointModel> pointModels = new List<PointModel>();
+
         public FormAddPointToMethodic(int methodicId)
         {
             this.methodicId  = methodicId;
@@ -27,14 +30,21 @@ namespace Quantium
 
         private void FormAddPointToMethodic_Activated(object sender, EventArgs e)
         {
-            DataAccess.PointsList(comboBox1);
+            DataAccess.PointsListId(listPointsId);
+            DataAccess.ReadPointsTable(pointModels);
+            if (pointModels.Count>0)
+            {
+                for (int i=0;i< pointModels.Count;i++)
+                {
+                    comboBox1.Items.Add(pointModels[i].pointname);
+                }
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            pointid = comboBox1.SelectedIndex + 1;
-            //DataAccess.AddPointToMethodic(methodicName,pointid);
-            DataAccess.AddPointToMethodic(methodicId, pointid);
+            pointid = listPointsId[comboBox1.SelectedIndex];
+            DataAccess.AddPointToMethodic(methodicId, pointid,Convert.ToInt32(nudTime.Value), Convert.ToInt32(nudPower.Value));
             this.Close();
         }
     }

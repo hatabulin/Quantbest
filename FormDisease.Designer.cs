@@ -1,6 +1,6 @@
 ﻿namespace Quantium
 {
-    partial class FormEnterMethodic
+    partial class FormDisease
     {
         /// <summary>
         /// Required designer variable.
@@ -28,52 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label27 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.roundButton1 = new Quantium.RoundButton();
             this.buttonOk = new Quantium.RoundButton();
+            this.label27 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnAddDisease = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label27
-            // 
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(1, 9);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(316, 21);
-            this.label27.TabIndex = 28;
-            this.label27.Text = "Название новой методики лечения";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(54, 43);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(193, 22);
-            this.textBox1.TabIndex = 29;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(26, 79);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(235, 21);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "Описание методики";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(12, 103);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(291, 96);
-            this.richTextBox1.TabIndex = 33;
-            this.richTextBox1.Text = "";
             // 
             // roundButton1
             // 
@@ -89,12 +49,11 @@
             this.roundButton1.ButtonRoundRadius = 10;
             this.roundButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.roundButton1.ForeColor = System.Drawing.Color.Yellow;
-            this.roundButton1.Location = new System.Drawing.Point(163, 215);
+            this.roundButton1.Location = new System.Drawing.Point(164, 80);
             this.roundButton1.Name = "roundButton1";
-            this.roundButton1.Size = new System.Drawing.Size(84, 21);
-            this.roundButton1.TabIndex = 31;
+            this.roundButton1.Size = new System.Drawing.Size(84, 20);
+            this.roundButton1.TabIndex = 35;
             this.roundButton1.Text = "Отмена";
-            this.roundButton1.Click += new System.EventHandler(this.roundButton1_Click);
             // 
             // buttonOk
             // 
@@ -108,42 +67,71 @@
             this.buttonOk.ButtonPressedColor2 = System.Drawing.Color.Maroon;
             this.buttonOk.ButtonPressedForeColor = System.Drawing.Color.White;
             this.buttonOk.ButtonRoundRadius = 10;
+            this.buttonOk.Enabled = false;
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonOk.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonOk.Location = new System.Drawing.Point(54, 215);
+            this.buttonOk.Location = new System.Drawing.Point(74, 80);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(84, 21);
-            this.buttonOk.TabIndex = 30;
+            this.buttonOk.Size = new System.Drawing.Size(84, 20);
+            this.buttonOk.TabIndex = 34;
             this.buttonOk.Text = "Сохранить";
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // FormEnterMethodic
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(62, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(192, 21);
+            this.label27.TabIndex = 32;
+            this.label27.Text = "Название Болезни";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Enabled = false;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(42, 43);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(212, 24);
+            this.comboBox1.TabIndex = 36;
+            // 
+            // btnAddDisease
+            // 
+            this.btnAddDisease.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
+            this.btnAddDisease.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddDisease.Location = new System.Drawing.Point(260, 43);
+            this.btnAddDisease.Name = "btnAddDisease";
+            this.btnAddDisease.Size = new System.Drawing.Size(23, 23);
+            this.btnAddDisease.TabIndex = 40;
+            this.btnAddDisease.UseVisualStyleBackColor = true;
+            // 
+            // FormDisease
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 250);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(325, 112);
+            this.Controls.Add(this.btnAddDisease);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.roundButton1);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label27);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "FormEnterMethodic";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.Name = "FormDisease";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormEnterMethodic";
+            this.Text = "FormDisease";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox textBox1;
-        private RoundButton buttonOk;
         private RoundButton roundButton1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private RoundButton buttonOk;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnAddDisease;
     }
 }

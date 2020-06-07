@@ -12,6 +12,11 @@ namespace Quantium
 {
     public partial class FormEnterMethodic : Form
     {
+        private String meredianFrontFileName;
+        private String meredianBackFileName;
+        private String humanModelFrontFileName;
+        private String humanModelBackFileName;
+
         public FormEnterMethodic()
         {
             InitializeComponent();
@@ -24,8 +29,16 @@ namespace Quantium
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            DataAccess.AddMethodicName(textBox1.Text, richTextBox1.Text);
+            DataAccess.AddNewMethodic(textBox1.Text, richTextBox1.Text,meredianFrontFileName, meredianBackFileName, humanModelFrontFileName, humanModelBackFileName);
             this.Close();
+        }
+
+        public void setFileNames(String meredianFrontFileName, String meredianBackFileName, String humanModelFrontFileName, String humanModelBackFileName)
+        {
+            this.meredianFrontFileName = meredianFrontFileName;
+            this.meredianBackFileName = meredianBackFileName;
+            this.humanModelFrontFileName = humanModelFrontFileName;
+            this.humanModelBackFileName = humanModelBackFileName;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Quantium
         {
         }
 
-        public PointModel(int coordX, int coordY, int channel, string side, string pointname, int id)
+        public PointModel(int coordX, int coordY, int channel, string side, string pointname,  int id)
         {
             this.coordX = coordX;
             this.coordY = coordY;
@@ -28,6 +28,5 @@ namespace Quantium
         public int channel { get; set; }
         public int coordX { get; set; }
         public int coordY { get; set; }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Quantium.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,17 +20,24 @@ namespace Quantium
     {
         private static SQLiteCommand m_sqlCmd = new SQLiteCommand();
 //        private static SQLiteConnection m_dbConn;
-        const string pointsTableName = "points";
+        const string pointsListTableName = "pointslist";
         const string methodicTableName = "methodic";
         const string methodicListTableName = "methodiclist";
-        const string dbFileName = "quantum.db";
+        const string diseaseListTableName = "diseaselist";
 
-        const int COORD_X_IDX = 7;
-        const int COORD_Y_IDX = 8;
-        const int CHANNEL_IDX = 9;
-        const int SIDE_IDX = 10;
-        const int POINT_NAME_IDX = 11;
-        const int ID_IDX = 6;
+        const string dbFileName = "quantum.db";
+        //id_point,time,power,name,memo,coordX,coordY,channel,side,pointname
+        const int ID_IDX = 0;
+        const int POINT_TIME_IDX = 1;
+        const int POINT_POWER_IDX = 2;
+        const int METHODIC_NAME_IDX = 3;
+        const int METHODIC_MEMO_IDX = 4;
+        const int COORD_X_IDX = 5;
+        const int COORD_Y_IDX = 6;
+        const int CHANNEL_IDX = 7;
+        const int SIDE_IDX = 8;
+        const int POINT_NAME_IDX = 9;
+
         public static int selectedPointId { get; set; }
 
         public static List<int> listPointsId = new List<int>();
@@ -44,16 +52,20 @@ namespace Quantium
             using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source="+ dbFileName+"; Version=3;")) 
             {
                 Connect.Open();
-                string commandText = "CREATE TABLE IF NOT EXISTS ["+ pointsTableName+"] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [coordX] INT, [coordY] INT, [channel] INT, [side] NVARCHAR(10), [pointname] NVARCHAR(10))"; 
+                string commandText = "CREATE TABLE IF NOT EXISTS ["+ pointsListTableName+ "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [coordX] INT, [coordY] INT, [channel] INT, [side] NVARCHAR(10), [pointname] NVARCHAR(10))"; 
                 SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
 
-                commandText = "CREATE TABLE IF NOT EXISTS [" + methodicTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [id_methodic] INT, [id_point] INT, FOREIGN KEY ([id_point]) REFERENCES ["+pointsTableName+"]([id])," +
-                    "FOREIGN KEY ([id_methodic]) REFERENCES [" + methodicListTableName + "]([id]))";
+                commandText = "CREATE TABLE IF NOT EXISTS [" + methodicTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [id_methodic] INT, [id_point] INT, [time] INT, [power] INT," +
+                    "FOREIGN KEY ([id_point]) REFERENCES [" + pointsListTableName + "]([id]), FOREIGN KEY ([id_methodic]) REFERENCES [" + methodicListTableName + "]([id]))";
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
 
-                commandText = "CREATE TABLE IF NOT EXISTS [" + methodicListTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [name] NVARCHAR(10), [memo] MEMO )"; 
+                commandText = "CREATE TABLE IF NOT EXISTS [" + methodicListTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [name] NVARCHAR(10), [memo] MEMO, [map_front] MEMO, [map_back] MEMO, [human_front] MEMO ,[human_back] MEMO)"; 
+                Command = new SQLiteCommand(commandText, Connect);
+                Command.ExecuteNonQuery();
+
+                commandText = "CREATE TABLE IF NOT EXISTS [" + diseaseListTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [name] NVARCHAR(20))";
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
 
@@ -66,7 +78,7 @@ namespace Quantium
             using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source=" + dbFileName + "; Version=3;"))
             {
                 Connect.Open();
-                string commandText = "INSERT INTO " + pointsTableName + " ('coordX', 'coordY', 'channel', 'side', 'pointname') VALUES(" + 
+                string commandText = "INSERT INTO " + pointsListTableName + " ('coordX', 'coordY', 'channel', 'side', 'pointname') VALUES(" + 
                     pointModel.coordX.ToString() + ", " + 
                     pointModel.coordY.ToString() + ", " +
                     pointModel.channel + ", '" +
@@ -84,30 +96,56 @@ namespace Quantium
             }
         }
 
-        public static void AddMethodicName(String name, String memo)
+        public static void AddNewMethodic(String name, String memo, String mapFrontFileName, String mapBackFileName, String humanModelFrontFileName, String humanModelBackFileName)
         {
             using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source=" + dbFileName + "; Version=3;"))
             {
                 Connect.Open();
-                string commandText = "INSERT INTO " + methodicListTableName + " ('name', 'memo') VALUES('" + name + "', '" + memo +"')";
+                
+                string commandText = "INSERT INTO " + methodicListTableName + " ('name', 'memo', 'map_front', 'map_back','human_front', 'human_back') VALUES('" + 
+                    name + "', '" + memo + "', '" + 
+                    mapFrontFileName + "', '" + mapBackFileName + "', '" + 
+                    humanModelFrontFileName + "', '" + humanModelBackFileName + "')";
+                
                 SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
                 Command.Parameters.AddWithValue("@name", name);
                 Command.Parameters.AddWithValue("@memo", memo);
+                Command.Parameters.AddWithValue("@map_front", mapFrontFileName);
+                Command.Parameters.AddWithValue("@map_back", mapBackFileName);
+                Command.Parameters.AddWithValue("@human_front", humanModelFrontFileName);
+                Command.Parameters.AddWithValue("@human_back", humanModelBackFileName);
+                Command.ExecuteNonQuery();
+                //Connect.Close();
+            }
+        }
+        public static void AddDisease(String name)
+        {
+            using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source=" + dbFileName + "; Version=3;"))
+            {
+                Connect.Open();
+
+                string commandText = "INSERT INTO " + diseaseListTableName + " ('name') VALUES('" +
+                    name + "')";
+
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
+                Command.Parameters.AddWithValue("@name", name);
                 Command.ExecuteNonQuery();
                 //Connect.Close();
             }
         }
 
-        public static void AddPointToMethodic(int methodic_id, int pointid)
+        public static void AddPointToMethodic(int methodic_id, int pointid, int time, int power)
         {
             using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source=" + dbFileName + "; Version=3;"))
             {
                 Connect.Open();
-                string commandText = "INSERT INTO " + methodicTableName + " ('id_methodic', 'id_point') VALUES(" + methodic_id + ", " + pointid + ")";
+                string commandText = "INSERT INTO " + methodicTableName + " ('id_methodic', 'id_point', 'time', 'power') VALUES(" + methodic_id + ", " + pointid + ", " + time + ", " + power + ")";
 
                 SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
                 Command.Parameters.AddWithValue("@id_methodic", methodic_id);
                 Command.Parameters.AddWithValue("@id_point", pointid);
+                Command.Parameters.AddWithValue("@time", time);
+                Command.Parameters.AddWithValue("@power", power);
                 Command.ExecuteNonQuery();
                 //Connect.Close();
             }
@@ -128,7 +166,7 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + pointsTableName;
+                    sqlQuery = "SELECT * FROM " + pointsListTableName;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
@@ -153,7 +191,7 @@ namespace Quantium
                 }
             }
         }
-        public static void ReadPointsTable(DataGridView dataGridView, Form1 form, List<PointModel> pointModels)
+        public static void ReadPointsTable(List<PointModel> pointModels)
         {
             DataTable dTable = new DataTable();
             String sqlQuery;
@@ -168,17 +206,15 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + pointsTableName;
+                    sqlQuery = "SELECT * FROM " + pointsListTableName;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
                     if (dTable.Rows.Count > 0)
                     {
-                        dataGridView.Rows.Clear();
                         pointModels.Clear();
                         for (int i = 0; i < dTable.Rows.Count; i++)
                         {
-                            dataGridView.Rows.Add(dTable.Rows[i].ItemArray);
                             pointModels.Add(new PointModel(
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[1]),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[2]),
@@ -190,7 +226,6 @@ namespace Quantium
                     }
                     else {
                         //Form1 form = new Form1();
-                        form.VisibleTablePointsEmpty(true); 
                     }
                         //MessageBox.Show("Database is empty");
                 }
@@ -201,7 +236,7 @@ namespace Quantium
             }
         }
 
-        public static void PointsList(ComboBox combobox)
+        public static void PointsListId(List<int> listPointsId)
         {
             DataTable dTable = new DataTable();
             String sqlQuery;
@@ -216,17 +251,15 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + pointsTableName;
+                    sqlQuery = "SELECT * FROM " + pointsListTableName;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
                     if (dTable.Rows.Count > 0)
                     {
-                        combobox.Items.Clear();
                         listPointsId.Clear();
                         for (int i = 0; i < dTable.Rows.Count; i++)
                         {
-                            combobox.Items.Add(dTable.Rows[i].ItemArray[5]);
                             listPointsId.Add(Convert.ToInt32(dTable.Rows[i].ItemArray[0]));
                         }
                     }
@@ -253,7 +286,7 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + pointsTableName + " WHERE id=" + listPointsId.ElementAt(index); 
+                    sqlQuery = "SELECT * FROM " + pointsListTableName + " WHERE id=" + listPointsId.ElementAt(index); 
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
@@ -275,7 +308,7 @@ namespace Quantium
             }
         }
 
-        public static void ReadMethodicListTable(ComboBox combobox, Form1 form)
+        public static void ReadMethodicListTable(List<MethodicItemModel> methodicItemModels)//ComboBox combobox, List<FilePathModel> filePathModelList, Form1 form)
         {
             DataTable dTable = new DataTable();
             String sqlQuery;
@@ -290,26 +323,28 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + methodicListTableName;
+                    sqlQuery = "SELECT name, memo,map_front,map_back,human_front,human_back FROM " + methodicListTableName;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
                     if (dTable.Rows.Count > 0)
                     {
-                        combobox.Items.Clear();
+                        methodicItemModels.Clear();
 
                         for (int i = 0; i < dTable.Rows.Count; i++)
-                            combobox.Items.Add(dTable.Rows[i].ItemArray[1]);
-                        combobox.SelectedIndex = 0;
-                        combobox.Enabled = true;
+                        {
+                            methodicItemModels.Add(new MethodicItemModel(
+                                dTable.Rows[i].ItemArray[0].ToString(),
+                                dTable.Rows[i].ItemArray[1].ToString(),
+                                dTable.Rows[i].ItemArray[2].ToString(),
+                                dTable.Rows[i].ItemArray[3].ToString(),
+                                dTable.Rows[i].ItemArray[4].ToString(),
+                                dTable.Rows[i].ItemArray[5].ToString()
+                                ));
+                        }
                     }
                     else
                     {
-                        combobox.Enabled = false;
-                        combobox.SelectedIndex = -1;
-                        combobox.Text = null;
-                        MessageBox.Show("Database is empty");
-                        //form.VisibleTablePointsEmpty(true);
                     }
                 }
                 catch (SQLiteException ex)
@@ -319,7 +354,7 @@ namespace Quantium
             }
         }
 
-        public static void ReadMethodicTable(ComboBox combobox, int  methodicId, List<PointModel> pointModels)
+        public static void ReadMethodicTable(List<MethodicModel> methodicModels, int methodicId)//ComboBox combobox, int  methodicId, List<PointModel> pointModels)
         {
             String sqlQuery;
             
@@ -333,36 +368,34 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM "+methodicTableName+" JOIN methodiclist ON methodiclist.id = id_methodic JOIN points ON points.id = id_point WHERE id_methodic=" + methodicId.ToString();
+                    sqlQuery = "SELECT id_point,time,power,name,memo,coordX,coordY,channel,side,pointname FROM " + methodicTableName+" JOIN " + 
+                        methodicListTableName +" ON "+methodicListTableName+".id = id_methodic JOIN " + 
+                        pointsListTableName +" ON "+pointsListTableName + ".id = id_point WHERE id_methodic=" + methodicId.ToString();
+                    
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     DataTable dTable = new DataTable();
                     adapter.Fill(dTable);
-
-                    combobox.Items.Clear();
-                    pointModels.Clear();
-
+                    methodicModels.Clear();
                     if (dTable.Rows.Count > 0)
                     {
                         for (int i = 0; i < dTable.Rows.Count; i++)
                         {
-                            combobox.Items.Add(dTable.Rows[i].ItemArray[11]);
-                            pointModels.Add(new PointModel(Convert.ToInt32(dTable.Rows[i].ItemArray[COORD_X_IDX]),
+                            methodicModels.Add(new MethodicModel(
+                                dTable.Rows[i].ItemArray[METHODIC_NAME_IDX].ToString(),
+                                dTable.Rows[i].ItemArray[POINT_NAME_IDX].ToString(),
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[COORD_X_IDX]),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[COORD_Y_IDX]),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[CHANNEL_IDX]),
                                 dTable.Rows[i].ItemArray[SIDE_IDX].ToString(),
-                                dTable.Rows[i].ItemArray[POINT_NAME_IDX].ToString(),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[ID_IDX])));
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[ID_IDX]),
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[POINT_TIME_IDX]),
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[POINT_POWER_IDX])
+                                ));
                         }
-                        combobox.Enabled = true;
-                        combobox.SelectedIndex = 0;
                     }
+                     
                     else
                     {
-                        combobox.Items.Clear();
-                        combobox.Text = "";
-                        combobox.Enabled = false;
-                        //MessageBox.Show("Database is empty");
-                        //form.VisibleTablePointsEmpty(true);
                     }
                 }
                 catch (SQLiteException ex)
@@ -387,7 +420,7 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "DELETE FROM " + pointsTableName+ " WHERE id="+selectedPointId;
+                    sqlQuery = "DELETE FROM " + pointsListTableName+ " WHERE id="+selectedPointId;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
                     MessageBox.Show("Point deleted");
