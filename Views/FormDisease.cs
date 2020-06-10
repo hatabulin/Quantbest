@@ -12,9 +12,19 @@ namespace Quantium
 {
     public partial class FormDisease : Form
     {
-        public FormDisease()
+        public FormDisease(int methodicId)
         {
             InitializeComponent();
+        }
+
+        private void btnAddDisease_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            DataAccess.AddDisease(cbDisease.Text);
         }
     }
 }

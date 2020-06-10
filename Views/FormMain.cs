@@ -533,9 +533,12 @@ namespace Quantium
             FlashPointsFromList(pointModels);
         }
 
-        private void btnAddDisease_Click(object sender, EventArgs e)
+        private async void btnAddDisease_Click(object sender, EventArgs e)
         {
-            formDisease = new FormDisease();
+            int methodicId = cbMethodicList.SelectedIndex + 1;
+            await Task.Delay(1);
+
+            formDisease = new FormDisease(methodicId);
             formDisease.ShowDialog();
             formDisease.Dispose();
         }

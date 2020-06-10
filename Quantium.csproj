@@ -205,29 +205,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomFormClass.cs" />
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="FormAddPoint.cs">
+    <Compile Include="Repository\DataAccess.cs" />
+    <Compile Include="Views\FormAddPoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddPoint.designer.cs">
+    <Compile Include="Views\FormAddPoint.designer.cs">
       <DependentUpon>FormAddPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddPointToMethodic.cs">
+    <Compile Include="Views\FormAddPointToMethodic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddPointToMethodic.Designer.cs">
+    <Compile Include="Views\FormAddPointToMethodic.Designer.cs">
       <DependentUpon>FormAddPointToMethodic.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDisease.cs">
+    <Compile Include="Views\FormDisease.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDisease.Designer.cs">
+    <Compile Include="Views\FormDisease.Designer.cs">
       <DependentUpon>FormDisease.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormEnterMethodic.cs">
+    <Compile Include="Views\FormEnterMethodic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormEnterMethodic.Designer.cs">
+    <Compile Include="Views\FormEnterMethodic.Designer.cs">
       <DependentUpon>FormEnterMethodic.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\MethodicItemModel.cs" />
@@ -239,11 +239,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Structures.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="Model\Structures.cs" />
+    <Compile Include="Views\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="Views\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -251,19 +251,19 @@
     <Compile Include="RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="FormDisease.resx">
+    <EmbeddedResource Include="Views\FormDisease.resx">
       <DependentUpon>FormDisease.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="Views\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddPoint.resx">
+    <EmbeddedResource Include="Views\FormAddPoint.resx">
       <DependentUpon>FormAddPoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddPointToMethodic.resx">
+    <EmbeddedResource Include="Views\FormAddPointToMethodic.resx">
       <DependentUpon>FormAddPointToMethodic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormEnterMethodic.resx">
+    <EmbeddedResource Include="Views\FormEnterMethodic.resx">
       <DependentUpon>FormEnterMethodic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

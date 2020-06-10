@@ -31,7 +31,7 @@
             this.roundButton1 = new Quantium.RoundButton();
             this.buttonOk = new Quantium.RoundButton();
             this.label27 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbDisease = new System.Windows.Forms.ComboBox();
             this.btnAddDisease = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -74,7 +74,8 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(84, 20);
             this.buttonOk.TabIndex = 34;
-            this.buttonOk.Text = "Сохранить";
+            this.buttonOk.Text = "Выбрать";
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // label27
             // 
@@ -87,15 +88,15 @@
             this.label27.Text = "Название Болезни";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // comboBox1
+            // cbDisease
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(42, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(212, 24);
-            this.comboBox1.TabIndex = 36;
+            this.cbDisease.Enabled = false;
+            this.cbDisease.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbDisease.FormattingEnabled = true;
+            this.cbDisease.Location = new System.Drawing.Point(42, 43);
+            this.cbDisease.Name = "cbDisease";
+            this.cbDisease.Size = new System.Drawing.Size(212, 24);
+            this.cbDisease.TabIndex = 36;
             // 
             // btnAddDisease
             // 
@@ -106,6 +107,7 @@
             this.btnAddDisease.Size = new System.Drawing.Size(23, 23);
             this.btnAddDisease.TabIndex = 40;
             this.btnAddDisease.UseVisualStyleBackColor = true;
+            this.btnAddDisease.Click += new System.EventHandler(this.btnAddDisease_Click);
             // 
             // FormDisease
             // 
@@ -113,7 +115,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 112);
             this.Controls.Add(this.btnAddDisease);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbDisease);
             this.Controls.Add(this.roundButton1);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.label27);
@@ -131,7 +133,7 @@
         private RoundButton roundButton1;
         private RoundButton buttonOk;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbDisease;
         private System.Windows.Forms.Button btnAddDisease;
     }
 }
