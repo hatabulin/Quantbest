@@ -45,7 +45,7 @@ namespace Quantium
             this.textBoxPointY = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxPointLink = new System.Windows.Forms.ComboBox();
+            this.cbPointLink = new System.Windows.Forms.ComboBox();
             this.comboBoxPointSide = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPointName = new System.Windows.Forms.TextBox();
@@ -86,6 +86,7 @@ namespace Quantium
             // 
             // textBoxPointX
             // 
+            this.textBoxPointX.Enabled = false;
             this.textBoxPointX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPointX.Location = new System.Drawing.Point(34, 26);
             this.textBoxPointX.Name = "textBoxPointX";
@@ -94,6 +95,7 @@ namespace Quantium
             // 
             // textBoxPointY
             // 
+            this.textBoxPointY.Enabled = false;
             this.textBoxPointY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPointY.Location = new System.Drawing.Point(114, 26);
             this.textBoxPointY.Name = "textBoxPointY";
@@ -124,11 +126,12 @@ namespace Quantium
             this.label3.TabIndex = 8;
             this.label3.Text = "Привязка точки";
             // 
-            // comboBoxPointLink
+            // cbPointLink
             // 
-            this.comboBoxPointLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBoxPointLink.FormattingEnabled = true;
-            this.comboBoxPointLink.Items.AddRange(new object[] {
+            this.cbPointLink.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbPointLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbPointLink.FormattingEnabled = true;
+            this.cbPointLink.Items.AddRange(new object[] {
             "Channel 1",
             "Channel 2",
             "Channel 3",
@@ -139,13 +142,15 @@ namespace Quantium
             "Channel 8",
             "Channel 9",
             "Channel 10"});
-            this.comboBoxPointLink.Location = new System.Drawing.Point(207, 105);
-            this.comboBoxPointLink.Name = "comboBoxPointLink";
-            this.comboBoxPointLink.Size = new System.Drawing.Size(160, 24);
-            this.comboBoxPointLink.TabIndex = 9;
+            this.cbPointLink.Location = new System.Drawing.Point(207, 105);
+            this.cbPointLink.Name = "cbPointLink";
+            this.cbPointLink.Size = new System.Drawing.Size(160, 23);
+            this.cbPointLink.TabIndex = 9;
+            this.cbPointLink.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbPointLink_DrawItem);
             // 
             // comboBoxPointSide
             // 
+            this.comboBoxPointSide.Enabled = false;
             this.comboBoxPointSide.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxPointSide.FormattingEnabled = true;
             this.comboBoxPointSide.Items.AddRange(new object[] {
@@ -205,7 +210,7 @@ namespace Quantium
             this.Controls.Add(this.textBoxPointName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBoxPointSide);
-            this.Controls.Add(this.comboBoxPointLink);
+            this.Controls.Add(this.cbPointLink);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
@@ -232,7 +237,7 @@ namespace Quantium
         private System.Windows.Forms.TextBox textBoxPointY;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxPointLink;
+        private System.Windows.Forms.ComboBox cbPointLink;
         private System.Windows.Forms.ComboBox comboBoxPointSide;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxPointName;

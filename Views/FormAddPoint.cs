@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quantium.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace Quantium
         int x, y;
         String _humanSide;
         int _humanModelId;
+        List<PointModel> pointModels = new List<PointModel>();
 
         public FormAddPoint(FormMain form, int humanModelId, int x, int y,String humanSide)
         {
@@ -26,28 +28,24 @@ namespace Quantium
             _humanModelId = humanModelId;
 
             InitializeComponent();
-            comboBoxPointLink.SelectedIndex = 0;
+            cbPointLink.SelectedIndex = 0;
             SetPointData(x, y, humanSide);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddPointToTable();
-            _form.DrawPoint(x,y,_humanSide);
-            
-            this.Close();
-        }
-
-        public void AddPointToTable()
-        {
             PointModel pointModel = new PointModel(
                 Convert.ToInt16(textBoxPointX.Text),
                 Convert.ToInt16(textBoxPointY.Text),
-                comboBoxPointLink.SelectedIndex,
+                cbPointLink.SelectedIndex,
                 comboBoxPointSide.Text,
                 textBoxPointName.Text,
-                0,_humanModelId);
+                0, _humanModelId);
             DataAccess.AddToHumanPointsTable(pointModel);
+
+            _form.DrawPoint(x,y,_humanSide);
+            
+            this.Close();
         }
 
         private void FormAddPoint_Load(object sender, EventArgs e)
@@ -58,6 +56,26 @@ namespace Quantium
                     , 10
                 )
             );
+            DataAccess.GetPointsFromHumanTable(pointModels, _humanModelId);
+        }
+
+        private void cbPointLink_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            string text = ((ComboBox)sender).Items[e.Index].ToString();
+            e.DrawBackground();
+            Brush brush = Brushes.Black;
+            Color HighlightColor = Color.Red;
+
+            for (int i=0;i<pointModels.Count;i++)
+            {
+                if (e.Index == pointModels[i].channel)
+                {
+                    brush = Brushes.Red;
+                    break;
+                }
+            }
+
+            e.Graphics.DrawString(text, ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
         }
 
         private void button2_Click(object sender, EventArgs e)

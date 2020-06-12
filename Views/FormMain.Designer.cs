@@ -33,7 +33,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpDriverSettings = new System.Windows.Forms.TabPage();
+            this.buttonUpdate = new Quantium.RoundButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonConnect = new Quantium.RoundButton();
             this.cbComPort = new System.Windows.Forms.ComboBox();
             this.groupBoxPwmPower = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -90,18 +92,27 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.btnAddHumanModel = new System.Windows.Forms.Button();
             this.tabPageMethodic = new System.Windows.Forms.TabPage();
-            this.tbHumanModel = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.rtbMethodicMemo = new System.Windows.Forms.RichTextBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.cbMethodicList = new System.Windows.Forms.ComboBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lbSelectedPoints = new System.Windows.Forms.ListBox();
+            this.lbHumanPoints = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbHumanModel = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
+            this.btnAddMethodic = new System.Windows.Forms.Button();
+            this.cbMethodicList = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.rtbMethodicMemo = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tpDiseases = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new Quantium.RoundButton();
             this.cbDiseaseType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbDisease = new System.Windows.Forms.ComboBox();
@@ -116,19 +127,10 @@
             this.contextMenuStripPoint = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.lbHumanPoints = new System.Windows.Forms.ListBox();
-            this.lbSelectedPoints = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.btnAddHumanModel = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnAddMethodic = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonUpdate = new Quantium.RoundButton();
-            this.buttonConnect = new Quantium.RoundButton();
-            this.button1 = new Quantium.RoundButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -169,10 +171,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbLaser1)).BeginInit();
             this.tpMeredianModel.SuspendLayout();
             this.tabPageMethodic.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.tpDiseases.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.contextMenuStripPoint.SuspendLayout();
-            this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -219,6 +221,26 @@
             this.tpDriverSettings.TabIndex = 0;
             this.tpDriverSettings.Text = "Тест драйвера";
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.BackColor = System.Drawing.Color.Teal;
+            this.buttonUpdate.BackColor2 = System.Drawing.Color.Silver;
+            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonUpdate.ButtonRoundRadius = 30;
+            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonUpdate.ForeColor = System.Drawing.Color.Yellow;
+            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(57, 24);
+            this.buttonUpdate.TabIndex = 19;
+            this.buttonUpdate.Text = "ОБНОВИТЬ";
+            // 
             // groupBox2
             // 
             this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -231,6 +253,27 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор комп-порта";
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.BackColor = System.Drawing.Color.Teal;
+            this.buttonConnect.BackColor2 = System.Drawing.Color.Silver;
+            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonConnect.ButtonRoundRadius = 10;
+            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonConnect.ForeColor = System.Drawing.Color.Yellow;
+            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
+            this.buttonConnect.TabIndex = 17;
+            this.buttonConnect.Text = "OPEN";
+            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // cbComPort
             // 
@@ -852,6 +895,18 @@
             this.label21.Text = "Файл фронтальной карты мередианов:";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnAddHumanModel
+            // 
+            this.btnAddHumanModel.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
+            this.btnAddHumanModel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddHumanModel.Location = new System.Drawing.Point(275, 106);
+            this.btnAddHumanModel.Name = "btnAddHumanModel";
+            this.btnAddHumanModel.Size = new System.Drawing.Size(23, 23);
+            this.btnAddHumanModel.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.btnAddHumanModel, "Выбрать модель");
+            this.btnAddHumanModel.UseVisualStyleBackColor = true;
+            this.btnAddHumanModel.Click += new System.EventHandler(this.btnAddHumanModel_Click);
+            // 
             // tabPageMethodic
             // 
             this.tabPageMethodic.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -870,13 +925,87 @@
             this.tabPageMethodic.Text = "Методики";
             this.tabPageMethodic.Enter += new System.EventHandler(this.tabPageMethodic_Enter);
             // 
-            // tbHumanModel
+            // label27
             // 
-            this.tbHumanModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbHumanModel.Location = new System.Drawing.Point(6, 54);
-            this.tbHumanModel.Name = "tbHumanModel";
-            this.tbHumanModel.Size = new System.Drawing.Size(221, 22);
-            this.tbHumanModel.TabIndex = 45;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(29, 11);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(274, 21);
+            this.label27.TabIndex = 27;
+            this.label27.Text = "Методики лечения болезней";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.radioButton2);
+            this.groupBox12.Controls.Add(this.radioButton1);
+            this.groupBox12.Controls.Add(this.button3);
+            this.groupBox12.Controls.Add(this.button2);
+            this.groupBox12.Controls.Add(this.label10);
+            this.groupBox12.Controls.Add(this.lbSelectedPoints);
+            this.groupBox12.Controls.Add(this.lbHumanPoints);
+            this.groupBox12.Controls.Add(this.label7);
+            this.groupBox12.Controls.Add(this.tbHumanModel);
+            this.groupBox12.Controls.Add(this.label6);
+            this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox12.Location = new System.Drawing.Point(3, 287);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(326, 393);
+            this.groupBox12.TabIndex = 46;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Модель";
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImage = global::Quantium.Properties.Resources.left_arrow;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Location = new System.Drawing.Point(151, 229);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(23, 23);
+            this.button3.TabIndex = 54;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = global::Quantium.Properties.Resources.right_arrow;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(151, 200);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(23, 23);
+            this.button2.TabIndex = 53;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(177, 79);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(143, 21);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "Выбранные точки:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbSelectedPoints
+            // 
+            this.lbSelectedPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbSelectedPoints.FormattingEnabled = true;
+            this.lbSelectedPoints.ItemHeight = 16;
+            this.lbSelectedPoints.Location = new System.Drawing.Point(180, 103);
+            this.lbSelectedPoints.Name = "lbSelectedPoints";
+            this.lbSelectedPoints.Size = new System.Drawing.Size(140, 260);
+            this.lbSelectedPoints.TabIndex = 51;
+            // 
+            // lbHumanPoints
+            // 
+            this.lbHumanPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbHumanPoints.FormattingEnabled = true;
+            this.lbHumanPoints.ItemHeight = 16;
+            this.lbHumanPoints.Location = new System.Drawing.Point(3, 103);
+            this.lbHumanPoints.Name = "lbHumanPoints";
+            this.lbHumanPoints.Size = new System.Drawing.Size(140, 260);
+            this.lbHumanPoints.TabIndex = 50;
             // 
             // label7
             // 
@@ -889,6 +1018,14 @@
             this.label7.Text = "Точки модели:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tbHumanModel
+            // 
+            this.tbHumanModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHumanModel.Location = new System.Drawing.Point(6, 54);
+            this.tbHumanModel.Name = "tbHumanModel";
+            this.tbHumanModel.Size = new System.Drawing.Size(221, 22);
+            this.tbHumanModel.TabIndex = 45;
+            // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -900,43 +1037,26 @@
             this.label6.Text = "Выбранная модель человека:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // label26
             // 
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(78, 126);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 21);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "Описание методики";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label26.ForeColor = System.Drawing.Color.White;
+            this.label26.Location = new System.Drawing.Point(87, 62);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(147, 21);
+            this.label26.TabIndex = 22;
+            this.label26.Text = "Выбор методики:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // rtbMethodicMemo
+            // btnAddMethodic
             // 
-            this.rtbMethodicMemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtbMethodicMemo.Location = new System.Drawing.Point(37, 150);
-            this.rtbMethodicMemo.Name = "rtbMethodicMemo";
-            this.rtbMethodicMemo.Size = new System.Drawing.Size(266, 131);
-            this.rtbMethodicMemo.TabIndex = 35;
-            this.rtbMethodicMemo.Text = "";
-            // 
-            // label28
-            // 
-            this.label28.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label28.Location = new System.Drawing.Point(48, 45);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(229, 2);
-            this.label28.TabIndex = 28;
-            // 
-            // label27
-            // 
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(29, 11);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(274, 21);
-            this.label27.TabIndex = 27;
-            this.label27.Text = "Методики лечения болезней";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnAddMethodic.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
+            this.btnAddMethodic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddMethodic.Location = new System.Drawing.Point(265, 86);
+            this.btnAddMethodic.Name = "btnAddMethodic";
+            this.btnAddMethodic.Size = new System.Drawing.Size(23, 23);
+            this.btnAddMethodic.TabIndex = 37;
+            this.btnAddMethodic.UseVisualStyleBackColor = true;
+            this.btnAddMethodic.Click += new System.EventHandler(this.btnAddMethodic_Click);
             // 
             // cbMethodicList
             // 
@@ -949,15 +1069,32 @@
             this.toolTip1.SetToolTip(this.cbMethodicList, " ");
             this.cbMethodicList.SelectionChangeCommitted += new System.EventHandler(this.cbMethodicList_SelectionChangeCommitted);
             // 
-            // label26
+            // label28
             // 
-            this.label26.ForeColor = System.Drawing.Color.White;
-            this.label26.Location = new System.Drawing.Point(87, 62);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(147, 21);
-            this.label26.TabIndex = 22;
-            this.label26.Text = "Выбор методики:";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label28.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label28.Location = new System.Drawing.Point(48, 45);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(229, 2);
+            this.label28.TabIndex = 28;
+            // 
+            // rtbMethodicMemo
+            // 
+            this.rtbMethodicMemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtbMethodicMemo.Location = new System.Drawing.Point(37, 150);
+            this.rtbMethodicMemo.Name = "rtbMethodicMemo";
+            this.rtbMethodicMemo.Size = new System.Drawing.Size(266, 131);
+            this.rtbMethodicMemo.TabIndex = 35;
+            this.rtbMethodicMemo.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(78, 126);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(166, 21);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Описание методики";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tpDiseases
             // 
@@ -982,6 +1119,25 @@
             this.groupBox1.Size = new System.Drawing.Size(191, 246);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Crimson;
+            this.button1.BackColor2 = System.Drawing.Color.Silver;
+            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
+            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
+            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.button1.ButtonRoundRadius = 30;
+            this.button1.ForeColor = System.Drawing.Color.Yellow;
+            this.button1.Location = new System.Drawing.Point(63, 192);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 35);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Старт";
             // 
             // cbDiseaseType
             // 
@@ -1120,98 +1276,6 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem2.Text = "Изменить";
             // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.button3);
-            this.groupBox12.Controls.Add(this.button2);
-            this.groupBox12.Controls.Add(this.label10);
-            this.groupBox12.Controls.Add(this.lbSelectedPoints);
-            this.groupBox12.Controls.Add(this.lbHumanPoints);
-            this.groupBox12.Controls.Add(this.label7);
-            this.groupBox12.Controls.Add(this.tbHumanModel);
-            this.groupBox12.Controls.Add(this.label6);
-            this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox12.Location = new System.Drawing.Point(3, 299);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(326, 381);
-            this.groupBox12.TabIndex = 46;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Модель";
-            // 
-            // lbHumanPoints
-            // 
-            this.lbHumanPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbHumanPoints.FormattingEnabled = true;
-            this.lbHumanPoints.ItemHeight = 16;
-            this.lbHumanPoints.Location = new System.Drawing.Point(3, 103);
-            this.lbHumanPoints.Name = "lbHumanPoints";
-            this.lbHumanPoints.Size = new System.Drawing.Size(140, 276);
-            this.lbHumanPoints.TabIndex = 50;
-            // 
-            // lbSelectedPoints
-            // 
-            this.lbSelectedPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbSelectedPoints.FormattingEnabled = true;
-            this.lbSelectedPoints.ItemHeight = 16;
-            this.lbSelectedPoints.Location = new System.Drawing.Point(180, 103);
-            this.lbSelectedPoints.Name = "lbSelectedPoints";
-            this.lbSelectedPoints.Size = new System.Drawing.Size(140, 276);
-            this.lbSelectedPoints.TabIndex = 51;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(177, 79);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(143, 21);
-            this.label10.TabIndex = 52;
-            this.label10.Text = "Выбранные точки:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnAddHumanModel
-            // 
-            this.btnAddHumanModel.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
-            this.btnAddHumanModel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddHumanModel.Location = new System.Drawing.Point(275, 106);
-            this.btnAddHumanModel.Name = "btnAddHumanModel";
-            this.btnAddHumanModel.Size = new System.Drawing.Size(23, 23);
-            this.btnAddHumanModel.TabIndex = 47;
-            this.toolTip1.SetToolTip(this.btnAddHumanModel, "Выбрать модель");
-            this.btnAddHumanModel.UseVisualStyleBackColor = true;
-            this.btnAddHumanModel.Click += new System.EventHandler(this.btnAddHumanModel_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackgroundImage = global::Quantium.Properties.Resources.left_arrow;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Location = new System.Drawing.Point(151, 229);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(23, 23);
-            this.button3.TabIndex = 54;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = global::Quantium.Properties.Resources.right_arrow;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(151, 200);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(23, 23);
-            this.button2.TabIndex = 53;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // btnAddMethodic
-            // 
-            this.btnAddMethodic.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
-            this.btnAddMethodic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddMethodic.Location = new System.Drawing.Point(265, 86);
-            this.btnAddMethodic.Name = "btnAddMethodic";
-            this.btnAddMethodic.Size = new System.Drawing.Size(23, 23);
-            this.btnAddMethodic.TabIndex = 37;
-            this.btnAddMethodic.UseVisualStyleBackColor = true;
-            this.btnAddMethodic.Click += new System.EventHandler(this.btnAddMethodic_Click);
-            // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -1243,65 +1307,27 @@
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // buttonUpdate
+            // radioButton1
             // 
-            this.buttonUpdate.BackColor = System.Drawing.Color.Teal;
-            this.buttonUpdate.BackColor2 = System.Drawing.Color.Silver;
-            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonUpdate.ButtonRoundRadius = 30;
-            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonUpdate.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(57, 24);
-            this.buttonUpdate.TabIndex = 19;
-            this.buttonUpdate.Text = "ОБНОВИТЬ";
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(9, 367);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(101, 20);
+            this.radioButton1.TabIndex = 40;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // buttonConnect
+            // radioButton2
             // 
-            this.buttonConnect.BackColor = System.Drawing.Color.Teal;
-            this.buttonConnect.BackColor2 = System.Drawing.Color.Silver;
-            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonConnect.ButtonRoundRadius = 10;
-            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonConnect.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
-            this.buttonConnect.TabIndex = 17;
-            this.buttonConnect.Text = "OPEN";
-            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Crimson;
-            this.button1.BackColor2 = System.Drawing.Color.Silver;
-            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
-            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
-            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.button1.ButtonRoundRadius = 30;
-            this.button1.ForeColor = System.Drawing.Color.Yellow;
-            this.button1.Location = new System.Drawing.Point(63, 192);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 35);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Старт";
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(184, 367);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(101, 20);
+            this.radioButton2.TabIndex = 41;
+            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -1369,11 +1395,11 @@
             this.tpMeredianModel.ResumeLayout(false);
             this.tpMeredianModel.PerformLayout();
             this.tabPageMethodic.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.tpDiseases.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.contextMenuStripPoint.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -1482,6 +1508,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lbSelectedPoints;
         private System.Windows.Forms.ListBox lbHumanPoints;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

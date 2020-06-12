@@ -160,7 +160,7 @@ namespace Quantium
                 //Connect.Close();
             }
         }
-        public static void ReadHumanModelsList(List<HumanModel> humanModels)
+        public static void GetHumanModelsList(List<HumanModel> humanModels)
         {
             DataTable dTable = new DataTable();
             String sqlQuery;
@@ -207,7 +207,7 @@ namespace Quantium
             }
         }
 
-        public static void ReadPointsFromHumanTable(List<PointModel> pointModels, int humanModelId)
+        public static void GetPointsFromHumanTable(List<PointModel> pointModels, int humanModelId)
         {
             DataTable dTable = new DataTable();
             String sqlQuery;
@@ -321,8 +321,8 @@ namespace Quantium
                     return;
                 }
                 try
-                {
-                    sqlQuery = "SELECT "+ methodicListTableName+ ".id,methodic_name, methodic_memo, human_model_name, human_model_id FROM " + methodicListTableName + " JOIN " + humanModelTableListName + " ON " + humanModelTableListName + ".id=human_model_id";
+                { // 'map_front', 'map_back', 'body_front', 'body_back'
+                    sqlQuery = "SELECT "+ methodicListTableName+ ".id,methodic_name, methodic_memo, human_model_name, human_model_id,map_front, map_back, body_front, body_back FROM " + methodicListTableName + " JOIN " + humanModelTableListName + " ON " + humanModelTableListName + ".id=human_model_id";
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
@@ -330,14 +330,18 @@ namespace Quantium
                     {
                         methodicItemModels.Clear();
 
-                        for (int i = 0; i < dTable.Rows.Count; i++) // public MethodicItemModel(int methodicId, string name, string memo, int humanModelId, string humanModelName)
+                        for (int i = 0; i < dTable.Rows.Count; i++) 
                         {
-                            methodicItemModels.Add(new MethodicItemModel(
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]),
-                                dTable.Rows[i].ItemArray[1].ToString(),
-                                dTable.Rows[i].ItemArray[2].ToString(),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]),
-                                dTable.Rows[i].ItemArray[3].ToString()
+                            methodicItemModels.Add(new MethodicItemModel( // int methodicId, string name, string memo, int humanModelId, string humanModelName, string mapFrontFileName, string mapBackFileName, string bodyFrontFileName, string bodyBackFileName
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]), // id
+                                dTable.Rows[i].ItemArray[1].ToString(), // name
+                                dTable.Rows[i].ItemArray[2].ToString(), // memo
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[4]), // humanModelName
+                                dTable.Rows[i].ItemArray[3].ToString(), // humanModelId
+                                dTable.Rows[i].ItemArray[5].ToString(), // map_front_file_name
+                                dTable.Rows[i].ItemArray[6].ToString(), // map_back_file_name
+                                dTable.Rows[i].ItemArray[7].ToString(), // body_front_file_name
+                                dTable.Rows[i].ItemArray[8].ToString()  // body_back_filename
                                 ));
                         }
                     }

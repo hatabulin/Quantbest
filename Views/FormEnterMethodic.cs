@@ -19,7 +19,7 @@ namespace Quantium
             InitializeComponent();
 
             if (cbHumanModels.Enabled != false) cbHumanModels.Enabled = false;
-            DataAccess.ReadHumanModelsList(humanModels);
+            DataAccess.GetHumanModelsList(humanModels);
             if (humanModels.Count>0)
             {
                 cbHumanModels.Items.Clear();

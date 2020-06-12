@@ -94,7 +94,6 @@ namespace Quantium
                 )
             );
         }
-
         public void VisibleTablePointsEmpty(bool visible)
         {
             label31.Visible = visible;
@@ -125,13 +124,11 @@ namespace Quantium
 
             tabControl1.SelectedIndex = 2; // 0 - Driver settings tabpage, 1 - Human models tabpage, 2 - Methodic tabPage, 3 - Disease tabpage
         }
-
         private void SendValueToSerial(int channelNumber, int value)
         {
             string str = "cfg:ch" + channelNumber.ToString("X2") + "=" + value.ToString("X2");
             serialPort1.WriteLine(str);
         }
-
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (buttonConnect.Text != TEXT_DISCONNECT)
@@ -199,7 +196,6 @@ namespace Quantium
                 }
             }
         }
-
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
             Bitmap bitmap;
@@ -234,13 +230,11 @@ namespace Quantium
                 }
             }
         }
-
         private void tpPoints_Enter(object sender, EventArgs e)
         {
             DrawHumanPictures();
             DrawPointsFromList(humanPointModels, colorsBrush[RED]);
         }
-       
         private async void buttonAddPointToMethodic_Click(object sender, EventArgs e)
         {
             formAddPointToMethodic = new FormAddPointToMethodic(cbMethodicList.SelectedIndex + 1);
@@ -254,14 +248,12 @@ namespace Quantium
         }
         private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            CheckAndAddPoint(SIDE_FRONT, e);
+            if (tabControl1.SelectedIndex == 1) CheckAndAddPoint(SIDE_FRONT, e);
         }
-
         private void PictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
             CheckAndAddPoint(SIDE_BACK, e);
         }
-
         void CheckAndAddPoint(string side, MouseEventArgs e)
         {
             double ratio = 1.0 * pictureBox1.Width / pictureBox1.Image.Width;
@@ -285,7 +277,6 @@ namespace Quantium
                 }
             }
         }
-
         private async void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DataAccess.RemoveRecordFromMethodicTable();
@@ -294,8 +285,6 @@ namespace Quantium
             DrawHumanPictures();
             FlashPointsFromList(humanPointModels);
         }
-
-
         private void TrackBarLaser_Scroll(object sender, EventArgs e)
         {
             int index_value = GetIndexFromTrackBarLaser(sender);
@@ -315,7 +304,6 @@ namespace Quantium
                 case 9: nudLaser10.Value = (sender as TrackBar).Value; break;
             }
         }
-
         private int GetIndexFromTrackBarLaser(object sender)
         {
             int index_value = 0;
@@ -331,7 +319,6 @@ namespace Quantium
             else if (sender == tbLaser10) index_value = 9;
             return index_value;
         }
-
         private int CheckPositionOnPoint(MouseEventArgs e, String side)
         {
             int x = e.X;
@@ -352,7 +339,6 @@ namespace Quantium
             if (i>-1) ttip.Show(humanPointModels[i].pointname,pictureBox1);
             else ttip.Hide(pictureBox1);
         }
-
         private void ChangeFilePathPictures(string mapFrontFileName, string mapBackFileName, string humanFrontFileName, string humanBackFileName)
         {
             this.humanModelFrontFileName = humanFrontFileName;
@@ -395,7 +381,6 @@ namespace Quantium
             formDisease.ShowDialog();
             formDisease.Dispose();
         }
-
         private void cbMethodicList_SelectionChangeCommitted(object sender, EventArgs e)
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, false);
@@ -407,14 +392,11 @@ namespace Quantium
             formMethodic.Dispose();
             UpdateMethodicViews(0,true);
         }
-
         private void tabPageMethodic_Enter(object sender, EventArgs e)
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, true);
 //            UpdateHumanModelPoints(cbMethodicList.SelectedIndex, true);
         }
-
-
         private void UpdateMethodicViews(int index, bool reload)
         {
             cbShowMapImages.Checked = false;
@@ -435,12 +417,14 @@ namespace Quantium
                 }
             }
 
+            ChangeFilePathPictures(methodicItemModels[index].mapFrontFileName, methodicItemModels[index].mapBackFileName, methodicItemModels[index].bodyFrontFileName, methodicItemModels[index].bodyBackFileName);
+
             tbHumanModel.Text = methodicItemModels[index].humanModelName;
             rtbMethodicMemo.Text = methodicItemModels[index].memo;
 
             // Создаем список точек выдернутый с используемой модели в таблице списка методик.
             int humanModelId = methodicItemModels[index].humanModelId;
-            DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModelId);
+            DataAccess.GetPointsFromHumanTable(humanPointModels, humanModelId);
             if (humanPointModels.Count > 0)
             {
                 lbHumanPoints.Enabled = true;
@@ -454,9 +438,7 @@ namespace Quantium
             {
                 lbSelectedPoints.Items.Clear();
                 for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
-
-//                ChangeFilePathPictures(selectedPointModels[index].mapFrontPath, selectedPointModels[index].mapBackPath, selectedPointModels[index].bodyFrontPath, humanModels[index].bodyBackPath);
-//                FlashPointsFromList(humanPointModels);
+                FlashPointsFromList(humanPointModels);
             }
             else lbHumanPoints.Enabled = false;
             toolTip1.ToolTipTitle = cbMethodicList.Text;
@@ -466,7 +448,7 @@ namespace Quantium
             lbPoints.Items.Clear();
             if (reload)
             {
-                DataAccess.ReadHumanModelsList(humanModels);
+                DataAccess.GetHumanModelsList(humanModels);
                 cbHumanModel.Items.Clear();
                 if (humanModels.Count > 0)
                 {
@@ -482,7 +464,7 @@ namespace Quantium
             {
                 // Создаем список точек выдернутый с используемой модели в таблице списка методик.
                 cbHumanModel.Enabled = true;
-                DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModels[index].id_human_model);
+                DataAccess.GetPointsFromHumanTable(humanPointModels, humanModels[index].id_human_model);
                 if (humanPointModels.Count > 0)
                 {
                     for (int i = 0; i < humanPointModels.Count; i++)
@@ -507,12 +489,10 @@ namespace Quantium
         {
             UpdateHumanModelViews(cbHumanModel.SelectedIndex, false);
         }
-
         private void tpHumanModel_Enter(object sender, EventArgs e)
         {
             UpdateHumanModelViews(cbHumanModel.SelectedIndex, true);
         }
-
         private void btnAddHumanModel_Click(object sender, EventArgs e)
         {
             FormAddHumanModel formAddHumanModel = new FormAddHumanModel();
@@ -526,7 +506,6 @@ namespace Quantium
             if (i > -1) ttip.Show(humanPointModels[i].pointname, pictureBox2);
             else ttip.Hide(pictureBox2);
         }
-
         private void NumericUpDownLaser_ValueChanged(object sender, EventArgs e)
         {
             int index = 0;
@@ -543,7 +522,6 @@ namespace Quantium
 
             //laserChannel[index].myLevelPwm = .Value;
         }
-
         private void ComboBoxTimeLaser1_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
@@ -568,7 +546,6 @@ namespace Quantium
             }
             e.Graphics.DrawString(text, currComboBox.Font, brush, e.Bounds.X, e.Bounds.Y);
         }
-
         public  void DrawPoint(int x, int y,String sideHuman)
         {
             PictureBox pictureBox;
@@ -582,7 +559,6 @@ namespace Quantium
                 gr.FillEllipse(Brushes.Green, x, y, pointRadius, pointRadius);
             pictureBox.Invalidate();
         }
-
         private void DrawPointsFromList(List<PointModel> pointModels, Brush color)
         {
             for (int i = 0; i < pointModels.Count; i++)
@@ -601,7 +577,6 @@ namespace Quantium
                 }
             }
         }
-
         private async void FlashPointsFromList(List<PointModel> pointModels)
         {
             int x = 5;
@@ -632,7 +607,6 @@ namespace Quantium
                 }
             }
         }
-
         private void DrawHumanPictures()
         {
             if (humanModelFrontFileName != null && humanModelBackFileName != null)
@@ -643,7 +617,6 @@ namespace Quantium
             pictureBox1.Update();
             pictureBox2.Invalidate();
         }
-
         Bitmap AlphaBlending(Image firstBitmap, Image secondBitmap, float alphaPercent)
         {
             if (alphaPercent < 0f || alphaPercent > 1f)
@@ -682,7 +655,6 @@ namespace Quantium
 
             return bmp;
         }
-
         unsafe Bitmap AlphaBlendingUnsafe(Bitmap firstBitmap, Bitmap secondBitmap, byte alphaPercent)
         {
             if (firstBitmap == null || secondBitmap == null)
