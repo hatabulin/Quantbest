@@ -418,6 +418,7 @@ namespace Quantium
         private void UpdateMethodicViews(int index, bool reload)
         {
             cbShowMapImages.Checked = false;
+            lbHumanPoints.Items.Clear();
 
             if (reload)
             {
@@ -429,55 +430,36 @@ namespace Quantium
                     {
                         cbMethodicList.Items.Add(methodicItemModels[i].name);
                     }
-                    
                     index = 0;
                     cbMethodicList.SelectedIndex = index;
-                    
-                    tbHumanModel.Text = methodicItemModels[index].humanModelName;
-                    rtbMethodicMemo.Text = methodicItemModels[index].memo;
-
-                    // Создаем список точек выдернутый с используемой модели в таблице списка методик.
-                    int humanModelId = methodicItemModels[index].humanModelId;
-                    DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModelId);
-                    if (humanPointModels.Count > 0)
-                    {
-                        lbHumanPoints.Items.Clear();
-                        for (int i=0;i< humanPointModels.Count;i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
-                    }
-
-                    // Создаем список точек выдернутый с основной таблици методик.
-                    int methodicId = methodicItemModels[index].methodicId;
-                    DataAccess.GetPointsFromMainTable(selectedPointModels,methodicId);
-                    if (selectedPointModels.Count > 0)
-                    {
-                        lbSelectedPoints.Items.Clear();
-                        for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
-                    }
                 }
-            } else
-            {
-                tbHumanModel.Text = methodicItemModels[index].humanModelName;
-                rtbMethodicMemo.Text = methodicItemModels[index].memo;
             }
+
+            tbHumanModel.Text = methodicItemModels[index].humanModelName;
+            rtbMethodicMemo.Text = methodicItemModels[index].memo;
+
+            // Создаем список точек выдернутый с используемой модели в таблице списка методик.
+            int humanModelId = methodicItemModels[index].humanModelId;
+            DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModelId);
+            if (humanPointModels.Count > 0)
+            {
+                lbHumanPoints.Enabled = true;
+                for (int i = 0; i < humanPointModels.Count; i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
+            }
+
+            // Создаем список точек выдернутый с основной таблици методик.
+            int methodicId = methodicItemModels[index].methodicId;
+            DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
+            if (selectedPointModels.Count > 0)
+            {
+                lbSelectedPoints.Items.Clear();
+                for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
+
+//                ChangeFilePathPictures(selectedPointModels[index].mapFrontPath, selectedPointModels[index].mapBackPath, selectedPointModels[index].bodyFrontPath, humanModels[index].bodyBackPath);
+//                FlashPointsFromList(humanPointModels);
+            }
+            else lbHumanPoints.Enabled = false;
             toolTip1.ToolTipTitle = cbMethodicList.Text;
-        }
-
-        private void tpHumanModel_Enter(object sender, EventArgs e)
-        {
-            UpdateHumanModelViews(cbHumanModel.SelectedIndex, true);
-        }
-
-        private void cbHumanModel_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            UpdateHumanModelViews(cbHumanModel.SelectedIndex, false);
-        }
-
-        private void btnAddHumanModel_Click(object sender, EventArgs e)
-        {
-            FormAddHumanModel formAddHumanModel = new FormAddHumanModel();
-            formAddHumanModel.ShowDialog();
-            formAddHumanModel.Dispose();
-            UpdateHumanModelViews(0, true);
         }
         private void UpdateHumanModelViews(int index, bool reload)
         {
@@ -520,6 +502,23 @@ namespace Quantium
                 tbHumanBackFileName.Text = humanModels[index].bodyBackPath;
             }
             else cbHumanModel.Enabled = false;
+        }
+        private void cbHumanModel_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            UpdateHumanModelViews(cbHumanModel.SelectedIndex, false);
+        }
+
+        private void tpHumanModel_Enter(object sender, EventArgs e)
+        {
+            UpdateHumanModelViews(cbHumanModel.SelectedIndex, true);
+        }
+
+        private void btnAddHumanModel_Click(object sender, EventArgs e)
+        {
+            FormAddHumanModel formAddHumanModel = new FormAddHumanModel();
+            formAddHumanModel.ShowDialog();
+            formAddHumanModel.Dispose();
+            UpdateHumanModelViews(0, true);
         }
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
