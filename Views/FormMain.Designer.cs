@@ -77,7 +77,6 @@
             this.nudLaser1 = new System.Windows.Forms.NumericUpDown();
             this.tbLaser1 = new System.Windows.Forms.TrackBar();
             this.tpMeredianModel = new System.Windows.Forms.TabPage();
-            this.lbPoints = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbHumanBackFileName = new System.Windows.Forms.TextBox();
@@ -96,6 +95,8 @@
             this.tabPageMethodic = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -129,8 +130,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.lbPoints = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -737,15 +737,6 @@
             this.tpMeredianModel.Text = "Модели человека";
             this.tpMeredianModel.Enter += new System.EventHandler(this.tpHumanModel_Enter);
             // 
-            // lbPoints
-            // 
-            this.lbPoints.FormattingEnabled = true;
-            this.lbPoints.ItemHeight = 16;
-            this.lbPoints.Location = new System.Drawing.Point(19, 408);
-            this.lbPoints.Name = "lbPoints";
-            this.lbPoints.Size = new System.Drawing.Size(281, 244);
-            this.lbPoints.TabIndex = 49;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -773,27 +764,27 @@
             // tbHumanBackFileName
             // 
             this.tbHumanBackFileName.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tbHumanBackFileName.Enabled = false;
             this.tbHumanBackFileName.Location = new System.Drawing.Point(17, 342);
             this.tbHumanBackFileName.Name = "tbHumanBackFileName";
+            this.tbHumanBackFileName.ReadOnly = true;
             this.tbHumanBackFileName.Size = new System.Drawing.Size(281, 22);
             this.tbHumanBackFileName.TabIndex = 44;
             // 
             // tbMapBackFileName
             // 
             this.tbMapBackFileName.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tbMapBackFileName.Enabled = false;
             this.tbMapBackFileName.Location = new System.Drawing.Point(17, 288);
             this.tbMapBackFileName.Name = "tbMapBackFileName";
+            this.tbMapBackFileName.ReadOnly = true;
             this.tbMapBackFileName.Size = new System.Drawing.Size(281, 22);
             this.tbMapBackFileName.TabIndex = 43;
             // 
             // tbHumanFrontFileName
             // 
             this.tbHumanFrontFileName.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tbHumanFrontFileName.Enabled = false;
             this.tbHumanFrontFileName.Location = new System.Drawing.Point(17, 236);
             this.tbHumanFrontFileName.Name = "tbHumanFrontFileName";
+            this.tbHumanFrontFileName.ReadOnly = true;
             this.tbHumanFrontFileName.Size = new System.Drawing.Size(281, 22);
             this.tbHumanFrontFileName.TabIndex = 42;
             // 
@@ -812,9 +803,9 @@
             // tbMapFrontFileName
             // 
             this.tbMapFrontFileName.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tbMapFrontFileName.Enabled = false;
             this.tbMapFrontFileName.Location = new System.Drawing.Point(17, 182);
             this.tbMapFrontFileName.Name = "tbMapFrontFileName";
+            this.tbMapFrontFileName.ReadOnly = true;
             this.tbMapFrontFileName.Size = new System.Drawing.Size(281, 22);
             this.tbMapFrontFileName.TabIndex = 35;
             // 
@@ -831,6 +822,7 @@
             // 
             // cbHumanModel
             // 
+            this.cbHumanModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbHumanModel.Enabled = false;
             this.cbHumanModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbHumanModel.FormattingEnabled = true;
@@ -956,6 +948,28 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Модель";
             // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(184, 367);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(101, 20);
+            this.radioButton2.TabIndex = 41;
+            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(9, 367);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(101, 20);
+            this.radioButton1.TabIndex = 40;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
             // button3
             // 
             this.button3.BackgroundImage = global::Quantium.Properties.Resources.left_arrow;
@@ -1020,9 +1034,11 @@
             // 
             // tbHumanModel
             // 
+            this.tbHumanModel.Enabled = false;
             this.tbHumanModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbHumanModel.Location = new System.Drawing.Point(6, 54);
             this.tbHumanModel.Name = "tbHumanModel";
+            this.tbHumanModel.ReadOnly = true;
             this.tbHumanModel.Size = new System.Drawing.Size(221, 22);
             this.tbHumanModel.TabIndex = 45;
             // 
@@ -1060,8 +1076,10 @@
             // 
             // cbMethodicList
             // 
+            this.cbMethodicList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMethodicList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbMethodicList.FormattingEnabled = true;
+            this.cbMethodicList.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbMethodicList.Location = new System.Drawing.Point(38, 86);
             this.cbMethodicList.Name = "cbMethodicList";
             this.cbMethodicList.Size = new System.Drawing.Size(221, 24);
@@ -1082,6 +1100,7 @@
             this.rtbMethodicMemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtbMethodicMemo.Location = new System.Drawing.Point(37, 150);
             this.rtbMethodicMemo.Name = "rtbMethodicMemo";
+            this.rtbMethodicMemo.ReadOnly = true;
             this.rtbMethodicMemo.Size = new System.Drawing.Size(266, 131);
             this.rtbMethodicMemo.TabIndex = 35;
             this.rtbMethodicMemo.Text = "";
@@ -1307,27 +1326,14 @@
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // radioButton1
+            // lbPoints
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(9, 367);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(101, 20);
-            this.radioButton1.TabIndex = 40;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(184, 367);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(101, 20);
-            this.radioButton2.TabIndex = 41;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.lbPoints.FormattingEnabled = true;
+            this.lbPoints.ItemHeight = 16;
+            this.lbPoints.Location = new System.Drawing.Point(50, 408);
+            this.lbPoints.Name = "lbPoints";
+            this.lbPoints.Size = new System.Drawing.Size(177, 244);
+            this.lbPoints.TabIndex = 49;
             // 
             // FormMain
             // 
@@ -1472,7 +1478,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TabPage tabPageMethodic;
-        private System.Windows.Forms.ComboBox cbMethodicList;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label27;
@@ -1501,7 +1506,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbHumanModel;
-        private System.Windows.Forms.ListBox lbPoints;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
@@ -1510,6 +1514,8 @@
         private System.Windows.Forms.ListBox lbHumanPoints;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.ComboBox cbMethodicList;
+        private System.Windows.Forms.ListBox lbPoints;
     }
 }
 

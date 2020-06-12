@@ -440,7 +440,7 @@ namespace Quantium
                 for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
                 FlashPointsFromList(humanPointModels);
             }
-            else lbHumanPoints.Enabled = false;
+            else lbSelectedPoints.Enabled = false;
             toolTip1.ToolTipTitle = cbMethodicList.Text;
         }
         private void UpdateHumanModelViews(int index, bool reload)
