@@ -24,7 +24,7 @@ namespace Quantium
 
         #region Windows Form Designer generated code
 
-        public void setCoord(int x, int y, string side)
+        public void SetPointData(int x, int y, string side)
         {
             this.textBoxPointX.Text = x.ToString();
             this.textBoxPointY.Text = y.ToString();
@@ -32,17 +32,6 @@ namespace Quantium
             if (side == FormMain.SIDE_FRONT) this.comboBoxPointSide.SelectedIndex = 0; else this.comboBoxPointSide.SelectedIndex = 1;
         }
 
-        public void AddPointToTable()
-        {
-            PointModel pointModel = new PointModel(
-                Convert.ToInt16(textBoxPointX.Text), 
-                Convert.ToInt16(textBoxPointY.Text),
-                comboBoxPointLink.SelectedIndex,
-                comboBoxPointSide.Text,
-                textBoxPointName.Text,
-                0);
-            DataAccess.AddPointToTable(pointModel);
-        }
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.

@@ -12,14 +12,23 @@ namespace Quantium
 {
     public partial class FormEnterMethodic : Form
     {
-        private String meredianFrontFileName;
-        private String meredianBackFileName;
-        private String humanModelFrontFileName;
-        private String humanModelBackFileName;
+        List<HumanModel> humanModels = new List<HumanModel>();
 
         public FormEnterMethodic()
         {
             InitializeComponent();
+
+            if (cbHumanModels.Enabled != false) cbHumanModels.Enabled = false;
+            DataAccess.ReadHumanModelsList(humanModels);
+            if (humanModels.Count>0)
+            {
+                cbHumanModels.Items.Clear();
+                for (int i=0;i< humanModels.Count;i++)
+                {
+                    cbHumanModels.Items.Add(humanModels[i].name);
+                }
+                cbHumanModels.Enabled = true;
+            }
         }
 
         private void roundButton1_Click(object sender, EventArgs e)
@@ -29,16 +38,8 @@ namespace Quantium
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            DataAccess.AddNewMethodic(textBox1.Text, richTextBox1.Text,meredianFrontFileName, meredianBackFileName, humanModelFrontFileName, humanModelBackFileName);
+            DataAccess.AddToMethodicList(textBox1.Text, richTextBox1.Text, humanModels[cbHumanModels.SelectedIndex].id_human_model);
             this.Close();
-        }
-
-        public void setFileNames(String meredianFrontFileName, String meredianBackFileName, String humanModelFrontFileName, String humanModelBackFileName)
-        {
-            this.meredianFrontFileName = meredianFrontFileName;
-            this.meredianBackFileName = meredianBackFileName;
-            this.humanModelFrontFileName = humanModelFrontFileName;
-            this.humanModelBackFileName = humanModelBackFileName;
         }
     }
 }

@@ -17,12 +17,13 @@ namespace Quantium.Model
         public int pointId { get; set; }
         public int pointTime { get; set; }
         public int pointPower { get; set; }
+        public int humanModelId { get; set; }
 
         public MethodicModel()
         {
         }
 
-        public MethodicModel(string methodicName, string pointName, int pointX, int pointY, int channel, string side, int pointId, int pointTime, int pointPower)
+        public MethodicModel(string methodicName, string pointName, int pointX, int pointY, int channel, string side, int pointId, int pointTime, int pointPower, int humanModelId)
         {
             this.methodicName = methodicName;
             this.pointName = pointName;
@@ -33,8 +34,7 @@ namespace Quantium.Model
             this.pointId = pointId;
             this.pointTime = pointTime;
             this.pointPower = pointPower;
+            this.humanModelId = humanModelId;
         }
-
-        
     }
 }

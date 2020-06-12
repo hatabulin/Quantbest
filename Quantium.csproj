@@ -204,8 +204,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\HumanModel.cs" />
     <Compile Include="Views\CustomFormClass.cs" />
     <Compile Include="Repository\DataAccess.cs" />
+    <Compile Include="Views\FormAddHumanModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormAddHumanModel.Designer.cs">
+      <DependentUpon>FormAddHumanModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormAddPoint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +257,9 @@
     <Compile Include="Views\RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="Views\FormAddHumanModel.resx">
+      <DependentUpon>FormAddHumanModel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormDisease.resx">
       <DependentUpon>FormDisease.cs</DependentUpon>
     </EmbeddedResource>
@@ -298,6 +308,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\right-arrow1.png" />
+    <None Include="Resources\right-arrow.png" />
+    <None Include="Resources\selection-of-elements.png" />
+    <None Include="Resources\minus.png" />
     <None Include="Resources\no_file.png" />
     <None Include="Resources\images\ma3_bk.png" />
     <None Include="Resources\images\man2_1.png" />

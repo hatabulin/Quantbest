@@ -12,28 +12,42 @@ namespace Quantium
 {
     public partial class FormAddPoint : Form
     {
-        FormMain form;
+        FormMain _form;
         int x, y;
-        String humanSide;
+        String _humanSide;
+        int _humanModelId;
 
-        public FormAddPoint(FormMain form, int x, int y,String humanSide)
+        public FormAddPoint(FormMain form, int humanModelId, int x, int y,String humanSide)
         {
-            this.form = form;
+            _form = form;
             this.x = x;
             this.y = y;
-            this.humanSide = humanSide;
+            _humanSide = humanSide;
+            _humanModelId = humanModelId;
 
             InitializeComponent();
             comboBoxPointLink.SelectedIndex = 0;
-            setCoord(x, y, humanSide);
+            SetPointData(x, y, humanSide);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             AddPointToTable();
-            form.DrawPoint(x,y,humanSide);
+            _form.DrawPoint(x,y,_humanSide);
             
             this.Close();
+        }
+
+        public void AddPointToTable()
+        {
+            PointModel pointModel = new PointModel(
+                Convert.ToInt16(textBoxPointX.Text),
+                Convert.ToInt16(textBoxPointY.Text),
+                comboBoxPointLink.SelectedIndex,
+                comboBoxPointSide.Text,
+                textBoxPointName.Text,
+                0,_humanModelId);
+            DataAccess.AddToHumanPointsTable(pointModel);
         }
 
         private void FormAddPoint_Load(object sender, EventArgs e)

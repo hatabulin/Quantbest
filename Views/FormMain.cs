@@ -17,6 +17,7 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Quantium.Model;
+using Quantium.Views;
 
 namespace Quantium
 {
@@ -34,6 +35,7 @@ namespace Quantium
         public const String SIDE_BACK = "Back";
 
         static float currentAlphaValue = 0.45f;
+
         private string mapFrontFileName, mapBackFileName;
         private string humanModelFrontFileName, humanModelBackFileName;
         private readonly List<Brush> colorsBrush = new List<Brush> { Brushes.Red, Brushes.Green, Brushes.Yellow, Brushes.White, Brushes.Blue, Brushes.Black };
@@ -46,17 +48,22 @@ namespace Quantium
 
         private string[] ports;
 
-        private List<PointModel> pointModels = new List<PointModel>();
+//        private List<PointModel> pointModels = new List<PointModel>();
+
+        private List<PointModel> selectedPointModels = new List<PointModel>();
+        private List<PointModel> humanPointModels = new List<PointModel>();
+
         private List<MethodicModel> methodicModels = new List<MethodicModel>();
         private List<MethodicItemModel> methodicItemModels = new List<MethodicItemModel>();
-
+        private List<HumanModel> humanModels = new List<HumanModel>();
+        
         ToolTip ttip = new ToolTip();
 
         public static LaserChannel[] laserChannel = { 
             new LaserChannel(0,10), new LaserChannel(100, 10), new LaserChannel(50, 10), new LaserChannel(255, 10), new LaserChannel(128, 10), 
             new LaserChannel(100, 10), new LaserChannel(10, 10), new LaserChannel(30, 10), new LaserChannel(40, 15), new LaserChannel(100, 20)};
 
-        FormEnterMethodic formMethodic = new FormEnterMethodic();
+//        FormEnterMethodic formMethodic = new FormEnterMethodic();
         FormAddPointToMethodic formAddPointToMethodic;
         FormDisease formDisease;
 
@@ -115,6 +122,8 @@ namespace Quantium
             tbLaser8.Value = laserChannel[7].myLevelPwm;
             tbLaser9.Value = laserChannel[8].myLevelPwm;
             tbLaser10.Value = laserChannel[9].myLevelPwm;
+
+            tabControl1.SelectedIndex = 2; // 0 - Driver settings tabpage, 1 - Human models tabpage, 2 - Methodic tabPage, 3 - Disease tabpage
         }
 
         private void SendValueToSerial(int channelNumber, int value)
@@ -228,108 +237,10 @@ namespace Quantium
 
         private void tpPoints_Enter(object sender, EventArgs e)
         {
-            DataAccess.ReadPointsTable(pointModels);
             DrawHumanPictures();
-            DrawPointsFromList(pointModels, colorsBrush[RED]);
+            DrawPointsFromList(humanPointModels, colorsBrush[RED]);
         }
-
-        private void tpMethodic_Enter(object sender, EventArgs e)
-        {
-            UpdateMethodicListComboBox();
-        }
-        private void UpdateMethodicListComboBox()
-        {
-            cbMethodicList.Enabled = false;
-            DataAccess.ReadMethodicListTable(methodicItemModels);
-            if (methodicItemModels.Count > 0)
-            {
-                cbMethodicList.Items.Clear();
-                for (int i = 0; i < methodicItemModels.Count; i++)
-                {
-                    cbMethodicList.Items.Add(methodicItemModels[i].name);
-                }
-                cbMethodicList.SelectedIndex = 0;
-                cbMethodicList.Enabled = true;
-            }
-        }
-
-        private void UpdatePointsListComboBox()
-        {
-            DataAccess.ReadPointsTable(pointModels);
-            if (methodicItemModels.Count > 0)
-            {
-                cbPointsList.Items.Clear();
-                for (int i = 0; i < pointModels.Count; i++)
-                {
-                    cbPointsList.Items.Add(pointModels[i].pointname);
-                }
-            }
-        }
-
-        private void tpPoints_Leave(object sender, EventArgs e)
-        {
-            DrawHumanPictures();
-        }
-
-        private void tpMethodic_Leave(object sender, EventArgs e)
-        {
-            DrawHumanPictures();
-        }
-        private void btnAddNewMethodic_Click(object sender, EventArgs e)
-        {
-            if (mapFrontFileName !=null && mapBackFileName !=null && humanModelFrontFileName != null && humanModelBackFileName!=null)
-            {
-                formMethodic.setFileNames(mapFrontFileName, mapBackFileName, humanModelFrontFileName, humanModelBackFileName);
-                formMethodic.ShowDialog();
-                DataAccess.ReadMethodicListTable(methodicItemModels);
-                cbMethodicList.SelectedIndex = 0;
-            } else
-            {
-                MessageBox.Show("Не все файлы выбраны !");
-            }
-        }
-
-        private void cbMethodicList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbShowMapImages.Checked = false;
-
-            pointModels.Clear();
-            cbPointsList.Items.Clear();
-            cbPointsList.Text = null;
-            cbPointsList.Enabled = false;
-            rtbMethodicMemo.Text = methodicItemModels[cbMethodicList.SelectedIndex].memo;
-
-            DataAccess.ReadMethodicTable(methodicModels,cbMethodicList.SelectedIndex + 1);
-            if (methodicModels.Count>0)
-            {
-                for (int i = 0; i < methodicModels.Count; i++)
-                {
-                    pointModels.Add(new PointModel(
-                        methodicModels[i].pointX,
-                        methodicModels[i].pointY,
-                        methodicModels[i].channel,
-                        methodicModels[i].side,
-                        methodicModels[i].pointName,
-                        methodicModels[i].pointId
-                        ));
-                    cbPointsList.Items.Add(methodicModels[i].pointName);
-                }
-                cbPointsList.SelectedIndex = 0;
-                cbPointsList.Enabled = true;
-                cbPointsList.Text = cbPointsList.Items[cbPointsList.SelectedIndex].ToString();
-            }
-
-            //            DataAccess.ReadMethodicTable(comboBoxPointsList, cbMethodicList.SelectedIndex+1, pointModels);
-            toolTip1.ToolTipTitle = cbMethodicList.Text;
-            ChangeFilePathPictures(
-                methodicItemModels[cbMethodicList.SelectedIndex].mapFrontFileName,
-                methodicItemModels[cbMethodicList.SelectedIndex].mapBackFileName,
-                methodicItemModels[cbMethodicList.SelectedIndex].humanModelFrontFileName,
-                methodicItemModels[cbMethodicList.SelectedIndex].humanModelBackFileName);
-            DrawHumanPictures();
-            FlashPointsFromList(pointModels);
-        }
-
+       
         private async void buttonAddPointToMethodic_Click(object sender, EventArgs e)
         {
             formAddPointToMethodic = new FormAddPointToMethodic(cbMethodicList.SelectedIndex + 1);
@@ -339,49 +250,37 @@ namespace Quantium
 
             //DataAccess.ReadMethodicTable(comboBoxPointsList, cbMethodicList.SelectedIndex + 1, pointModels);
             DrawHumanPictures();
-            FlashPointsFromList(pointModels);
+            FlashPointsFromList(humanPointModels);
         }
         private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            double ratio = 1.0 * pictureBox1.Width / pictureBox1.Image.Width;
-            if (e.Button == MouseButtons.Left)
-            {
-                int i = CheckPositionOnPoint(e, SIDE_FRONT);
-                if (i<0)
-                {
-                    FormAddPoint form = new FormAddPoint(this, (int)(int)(e.X / ratio), (int)(e.Y / ratio), SIDE_FRONT);
-                    form.ShowDialog();
-                    form.Dispose();
-                }
-            } else
-            {
-                int pointId = CheckPositionOnPoint(e, SIDE_FRONT);
-                if (pointId > -1)
-                {
-                    DataAccess.selectedPointId = pointModels[pointId].id;
-                    contextMenuStripPoint.Show(Cursor.Position);
-                }
-            }
+            CheckAndAddPoint(SIDE_FRONT, e);
         }
 
         private void PictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
+            CheckAndAddPoint(SIDE_BACK, e);
+        }
+
+        void CheckAndAddPoint(string side, MouseEventArgs e)
+        {
             double ratio = 1.0 * pictureBox1.Width / pictureBox1.Image.Width;
             if (e.Button == MouseButtons.Left)
             {
-                int i = CheckPositionOnPoint(e, SIDE_FRONT);
-                if (i<0)
+                int i = CheckPositionOnPoint(e, side);
+                if (i < 0)
                 {
-                    FormAddPoint form = new FormAddPoint(this, (int)(int)(e.X / ratio), (int)(e.Y / ratio), SIDE_BACK);
+                    FormAddPoint form = new FormAddPoint(this, humanModels[cbHumanModel.SelectedIndex].id_human_model, (int)(int)(e.X / ratio), (int)(e.Y / ratio), side);
                     form.ShowDialog();
                     form.Dispose();
                 }
             }
             else
             {
-                int pointId = CheckPositionOnPoint(e, SIDE_BACK);
-                if (pointId > -1) {
-                    DataAccess.selectedPointId = pointModels[pointId].id;
+                int pointId = CheckPositionOnPoint(e, side);
+                if (pointId > -1)
+                {
+                    DataAccess.selectedPointId = humanPointModels[pointId].id_point;
                     contextMenuStripPoint.Show(Cursor.Position);
                 }
             }
@@ -391,9 +290,9 @@ namespace Quantium
         {
             DataAccess.RemoveRecordFromMethodicTable();
             await Task.Delay(1);
-            DataAccess.UpdatePointsModel(pointModels);
+//            DataAccess.UpdatePointsModel(pointModels);
             DrawHumanPictures();
-            FlashPointsFromList(pointModels);
+            FlashPointsFromList(humanPointModels);
         }
 
 
@@ -437,35 +336,21 @@ namespace Quantium
         {
             int x = e.X;
             int y = e.Y;
-            for (int i = 0; i < pointModels.Count; i++)
+            for (int i = 0; i < humanPointModels.Count; i++)
             {
-                if (x > (pointModels[i].coordX - pointRadius) &&
-                    x < (pointModels[i].coordX + pointRadius + 1) &&
-                    y > (pointModels[i].coordY - pointRadius - 1) &&
-                    y < (pointModels[i].coordY + pointRadius + 1) &&
-                    pointModels[i].side == side) return i;
+                if (x > (humanPointModels[i].coordX - pointRadius) &&
+                    x < (humanPointModels[i].coordX + pointRadius + 1) &&
+                    y > (humanPointModels[i].coordY - pointRadius - 1) &&
+                    y < (humanPointModels[i].coordY + pointRadius + 1) &&
+                    humanPointModels[i].side == side) return i;
             }
             return -1;
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             int i = CheckPositionOnPoint(e, SIDE_FRONT);
-            if (i>-1) ttip.Show(pointModels[i].pointname,pictureBox1);
+            if (i>-1) ttip.Show(humanPointModels[i].pointname,pictureBox1);
             else ttip.Hide(pictureBox1);
-        }
-
-        private void buttonOpenMapFront_Click_1(object sender, EventArgs e)
-        {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName))
-            {
-                mapFrontFileName = openFileDialog1.FileName;
-                lblFrontMapFileName.Text = openFileDialog1.SafeFileName;
-            }
-            else
-            {
-                MessageBox.Show("Файл не выбран :(");
-            }
         }
 
         private void ChangeFilePathPictures(string mapFrontFileName, string mapBackFileName, string humanFrontFileName, string humanBackFileName)
@@ -477,48 +362,17 @@ namespace Quantium
 
             if (humanModelBackFileName != null)
             {
-                lblBackModelFileName.Text = humanModelBackFileName;
                 pictureBox2.Image = new Bitmap(humanModelBackFileName);
             }
             
             if (humanModelFrontFileName != null)
             {
-                lblFrontModelFileName.Text = humanModelFrontFileName;
                 pictureBox1.Image = new Bitmap(humanModelFrontFileName);
             }
 
-            lblFrontMapFileName.Text = mapFrontFileName;
-            lblBackMapFileName.Text = mapBackFileName;
-
             cbShowMapImages.Checked = false;
         }
-        private void buttonOpenMapBack_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName))
-            {
-                mapBackFileName = openFileDialog1.FileName;
-                lblBackMapFileName.Text = openFileDialog1.SafeFileName;
-            }
-            else
-            {
-                MessageBox.Show("Файл не выбран :(");
-            }
-        }
-
-        private void btnAddMethodic_Click(object sender, EventArgs e)
-        {
-            if (mapFrontFileName !=null && mapBackFileName !=null && humanModelFrontFileName !=null && humanModelBackFileName !=null)
-            {
-                formMethodic.setFileNames(mapFrontFileName, mapBackFileName, humanModelFrontFileName, humanModelBackFileName);
-                formMethodic.ShowDialog();
-                UpdateMethodicListComboBox();
-            } else
-            {
-                MessageBox.Show("Сначала выберите файлы !");
-            }
-        }
-
+/*
         private async void btnAddPoint_Click(object sender, EventArgs e)
         {
             int methodicId = cbMethodicList.SelectedIndex + 1;
@@ -528,11 +382,10 @@ namespace Quantium
             await Task.Delay(1);
 
             DataAccess.ReadMethodicTable(methodicModels, methodicId);
-            UpdatePointsListComboBox();
-            DrawHumanPictures();
-            FlashPointsFromList(pointModels);
+              DrawHumanPictures();
+            FlashPointsFromList(humanPointModels);
         }
-
+*/
         private async void btnAddDisease_Click(object sender, EventArgs e)
         {
             int methodicId = cbMethodicList.SelectedIndex + 1;
@@ -543,40 +396,135 @@ namespace Quantium
             formDisease.Dispose();
         }
 
-        private void btnOpenHumanModelBack_Click(object sender, EventArgs e)
+        private void cbMethodicList_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName))
-            {
-                humanModelBackFileName = openFileDialog1.FileName;
-                lblBackModelFileName.Text =  openFileDialog1.SafeFileName;
-                pictureBox2.Image = new Bitmap(humanModelBackFileName);
-            }
-            else
-            {
-                MessageBox.Show("Файл не выбран :(");
-            }
+            UpdateMethodicViews(cbMethodicList.SelectedIndex, false);
+        }
+        private void btnAddMethodic_Click(object sender, EventArgs e)
+        {
+            FormEnterMethodic formMethodic = new FormEnterMethodic();
+            formMethodic.ShowDialog();
+            formMethodic.Dispose();
+            UpdateMethodicViews(0,true);
         }
 
-        private void btnOpenHumanModelFront_Click(object sender, EventArgs e)
+        private void tabPageMethodic_Enter(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName))
-            {
-                humanModelFrontFileName = openFileDialog1.FileName;
-                lblFrontModelFileName.Text = openFileDialog1.SafeFileName;
-                pictureBox1.Image = new Bitmap(humanModelFrontFileName);
-            }
-            else
-            {
-                MessageBox.Show("Файл не выбран :(");
-            }
+            UpdateMethodicViews(cbMethodicList.SelectedIndex, true);
+//            UpdateHumanModelPoints(cbMethodicList.SelectedIndex, true);
         }
 
+
+        private void UpdateMethodicViews(int index, bool reload)
+        {
+            cbShowMapImages.Checked = false;
+
+            if (reload)
+            {
+                DataAccess.ReadMethodicListTable(methodicItemModels);
+                cbMethodicList.Items.Clear();
+                if (methodicItemModels.Count > 0)
+                {
+                    for (int i = 0; i < methodicItemModels.Count; i++)
+                    {
+                        cbMethodicList.Items.Add(methodicItemModels[i].name);
+                    }
+                    
+                    index = 0;
+                    cbMethodicList.SelectedIndex = index;
+                    
+                    tbHumanModel.Text = methodicItemModels[index].humanModelName;
+                    rtbMethodicMemo.Text = methodicItemModels[index].memo;
+
+                    // Создаем список точек выдернутый с используемой модели в таблице списка методик.
+                    int humanModelId = methodicItemModels[index].humanModelId;
+                    DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModelId);
+                    if (humanPointModels.Count > 0)
+                    {
+                        lbHumanPoints.Items.Clear();
+                        for (int i=0;i< humanPointModels.Count;i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
+                    }
+
+                    // Создаем список точек выдернутый с основной таблици методик.
+                    int methodicId = methodicItemModels[index].methodicId;
+                    DataAccess.GetPointsFromMainTable(selectedPointModels,methodicId);
+                    if (selectedPointModels.Count > 0)
+                    {
+                        lbSelectedPoints.Items.Clear();
+                        for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
+                    }
+                }
+            } else
+            {
+                tbHumanModel.Text = methodicItemModels[index].humanModelName;
+                rtbMethodicMemo.Text = methodicItemModels[index].memo;
+            }
+            toolTip1.ToolTipTitle = cbMethodicList.Text;
+        }
+
+        private void tpHumanModel_Enter(object sender, EventArgs e)
+        {
+            UpdateHumanModelViews(cbHumanModel.SelectedIndex, true);
+        }
+
+        private void cbHumanModel_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            UpdateHumanModelViews(cbHumanModel.SelectedIndex, false);
+        }
+
+        private void btnAddHumanModel_Click(object sender, EventArgs e)
+        {
+            FormAddHumanModel formAddHumanModel = new FormAddHumanModel();
+            formAddHumanModel.ShowDialog();
+            formAddHumanModel.Dispose();
+            UpdateHumanModelViews(0, true);
+        }
+        private void UpdateHumanModelViews(int index, bool reload)
+        {
+            lbPoints.Items.Clear();
+            if (reload)
+            {
+                DataAccess.ReadHumanModelsList(humanModels);
+                cbHumanModel.Items.Clear();
+                if (humanModels.Count > 0)
+                {
+                    for (int i = 0; i < humanModels.Count; i++)
+                    {
+                        cbHumanModel.Items.Add(humanModels[i].name);
+                    }
+                    index = 0;
+                }
+            }
+
+            if (humanModels.Count > 0)
+            {
+                // Создаем список точек выдернутый с используемой модели в таблице списка методик.
+                cbHumanModel.Enabled = true;
+                DataAccess.ReadPointsFromHumanTable(humanPointModels, humanModels[index].id_human_model);
+                if (humanPointModels.Count > 0)
+                {
+                    for (int i = 0; i < humanPointModels.Count; i++)
+                    {
+                        lbPoints.Items.Add(humanPointModels[i].pointname);
+                    }
+                }
+
+                ChangeFilePathPictures(humanModels[index].mapFrontPath, humanModels[index].mapBackPath, humanModels[index].bodyFrontPath, humanModels[index].bodyBackPath);
+                FlashPointsFromList(humanPointModels);
+
+                cbHumanModel.Text = humanModels[index].name;
+                cbHumanModel.Enabled = true;
+                tbMapFrontFileName.Text = humanModels[index].mapFrontPath;
+                tbMapBackFileName.Text = humanModels[index].mapBackPath;
+                tbHumanFrontFileName.Text = humanModels[index].bodyFrontPath;
+                tbHumanBackFileName.Text = humanModels[index].bodyBackPath;
+            }
+            else cbHumanModel.Enabled = false;
+        }
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
             int i = CheckPositionOnPoint(e, SIDE_BACK);
-            if (i > -1) ttip.Show(pointModels[i].pointname, pictureBox2);
+            if (i > -1) ttip.Show(humanPointModels[i].pointname, pictureBox2);
             else ttip.Hide(pictureBox2);
         }
 

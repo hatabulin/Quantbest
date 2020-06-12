@@ -30,8 +30,8 @@ namespace Quantium
 
         private void FormAddPointToMethodic_Activated(object sender, EventArgs e)
         {
-            DataAccess.PointsListId(listPointsId);
-            DataAccess.ReadPointsTable(pointModels);
+//            DataAccess.PointsListId(listPointsId);
+//            DataAccess.ReadPointsTable(pointModels);
             if (pointModels.Count>0)
             {
                 for (int i=0;i< pointModels.Count;i++)
@@ -44,7 +44,7 @@ namespace Quantium
         private void buttonOk_Click(object sender, EventArgs e)
         {
             pointid = listPointsId[comboBox1.SelectedIndex];
-            DataAccess.AddPointToMethodic(methodicId, pointid,Convert.ToInt32(nudTime.Value), Convert.ToInt32(nudPower.Value));
+//            DataAccess.AddPointToHumanTable(methodicId, pointid,Convert.ToInt32(nudTime.Value), Convert.ToInt32(nudPower.Value));
             this.Close();
         }
     }

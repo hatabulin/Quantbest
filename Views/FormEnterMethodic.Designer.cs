@@ -34,6 +34,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.roundButton1 = new Quantium.RoundButton();
             this.buttonOk = new Quantium.RoundButton();
+            this.cbHumanModels = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label27
@@ -50,7 +51,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(54, 43);
+            this.textBox1.Location = new System.Drawing.Point(54, 33);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(193, 22);
             this.textBox1.TabIndex = 29;
@@ -59,7 +60,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(26, 79);
+            this.label1.Location = new System.Drawing.Point(28, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(235, 21);
             this.label1.TabIndex = 32;
@@ -69,9 +70,9 @@
             // richTextBox1
             // 
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(12, 103);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 127);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(291, 96);
+            this.richTextBox1.Size = new System.Drawing.Size(291, 72);
             this.richTextBox1.TabIndex = 33;
             this.richTextBox1.Text = "";
             // 
@@ -117,11 +118,22 @@
             this.buttonOk.Text = "Сохранить";
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
+            // cbHumanModels
+            // 
+            this.cbHumanModels.Enabled = false;
+            this.cbHumanModels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbHumanModels.FormattingEnabled = true;
+            this.cbHumanModels.Location = new System.Drawing.Point(42, 76);
+            this.cbHumanModels.Name = "cbHumanModels";
+            this.cbHumanModels.Size = new System.Drawing.Size(221, 24);
+            this.cbHumanModels.TabIndex = 34;
+            // 
             // FormEnterMethodic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 250);
+            this.Controls.Add(this.cbHumanModels);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.roundButton1);
@@ -145,5 +157,6 @@
         private RoundButton roundButton1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ComboBox cbHumanModels;
     }
 }
