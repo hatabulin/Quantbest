@@ -252,7 +252,7 @@ namespace Quantium
         }
         private void PictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            CheckAndAddPoint(SIDE_BACK, e);
+            if (tabControl1.SelectedIndex == 1) CheckAndAddPoint(SIDE_BACK, e);
         }
         void CheckAndAddPoint(string side, MouseEventArgs e)
         {
