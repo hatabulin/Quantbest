@@ -101,7 +101,7 @@ namespace Quantium.Views
         private void CheckAllFields()
         {
             if (tbName.Text != "" && tbHumanBackFileName.Text != "" && tbHumanFrontFileName.Text != "" && tbMapBackFileName.Text != "" && tbMapFrontFileName.Text != "")
-                if (btnConfirm.Enabled != true) btnConfirm.Enabled = true; else if (btnConfirm.Enabled != false) btnConfirm.Enabled = false;
+                if (roundButton1.Enabled != true) roundButton1.Enabled = true; else if (roundButton1.Enabled != false) roundButton1.Enabled = false;
         }
 
         private void tbName_TextChanged(object sender, EventArgs e)
@@ -109,20 +109,20 @@ namespace Quantium.Views
             CheckAllFields();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void tbName_Leave(object sender, EventArgs e)
         {
-            Close();
+            _humanFilesModel.name = tbName.Text;
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
             DataAccess.AddToHumanModelList(_humanFilesModel);
             Close();
         }
 
-        private void tbName_Leave(object sender, EventArgs e)
+        private void roundButton1_Click(object sender, EventArgs e)
         {
-            _humanFilesModel.name = tbName.Text;
+            Close();
         }
     }
 }

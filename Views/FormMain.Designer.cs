@@ -77,6 +77,7 @@
             this.nudLaser1 = new System.Windows.Forms.NumericUpDown();
             this.tbLaser1 = new System.Windows.Forms.TrackBar();
             this.tpMeredianModel = new System.Windows.Forms.TabPage();
+            this.lbPoints = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbHumanBackFileName = new System.Windows.Forms.TextBox();
@@ -95,10 +96,8 @@
             this.tabPageMethodic = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddPoint = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.lbSelectedPoints = new System.Windows.Forms.ListBox();
             this.lbHumanPoints = new System.Windows.Forms.ListBox();
@@ -130,7 +129,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lbPoints = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -737,6 +735,15 @@
             this.tpMeredianModel.Text = "Модели человека";
             this.tpMeredianModel.Enter += new System.EventHandler(this.tpHumanModel_Enter);
             // 
+            // lbPoints
+            // 
+            this.lbPoints.FormattingEnabled = true;
+            this.lbPoints.ItemHeight = 16;
+            this.lbPoints.Location = new System.Drawing.Point(50, 408);
+            this.lbPoints.Name = "lbPoints";
+            this.lbPoints.Size = new System.Drawing.Size(177, 244);
+            this.lbPoints.TabIndex = 49;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -930,10 +937,8 @@
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.radioButton2);
-            this.groupBox12.Controls.Add(this.radioButton1);
             this.groupBox12.Controls.Add(this.button3);
-            this.groupBox12.Controls.Add(this.button2);
+            this.groupBox12.Controls.Add(this.btnAddPoint);
             this.groupBox12.Controls.Add(this.label10);
             this.groupBox12.Controls.Add(this.lbSelectedPoints);
             this.groupBox12.Controls.Add(this.lbHumanPoints);
@@ -948,28 +953,6 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Модель";
             // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(184, 367);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(101, 20);
-            this.radioButton2.TabIndex = 41;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(9, 367);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(101, 20);
-            this.radioButton1.TabIndex = 40;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // button3
             // 
             this.button3.BackgroundImage = global::Quantium.Properties.Resources.left_arrow;
@@ -980,15 +963,16 @@
             this.button3.TabIndex = 54;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnAddPoint
             // 
-            this.button2.BackgroundImage = global::Quantium.Properties.Resources.right_arrow;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(151, 200);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(23, 23);
-            this.button2.TabIndex = 53;
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAddPoint.BackgroundImage = global::Quantium.Properties.Resources.right_arrow;
+            this.btnAddPoint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddPoint.Location = new System.Drawing.Point(151, 200);
+            this.btnAddPoint.Name = "btnAddPoint";
+            this.btnAddPoint.Size = new System.Drawing.Size(23, 23);
+            this.btnAddPoint.TabIndex = 53;
+            this.btnAddPoint.UseVisualStyleBackColor = true;
+            this.btnAddPoint.Click += new System.EventHandler(this.btnAddPoint_Click);
             // 
             // label10
             // 
@@ -1008,7 +992,7 @@
             this.lbSelectedPoints.ItemHeight = 16;
             this.lbSelectedPoints.Location = new System.Drawing.Point(180, 103);
             this.lbSelectedPoints.Name = "lbSelectedPoints";
-            this.lbSelectedPoints.Size = new System.Drawing.Size(140, 260);
+            this.lbSelectedPoints.Size = new System.Drawing.Size(140, 276);
             this.lbSelectedPoints.TabIndex = 51;
             // 
             // lbHumanPoints
@@ -1018,7 +1002,7 @@
             this.lbHumanPoints.ItemHeight = 16;
             this.lbHumanPoints.Location = new System.Drawing.Point(3, 103);
             this.lbHumanPoints.Name = "lbHumanPoints";
-            this.lbHumanPoints.Size = new System.Drawing.Size(140, 260);
+            this.lbHumanPoints.Size = new System.Drawing.Size(140, 276);
             this.lbHumanPoints.TabIndex = 50;
             // 
             // label7
@@ -1326,15 +1310,6 @@
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // lbPoints
-            // 
-            this.lbPoints.FormattingEnabled = true;
-            this.lbPoints.ItemHeight = 16;
-            this.lbPoints.Location = new System.Drawing.Point(50, 408);
-            this.lbPoints.Name = "lbPoints";
-            this.lbPoints.Size = new System.Drawing.Size(177, 244);
-            this.lbPoints.TabIndex = 49;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1508,12 +1483,10 @@
         private System.Windows.Forms.TextBox tbHumanModel;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAddPoint;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lbSelectedPoints;
         private System.Windows.Forms.ListBox lbHumanPoints;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.ComboBox cbMethodicList;
         private System.Windows.Forms.ListBox lbPoints;
     }

@@ -28,24 +28,6 @@ namespace Quantium
             _humanModelId = humanModelId;
 
             InitializeComponent();
-            cbPointLink.SelectedIndex = 0;
-            SetPointData(x, y, humanSide);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PointModel pointModel = new PointModel(
-                Convert.ToInt16(textBoxPointX.Text),
-                Convert.ToInt16(textBoxPointY.Text),
-                cbPointLink.SelectedIndex,
-                comboBoxPointSide.Text,
-                textBoxPointName.Text,
-                0, _humanModelId);
-            DataAccess.AddToHumanPointsTable(pointModel);
-
-            _form.DrawPoint(x,y,_humanSide);
-            
-            this.Close();
         }
 
         private void FormAddPoint_Load(object sender, EventArgs e)
@@ -56,7 +38,10 @@ namespace Quantium
                     , 10
                 )
             );
+
             DataAccess.GetPointsFromHumanTable(pointModels, _humanModelId);
+            SetPointData(x, y, _humanSide);
+            cbPointLink.SelectedIndex = 0;
         }
 
         private void cbPointLink_DrawItem(object sender, DrawItemEventArgs e)
@@ -78,9 +63,43 @@ namespace Quantium
             e.Graphics.DrawString(text, ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cbPointLink_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBox combobox = sender as ComboBox;
+
+            for (int i=0;i<pointModels.Count;i++)
+            {
+                if (pointModels[i].channel == combobox.SelectedIndex) 
+                {
+                    combobox.DroppedDown = true;
+                }
+            }
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            PointModel pointModel = new PointModel(
+                Convert.ToInt16(textBoxPointX.Text),
+                Convert.ToInt16(textBoxPointY.Text),
+                cbPointLink.SelectedIndex,
+                0,
+                0,
+                comboBoxPointSide.Text,
+                textBoxPointName.Text,
+                0, 
+                _humanModelId,
+                0);
+            DataAccess.AddToHumanPointsTable(pointModel);
+
+            _form.DrawPoint(x, y, _humanSide);
+
+            this.Close();
+        }
+
+        private void roundButton1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
     }
 }
+

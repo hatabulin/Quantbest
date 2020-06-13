@@ -37,8 +37,8 @@
             // 
             // roundButton1
             // 
-            this.roundButton1.BackColor = System.Drawing.Color.Teal;
-            this.roundButton1.BackColor2 = System.Drawing.Color.Silver;
+            this.roundButton1.BackColor = System.Drawing.Color.Gray;
+            this.roundButton1.BackColor2 = System.Drawing.Color.LightGray;
             this.roundButton1.ButtonBorderColor = System.Drawing.Color.Black;
             this.roundButton1.ButtonHighlightColor = System.Drawing.Color.Orange;
             this.roundButton1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
@@ -48,17 +48,18 @@
             this.roundButton1.ButtonPressedForeColor = System.Drawing.Color.White;
             this.roundButton1.ButtonRoundRadius = 10;
             this.roundButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.roundButton1.ForeColor = System.Drawing.Color.Yellow;
-            this.roundButton1.Location = new System.Drawing.Point(164, 80);
+            this.roundButton1.ForeColor = System.Drawing.Color.Blue;
+            this.roundButton1.Location = new System.Drawing.Point(135, 80);
             this.roundButton1.Name = "roundButton1";
             this.roundButton1.Size = new System.Drawing.Size(84, 20);
             this.roundButton1.TabIndex = 35;
             this.roundButton1.Text = "Отмена";
+            this.roundButton1.Click += new System.EventHandler(this.roundButton1_Click);
             // 
             // buttonOk
             // 
-            this.buttonOk.BackColor = System.Drawing.Color.Teal;
-            this.buttonOk.BackColor2 = System.Drawing.Color.Silver;
+            this.buttonOk.BackColor = System.Drawing.Color.Gray;
+            this.buttonOk.BackColor2 = System.Drawing.Color.LightGray;
             this.buttonOk.ButtonBorderColor = System.Drawing.Color.Black;
             this.buttonOk.ButtonHighlightColor = System.Drawing.Color.Orange;
             this.buttonOk.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
@@ -69,8 +70,8 @@
             this.buttonOk.ButtonRoundRadius = 10;
             this.buttonOk.Enabled = false;
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOk.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonOk.Location = new System.Drawing.Point(74, 80);
+            this.buttonOk.ForeColor = System.Drawing.Color.Blue;
+            this.buttonOk.Location = new System.Drawing.Point(45, 80);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(84, 20);
             this.buttonOk.TabIndex = 34;
@@ -79,21 +80,21 @@
             // 
             // label27
             // 
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(62, 9);
+            this.label27.Location = new System.Drawing.Point(12, 11);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(192, 21);
+            this.label27.Size = new System.Drawing.Size(146, 21);
             this.label27.TabIndex = 32;
-            this.label27.Text = "Название Болезни";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label27.Text = "Название Болезни:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbDisease
             // 
             this.cbDisease.Enabled = false;
             this.cbDisease.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbDisease.FormattingEnabled = true;
-            this.cbDisease.Location = new System.Drawing.Point(42, 43);
+            this.cbDisease.Location = new System.Drawing.Point(12, 35);
             this.cbDisease.Name = "cbDisease";
             this.cbDisease.Size = new System.Drawing.Size(212, 24);
             this.cbDisease.TabIndex = 36;
@@ -102,7 +103,7 @@
             // 
             this.btnAddDisease.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
             this.btnAddDisease.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddDisease.Location = new System.Drawing.Point(260, 43);
+            this.btnAddDisease.Location = new System.Drawing.Point(230, 35);
             this.btnAddDisease.Name = "btnAddDisease";
             this.btnAddDisease.Size = new System.Drawing.Size(23, 23);
             this.btnAddDisease.TabIndex = 40;
@@ -113,7 +114,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 112);
+            this.ClientSize = new System.Drawing.Size(261, 112);
+            this.ControlBox = false;
             this.Controls.Add(this.btnAddDisease);
             this.Controls.Add(this.cbDisease);
             this.Controls.Add(this.roundButton1);
@@ -123,7 +125,7 @@
             this.MaximizeBox = false;
             this.Name = "FormDisease";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormDisease";
+            this.Text = "Создать болезнь";
             this.ResumeLayout(false);
 
         }

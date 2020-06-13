@@ -417,31 +417,31 @@ namespace Quantium
                 }
             }
 
-            ChangeFilePathPictures(methodicItemModels[index].mapFrontFileName, methodicItemModels[index].mapBackFileName, methodicItemModels[index].bodyFrontFileName, methodicItemModels[index].bodyBackFileName);
-
-            tbHumanModel.Text = methodicItemModels[index].humanModelName;
-            rtbMethodicMemo.Text = methodicItemModels[index].memo;
-
-            // Создаем список точек выдернутый с используемой модели в таблице списка методик.
-            int humanModelId = methodicItemModels[index].humanModelId;
-            DataAccess.GetPointsFromHumanTable(humanPointModels, humanModelId);
-            if (humanPointModels.Count > 0)
+            if (index >= 0)
             {
-                lbHumanPoints.Enabled = true;
-                for (int i = 0; i < humanPointModels.Count; i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
-            }
+                ChangeFilePathPictures(methodicItemModels[index].mapFrontFileName, methodicItemModels[index].mapBackFileName, methodicItemModels[index].bodyFrontFileName, methodicItemModels[index].bodyBackFileName);
+                tbHumanModel.Text = methodicItemModels[index].humanModelName;
+                rtbMethodicMemo.Text = methodicItemModels[index].memo;
 
-            // Создаем список точек выдернутый с основной таблици методик.
-            int methodicId = methodicItemModels[index].methodicId;
-            DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
-            if (selectedPointModels.Count > 0)
-            {
+                int humanModelId = methodicItemModels[index].humanModelId;
+                DataAccess.GetPointsFromHumanTable(humanPointModels, humanModelId);
+                if (humanPointModels.Count > 0)
+                {
+                    for (int i = 0; i < humanPointModels.Count; i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
+                }
+
+                // Создаем список точек выдернутый с основной таблици методик.
+                int methodicId = methodicItemModels[index].methodicId;
                 lbSelectedPoints.Items.Clear();
-                for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
-                FlashPointsFromList(humanPointModels);
+                DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
+                if (selectedPointModels.Count > 0)
+                {
+                    for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
+                    FlashPointsFromList(humanPointModels);
+                }
+                toolTip1.ToolTipTitle = cbMethodicList.Text;
             }
-            else lbSelectedPoints.Enabled = false;
-            toolTip1.ToolTipTitle = cbMethodicList.Text;
+            // Создаем список точек выдернутый с используемой модели в таблице списка методик.
         }
         private void UpdateHumanModelViews(int index, bool reload)
         {
@@ -489,6 +489,13 @@ namespace Quantium
         {
             UpdateHumanModelViews(cbHumanModel.SelectedIndex, false);
         }
+
+        private void btnAddPoint_Click(object sender, EventArgs e)
+        {
+            humanPointModels[lbHumanPoints.SelectedIndex].id_methodic = methodicItemModels[cbMethodicList.SelectedIndex].methodicId;
+            DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
+        }
+
         private void tpHumanModel_Enter(object sender, EventArgs e)
         {
             UpdateHumanModelViews(cbHumanModel.SelectedIndex, true);

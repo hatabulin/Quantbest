@@ -76,7 +76,7 @@ namespace Quantium
 
                 commandText = "CREATE TABLE IF NOT EXISTS [" + mainPointsListTableName + "] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[coord_X] INT, [coord_Y] INT, [channel_number] INT, [time] INT, [power] INT, [side] NVARCHAR(10), [point_name] NVARCHAR(10), " +
-                    "[human_model_id] INT, FOREIGN KEY ([human_model_id]) REFERENCES [" + humanModelTableListName + "]([id]))";
+                    "[human_model_id] INT, [methodic_id] INT, FOREIGN KEY ([human_model_id]) REFERENCES [" + humanModelTableListName + "]([id]))";
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
                 Connect.Close(); 
@@ -103,6 +103,35 @@ namespace Quantium
                 Command.Parameters.AddWithValue("@side", pointModel.side);
                 Command.Parameters.AddWithValue("@point_name", pointModel.pointname);
                 Command.Parameters.AddWithValue("@human_model_id", pointModel.id_human_model);
+                Command.ExecuteNonQuery();
+                //Connect.Close();
+            }
+        }
+
+        public static void AddToMainPointsTable(PointModel pointModel)
+        {
+            using (SQLiteConnection Connect = new SQLiteConnection(@"Data Source=" + dbFileName + "; Version=3;"))
+            {
+                Connect.Open();
+                string commandText = "INSERT INTO " + mainPointsListTableName + " ('coord_X', 'coord_Y', 'channel_number', 'time', 'power', 'side', 'point_name', 'human_model_id', 'methodic_id') " +
+                    "VALUES("+pointModel.coordX + ", " +
+                    pointModel.coordY + ", " +
+                    pointModel.channel + ", " +
+                    pointModel.time + ", " +
+                    pointModel.power + ", '" +
+                    pointModel.side + "', '" +
+                    pointModel.pointname + "', " +
+                    pointModel.id_human_model + ", " +
+                    pointModel.id_methodic+ ")";
+                    
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
+                Command.Parameters.AddWithValue("@coord_X", pointModel.coordX);
+                Command.Parameters.AddWithValue("@coord_Y", pointModel.coordY);
+                Command.Parameters.AddWithValue("@channel_number", pointModel.channel);
+                Command.Parameters.AddWithValue("@side", pointModel.side);
+                Command.Parameters.AddWithValue("@point_name", pointModel.pointname);
+                Command.Parameters.AddWithValue("@human_model_id", pointModel.id_human_model);
+                Command.Parameters.AddWithValue("@methodic_id", pointModel.id_methodic);
                 Command.ExecuteNonQuery();
                 //Connect.Close();
             }
@@ -235,10 +264,13 @@ namespace Quantium
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[1]),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[2]),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[3]),
+                                0,
+                                0,
                                 dTable.Rows[i].ItemArray[4].ToString(),
                                 dTable.Rows[i].ItemArray[5].ToString(),
                                 Convert.ToInt32(dTable.Rows[i].ItemArray[0]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[6])));
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[6]),
+                                0));
                         }
                     }
                     else
@@ -268,7 +300,7 @@ namespace Quantium
                 }
                 try
                 {
-                    sqlQuery = "SELECT * FROM " + mainPointsListTableName + " WHERE id = " + methodicId;
+                    sqlQuery = "SELECT * FROM "+mainPointsListTableName+" WHERE methodic_id = " + methodicId;
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                     adapter.Fill(dTable);
 
@@ -278,13 +310,16 @@ namespace Quantium
                         for (int i = 0; i < dTable.Rows.Count; i++)
                         {
                             pointModels.Add(new PointModel(
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[1]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[2]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[3]),
-                                dTable.Rows[i].ItemArray[4].ToString(),
-                                dTable.Rows[i].ItemArray[5].ToString(),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[6])));
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[1]),   // X
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[2]),   // Y
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[3]),   // Channel
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[4]),   // time
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[5]),   // power
+                                dTable.Rows[i].ItemArray[6].ToString(),         // side
+                                dTable.Rows[i].ItemArray[7].ToString(),         // point_name
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]),   // id_point
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[8]),   // id_human_model
+                                Convert.ToInt32(dTable.Rows[i].ItemArray[9]))); // id_methodic
                         }
                     }
                     else

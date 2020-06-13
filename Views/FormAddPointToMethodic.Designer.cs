@@ -43,7 +43,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(33, 38);
+            this.comboBox1.Location = new System.Drawing.Point(35, 28);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(242, 21);
             this.comboBox1.TabIndex = 0;
@@ -51,17 +51,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(80, 9);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(90, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 16);
+            this.label4.Size = new System.Drawing.Size(114, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Выберите точку";
             // 
             // roundButton1
             // 
-            this.roundButton1.BackColor = System.Drawing.Color.Teal;
-            this.roundButton1.BackColor2 = System.Drawing.Color.Silver;
+            this.roundButton1.BackColor = System.Drawing.Color.Gray;
+            this.roundButton1.BackColor2 = System.Drawing.Color.LightGray;
             this.roundButton1.ButtonBorderColor = System.Drawing.Color.Black;
             this.roundButton1.ButtonHighlightColor = System.Drawing.Color.Orange;
             this.roundButton1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
@@ -71,8 +71,8 @@
             this.roundButton1.ButtonPressedForeColor = System.Drawing.Color.White;
             this.roundButton1.ButtonRoundRadius = 10;
             this.roundButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.roundButton1.ForeColor = System.Drawing.Color.Yellow;
-            this.roundButton1.Location = new System.Drawing.Point(150, 121);
+            this.roundButton1.ForeColor = System.Drawing.Color.Blue;
+            this.roundButton1.Location = new System.Drawing.Point(162, 106);
             this.roundButton1.Name = "roundButton1";
             this.roundButton1.Size = new System.Drawing.Size(84, 21);
             this.roundButton1.TabIndex = 33;
@@ -81,8 +81,8 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.BackColor = System.Drawing.Color.Teal;
-            this.buttonOk.BackColor2 = System.Drawing.Color.Silver;
+            this.buttonOk.BackColor = System.Drawing.Color.Gray;
+            this.buttonOk.BackColor2 = System.Drawing.Color.LightGray;
             this.buttonOk.ButtonBorderColor = System.Drawing.Color.Black;
             this.buttonOk.ButtonHighlightColor = System.Drawing.Color.Orange;
             this.buttonOk.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
@@ -92,8 +92,8 @@
             this.buttonOk.ButtonPressedForeColor = System.Drawing.Color.White;
             this.buttonOk.ButtonRoundRadius = 10;
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOk.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonOk.Location = new System.Drawing.Point(51, 121);
+            this.buttonOk.ForeColor = System.Drawing.Color.Blue;
+            this.buttonOk.Location = new System.Drawing.Point(63, 106);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(84, 21);
             this.buttonOk.TabIndex = 32;
@@ -103,33 +103,33 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(139, 79);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(144, 70);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 16);
+            this.label7.Size = new System.Drawing.Size(73, 16);
             this.label7.TabIndex = 37;
             this.label7.Text = "Мощность";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(12, 79);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(17, 70);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 16);
+            this.label6.Size = new System.Drawing.Size(49, 16);
             this.label6.TabIndex = 36;
             this.label6.Text = "Время";
             // 
             // nudPower
             // 
-            this.nudPower.Location = new System.Drawing.Point(226, 79);
+            this.nudPower.Location = new System.Drawing.Point(231, 70);
             this.nudPower.Name = "nudPower";
             this.nudPower.Size = new System.Drawing.Size(60, 20);
             this.nudPower.TabIndex = 35;
             // 
             // nudTime
             // 
-            this.nudTime.Location = new System.Drawing.Point(72, 79);
+            this.nudTime.Location = new System.Drawing.Point(77, 70);
             this.nudTime.Maximum = new decimal(new int[] {
             90,
             0,
@@ -143,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 154);
+            this.ClientSize = new System.Drawing.Size(308, 139);
             this.ControlBox = false;
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
