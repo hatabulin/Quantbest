@@ -23,22 +23,6 @@ namespace Quantium
 {
     public partial class FormMain : Form
     {
-        private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
-        private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
-        private const String TEXT_CONNECT = "OPEN";
-        private const String TEXT_DISCONNECT = "CLOSE";
-        private const int pointRadius = 10;
-        
-        private const int CHANNEL_0 = 0, CHANNEL_1 = 1, CHANNEL_2 = 2, CHANNEL_3 = 3, CHANNEL_4 = 4, CHANNEL_5 = 5, CHANNEL_6 = 6, CHANNEL_7 = 7, CHANNEL_8 = 8, CHANNEL_9 = 9;
-
-        public const String SIDE_FRONT = "Front";
-        public const String SIDE_BACK = "Back";
-
-        static float currentAlphaValue = 0.45f;
-
-        private string mapFrontFileName, mapBackFileName;
-        private string humanModelFrontFileName, humanModelBackFileName;
-        private readonly List<Brush> colorsBrush = new List<Brush> { Brushes.Red, Brushes.Green, Brushes.Yellow, Brushes.White, Brushes.Blue, Brushes.Black };
         private const byte RED = 0;
         private const byte GREEN = 1;
         private const byte YELLOW = 2;
@@ -46,26 +30,34 @@ namespace Quantium
         private const byte BLUE = 3;
         private const byte BLACK = 3;
 
-        private string[] ports;
+        public const String SIDE_FRONT = "Front";
+        public const String SIDE_BACK = "Back";
 
-//        private List<PointModel> pointModels = new List<PointModel>();
+        public static LaserChannel[] laserChannel = {
+            new LaserChannel(0,10), new LaserChannel(100, 10), new LaserChannel(50, 10), new LaserChannel(255, 10), new LaserChannel(128, 10),
+            new LaserChannel(100, 10), new LaserChannel(10, 10), new LaserChannel(30, 10), new LaserChannel(40, 15), new LaserChannel(100, 20)};
+        private string[] ports;
+        private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
+        private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
+        private const String TEXT_CONNECT = "OPEN";
+        private const String TEXT_DISCONNECT = "CLOSE";
+        
+        private const int pointRadius = 10;
+        static float currentAlphaValue = 0.45f;
+        private string mapFrontFileName, mapBackFileName;
+        private string humanModelFrontFileName, humanModelBackFileName;
+        private readonly List<Brush> colorsBrush = new List<Brush> { Brushes.Red, Brushes.Green, Brushes.Yellow, Brushes.White, Brushes.Blue, Brushes.Black };
 
         private List<PointModel> selectedPointModels = new List<PointModel>();
         private List<PointModel> humanPointModels = new List<PointModel>();
-
         private List<MethodicModel> methodicModels = new List<MethodicModel>();
         private List<MethodicItemModel> methodicItemModels = new List<MethodicItemModel>();
         private List<HumanModel> humanModels = new List<HumanModel>();
         
         ToolTip ttip = new ToolTip();
 
-        public static LaserChannel[] laserChannel = { 
-            new LaserChannel(0,10), new LaserChannel(100, 10), new LaserChannel(50, 10), new LaserChannel(255, 10), new LaserChannel(128, 10), 
-            new LaserChannel(100, 10), new LaserChannel(10, 10), new LaserChannel(30, 10), new LaserChannel(40, 15), new LaserChannel(100, 20)};
-
-//        FormEnterMethodic formMethodic = new FormEnterMethodic();
-        FormAddPointToMethodic formAddPointToMethodic;
-        FormDisease formDisease;
+//        FormAddPointToMethodic formAddPointToMethodic;
+//        FormDisease formDisease;
 
         public FormMain()
         {
@@ -93,10 +85,6 @@ namespace Quantium
                     , 10
                 )
             );
-        }
-        public void VisibleTablePointsEmpty(bool visible)
-        {
-            label31.Visible = visible;
         }
         void FillValuesToControls()
         {
@@ -237,7 +225,7 @@ namespace Quantium
         }
         private async void buttonAddPointToMethodic_Click(object sender, EventArgs e)
         {
-            formAddPointToMethodic = new FormAddPointToMethodic(cbMethodicList.SelectedIndex + 1);
+            FormAddPointToMethodic formAddPointToMethodic = new FormAddPointToMethodic(cbMethodicList.SelectedIndex + 1);
             formAddPointToMethodic.ShowDialog();
             formAddPointToMethodic.Dispose();
             await Task.Delay(1);
@@ -358,39 +346,18 @@ namespace Quantium
 
             cbShowMapImages.Checked = false;
         }
-/*
-        private async void btnAddPoint_Click(object sender, EventArgs e)
-        {
-            int methodicId = cbMethodicList.SelectedIndex + 1;
-            formAddPointToMethodic = new FormAddPointToMethodic(methodicId);
-            formAddPointToMethodic.ShowDialog();
-            formAddPointToMethodic.Dispose();
-            await Task.Delay(1);
-
-            DataAccess.ReadMethodicTable(methodicModels, methodicId);
-              DrawHumanPictures();
-            FlashPointsFromList(humanPointModels);
-        }
-*/
         private async void btnAddDisease_Click(object sender, EventArgs e)
         {
             int methodicId = cbMethodicList.SelectedIndex + 1;
             await Task.Delay(1);
 
-            formDisease = new FormDisease(methodicId);
+            FormDisease formDisease = new FormDisease(methodicId);
             formDisease.ShowDialog();
             formDisease.Dispose();
         }
         private void cbMethodicList_SelectionChangeCommitted(object sender, EventArgs e)
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, false);
-        }
-        private void btnAddMethodic_Click(object sender, EventArgs e)
-        {
-            FormEnterMethodic formMethodic = new FormEnterMethodic();
-            formMethodic.ShowDialog();
-            formMethodic.Dispose();
-            UpdateMethodicViews(0,true);
         }
         private void tabPageMethodic_Enter(object sender, EventArgs e)
         {
@@ -423,25 +390,27 @@ namespace Quantium
                 tbHumanModel.Text = methodicItemModels[index].humanModelName;
                 rtbMethodicMemo.Text = methodicItemModels[index].memo;
 
-                int humanModelId = methodicItemModels[index].humanModelId;
-                DataAccess.GetPointsFromHumanTable(humanPointModels, humanModelId);
+                DataAccess.GetPointsFromHumanTable(humanPointModels, methodicItemModels[index].humanModelId);
                 if (humanPointModels.Count > 0)
                 {
                     for (int i = 0; i < humanPointModels.Count; i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
                 }
 
                 // Создаем список точек выдернутый с основной таблици методик.
-                int methodicId = methodicItemModels[index].methodicId;
-                lbSelectedPoints.Items.Clear();
-                DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
-                if (selectedPointModels.Count > 0)
-                {
-                    for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
-                    FlashPointsFromList(humanPointModels);
-                }
                 toolTip1.ToolTipTitle = cbMethodicList.Text;
+                UpdateSelectedPointsListbox(methodicItemModels[index].methodicId);
             }
             // Создаем список точек выдернутый с используемой модели в таблице списка методик.
+        }
+        private void UpdateSelectedPointsListbox(int methodicId)
+        {
+            lbSelectedPoints.Items.Clear();
+            DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
+            if (selectedPointModels.Count > 0)
+            {
+                for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
+                FlashPointsFromList(selectedPointModels);
+            }
         }
         private void UpdateHumanModelViews(int index, bool reload)
         {
@@ -492,8 +461,32 @@ namespace Quantium
 
         private void btnAddPoint_Click(object sender, EventArgs e)
         {
-            humanPointModels[lbHumanPoints.SelectedIndex].id_methodic = methodicItemModels[cbMethodicList.SelectedIndex].methodicId;
-            DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
+//            int methodicIndex = cbMethodicList.SelectedIndex;
+            CopyHumanPointWithAdditionalData(lbHumanPoints.SelectedIndex, cbMethodicList.SelectedIndex);
+            UpdateSelectedPointsListbox(methodicItemModels[cbMethodicList.SelectedIndex].methodicId);
+        }
+        private void lbHumanPoints_DoubleClick(object sender, EventArgs e)
+        {
+//            int methodicIndex = cbMethodicList.SelectedIndex;
+            CopyHumanPointWithAdditionalData(lbHumanPoints.SelectedIndex, cbMethodicList.SelectedIndex);
+            UpdateSelectedPointsListbox(methodicItemModels[cbMethodicList.SelectedIndex].methodicId);
+        }
+        private void CopyHumanPointWithAdditionalData(int humanPointsIndex, int methodicIndex)
+        {
+            humanPointModels[humanPointsIndex].id_methodic = methodicItemModels[methodicIndex].methodicId;
+            FormConfigPoint formConfigPoint = new FormConfigPoint(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //formConfigPoint.SetPointModel(humanPointModels[lbHumanPoints.SelectedIndex]);
+            formConfigPoint.ShowDialog();
+            formConfigPoint.Dispose();
+            //DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
+        }
+
+        private void btnAddMethodic_Click_1(object sender, EventArgs e)
+        {
+            FormEnterMethodic formMethodic = new FormEnterMethodic();
+            formMethodic.ShowDialog();
+            formMethodic.Dispose();
+            UpdateMethodicViews(0, true);
         }
 
         private void tpHumanModel_Enter(object sender, EventArgs e)
@@ -586,7 +579,7 @@ namespace Quantium
         }
         private async void FlashPointsFromList(List<PointModel> pointModels)
         {
-            int x = 5;
+            int x = 2;
             int j;
             while (x>0)
             {
@@ -609,7 +602,7 @@ namespace Quantium
                                 gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
                             pictureBox2.Invalidate();
                         }
-                        await Task.Delay(1);
+                        await Task.Delay(1);// .Delay(1);
                     }
                 }
             }

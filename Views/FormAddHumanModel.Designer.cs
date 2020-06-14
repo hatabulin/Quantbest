@@ -135,7 +135,7 @@
             // 
             // btnOpenHumanModelBack
             // 
-            this.btnOpenHumanModelBack.BackgroundImage = global::Quantium.Properties.Resources.open_folder;
+            this.btnOpenHumanModelBack.BackgroundImage = global::Quantium.Properties.Resources.ic_open_folder;
             this.btnOpenHumanModelBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOpenHumanModelBack.Location = new System.Drawing.Point(293, 179);
             this.btnOpenHumanModelBack.Name = "btnOpenHumanModelBack";
@@ -146,7 +146,7 @@
             // 
             // btnOpenMapBack
             // 
-            this.btnOpenMapBack.BackgroundImage = global::Quantium.Properties.Resources.open_folder;
+            this.btnOpenMapBack.BackgroundImage = global::Quantium.Properties.Resources.ic_open_folder;
             this.btnOpenMapBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOpenMapBack.Location = new System.Drawing.Point(293, 95);
             this.btnOpenMapBack.Name = "btnOpenMapBack";
@@ -157,7 +157,7 @@
             // 
             // btnOpenHumanModelFront
             // 
-            this.btnOpenHumanModelFront.BackgroundImage = global::Quantium.Properties.Resources.open_folder;
+            this.btnOpenHumanModelFront.BackgroundImage = global::Quantium.Properties.Resources.ic_open_folder;
             this.btnOpenHumanModelFront.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOpenHumanModelFront.Location = new System.Drawing.Point(293, 138);
             this.btnOpenHumanModelFront.Name = "btnOpenHumanModelFront";
@@ -168,7 +168,7 @@
             // 
             // btnOpenMapFront
             // 
-            this.btnOpenMapFront.BackgroundImage = global::Quantium.Properties.Resources.open_folder;
+            this.btnOpenMapFront.BackgroundImage = global::Quantium.Properties.Resources.ic_open_folder;
             this.btnOpenMapFront.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOpenMapFront.Location = new System.Drawing.Point(293, 50);
             this.btnOpenMapFront.Name = "btnOpenMapFront";

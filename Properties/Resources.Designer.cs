@@ -63,9 +63,9 @@ namespace Quantium.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add_to_queue_button {
+        internal static System.Drawing.Bitmap ic_add {
             get {
-                object obj = ResourceManager.GetObject("add-to-queue-button", resourceCulture);
+                object obj = ResourceManager.GetObject("ic_add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Quantium.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap left_arrow {
+        internal static System.Drawing.Bitmap ic_left_arrow {
             get {
-                object obj = ResourceManager.GetObject("left_arrow", resourceCulture);
+                object obj = ResourceManager.GetObject("ic_left_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,39 @@ namespace Quantium.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minus {
+        internal static System.Drawing.Bitmap ic_minus {
             get {
-                object obj = ResourceManager.GetObject("minus", resourceCulture);
+                object obj = ResourceManager.GetObject("ic_minus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_open_folder {
+            get {
+                object obj = ResourceManager.GetObject("ic_open_folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_refresh {
+            get {
+                object obj = ResourceManager.GetObject("ic_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_right_arrow {
+            get {
+                object obj = ResourceManager.GetObject("ic_right_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,26 +126,6 @@ namespace Quantium.Properties {
         internal static System.Drawing.Bitmap no_file {
             get {
                 object obj = ResourceManager.GetObject("no_file", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap open_folder {
-            get {
-                object obj = ResourceManager.GetObject("open-folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap right_arrow {
-            get {
-                object obj = ResourceManager.GetObject("right_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

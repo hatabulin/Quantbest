@@ -204,6 +204,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Defines.cs" />
     <Compile Include="Model\HumanModel.cs" />
     <Compile Include="Views\ComboBoxItem.cs" />
     <Compile Include="Views\CustomFormClass.cs" />
@@ -225,6 +226,12 @@
     </Compile>
     <Compile Include="Views\FormAddPointToMethodic.Designer.cs">
       <DependentUpon>FormAddPointToMethodic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormConfigPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormConfigPoint.Designer.cs">
+      <DependentUpon>FormConfigPoint.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormDisease.cs">
       <SubType>Form</SubType>
@@ -260,6 +267,9 @@
     </Compile>
     <EmbeddedResource Include="Views\FormAddHumanModel.resx">
       <DependentUpon>FormAddHumanModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormConfigPoint.resx">
+      <DependentUpon>FormConfigPoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormDisease.resx">
       <DependentUpon>FormDisease.cs</DependentUpon>
@@ -309,6 +319,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\reload.png" />
     <None Include="Resources\right-arrow1.png" />
     <None Include="Resources\right-arrow.png" />
     <None Include="Resources\selection-of-elements.png" />

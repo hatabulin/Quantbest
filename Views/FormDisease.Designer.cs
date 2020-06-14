@@ -101,7 +101,7 @@
             // 
             // btnAddDisease
             // 
-            this.btnAddDisease.BackgroundImage = global::Quantium.Properties.Resources.add_to_queue_button;
+            this.btnAddDisease.BackgroundImage = global::Quantium.Properties.Resources.ic_add;
             this.btnAddDisease.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddDisease.Location = new System.Drawing.Point(230, 35);
             this.btnAddDisease.Name = "btnAddDisease";
