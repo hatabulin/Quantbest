@@ -474,11 +474,11 @@ namespace Quantium
         private void CopyHumanPointWithAdditionalData(int humanPointsIndex, int methodicIndex)
         {
             humanPointModels[humanPointsIndex].id_methodic = methodicItemModels[methodicIndex].methodicId;
-            FormConfigPoint formConfigPoint = new FormConfigPoint(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            FormConfigPoint formConfigPoint = new FormConfigPoint(humanPointModels[lbHumanPoints.SelectedIndex]); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //formConfigPoint.SetPointModel(humanPointModels[lbHumanPoints.SelectedIndex]);
             formConfigPoint.ShowDialog();
             formConfigPoint.Dispose();
-            //DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
+//            DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
         }
 
         private void btnAddMethodic_Click_1(object sender, EventArgs e)

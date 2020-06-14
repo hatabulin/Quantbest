@@ -14,8 +14,9 @@ namespace Quantium.Views
     {
         private PointModel pointModel = new PointModel();
 
-        public FormConfigPoint()
+        public FormConfigPoint(object pointModel)
         {
+            this.pointModel = (PointModel)pointModel;
             InitializeComponent();
         }
 
@@ -23,7 +24,8 @@ namespace Quantium.Views
         {
             pointModel.time = Convert.ToInt32(tbTime.Text);
             pointModel.power= Convert.ToInt32(tbPower.Text);
-//            DataAccess.AddToMainPointsTable(pointModel);
+            DataAccess.AddToMainPointsTable(pointModel);
+            Close();
         }
 
         private void roundButton1_Click(object sender, EventArgs e)
