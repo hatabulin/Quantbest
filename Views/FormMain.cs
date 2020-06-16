@@ -42,7 +42,7 @@ namespace Quantium
         private const String TEXT_CONNECT = "OPEN";
         private const String TEXT_DISCONNECT = "CLOSE";
         
-        private const int pointRadius = 7;
+        private const int pointRadius = 8;
         static float currentAlphaValue = 0.45f;
         private string mapFrontFileName, mapBackFileName;
         private string humanModelFrontFileName, humanModelBackFileName;
