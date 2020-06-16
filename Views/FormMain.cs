@@ -346,7 +346,7 @@ namespace Quantium
 
             cbShowMapImages.Checked = false;
         }
-        private async void btnAddDisease_Click(object sender, EventArgs e)
+        private async void btnAddDisease_Click(object sender, EventArgs e) // За  
         {
             int methodicId = cbMethodicList.SelectedIndex + 1;
             await Task.Delay(1);
@@ -359,10 +359,18 @@ namespace Quantium
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, false);
         }
+
+        private void cbMethodicList1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            UpdateMethodicViews(cbMethodicList1.SelectedIndex, false);
+        }
+      
         private void tabPageMethodic_Enter(object sender, EventArgs e)
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, true);
-//            UpdateHumanModelPoints(cbMethodicList.SelectedIndex, true);
+            //  UpdateMethodicViews(cbMethodicList1.SelectedIndex, true);  // обновление методики в процедуре 
+
+            //            UpdateHumanModelPoints(cbMethodicList.SelectedIndex, true);
         }
         private void UpdateMethodicViews(int index, bool reload)
         {
@@ -381,6 +389,13 @@ namespace Quantium
                     }
                     index = 0;
                     cbMethodicList.SelectedIndex = index;
+
+                    for (int i = 0; i < methodicItemModels.Count; i++)
+                    {
+                        cbMethodicList1.Items.Add(methodicItemModels[i].name); // добавление методики в форму процедуры
+                    }
+                    index = 0;
+                    cbMethodicList1.SelectedIndex = index;
                 }
             }
 
@@ -388,6 +403,7 @@ namespace Quantium
             {
                 ChangeFilePathPictures(methodicItemModels[index].mapFrontFileName, methodicItemModels[index].mapBackFileName, methodicItemModels[index].bodyFrontFileName, methodicItemModels[index].bodyBackFileName);
                 tbHumanModel.Text = methodicItemModels[index].humanModelName;
+                tbHumanModel1.Text = methodicItemModels[index].humanModelName;
                 rtbMethodicMemo.Text = methodicItemModels[index].memo;
 
                 DataAccess.GetPointsFromHumanTable(humanPointModels, methodicItemModels[index].humanModelId);

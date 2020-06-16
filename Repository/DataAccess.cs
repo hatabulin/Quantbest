@@ -21,6 +21,7 @@ namespace Quantium
         private static SQLiteCommand m_sqlCmd = new SQLiteCommand();
 
         const string humanPointsListTableName = "human_points_list";
+        const string ClientProcedureTableName = "ClientProcedure";
         const string humanModelTableListName = "human_models_list";
         const string methodicListTableName = "methodi_clist";
         const string diseaseListTableName = "disease_list";
@@ -79,6 +80,13 @@ namespace Quantium
                     $"[human_model_id] INT, [methodic_id] INT, FOREIGN KEY ([human_model_id]) REFERENCES [{humanModelTableListName}]([id]))";
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
+
+                commandText = $"CREATE TABLE IF NOT EXISTS [{ClientProcedureTableName}] ( [idclient] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                   $"[numberProcedure] INT, [date] DATE, [channel_number] INT, [time] INT, [power] INT, [name] NVARCHAR(32),[surname] NVARCHAR(32), [side] NVARCHAR(10), [point_name] NVARCHAR(10), " +
+                   $"[human_model_id] INT, [methodic_id] INT, FOREIGN KEY ([human_model_id]) REFERENCES [{ClientProcedureTableName}]([id]))";
+                Command = new SQLiteCommand(commandText, Connect);
+                Command.ExecuteNonQuery();
+                                
                 Connect.Close(); 
             }
         }

@@ -91,6 +91,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.btnAddHumanModel = new System.Windows.Forms.Button();
             this.tabPageMethodic = new System.Windows.Forms.TabPage();
+            this.btnAddMethodic = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -112,6 +113,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbDisease = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbHumanModel1 = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbMethodicList1 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.cbShowMapImages = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -124,7 +138,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnAddMethodic = new System.Windows.Forms.Button();
             this.buttonUpdate = new Quantium.RoundButton();
             this.buttonConnect = new Quantium.RoundButton();
             this.button1 = new Quantium.RoundButton();
@@ -171,6 +184,7 @@
             this.groupBox12.SuspendLayout();
             this.tpDiseases.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.contextMenuStripPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -196,6 +210,7 @@
             this.tabControl1.Controls.Add(this.tpMeredianModel);
             this.tabControl1.Controls.Add(this.tabPageMethodic);
             this.tabControl1.Controls.Add(this.tpDiseases);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.Location = new System.Drawing.Point(12, 6);
             this.tabControl1.Multiline = true;
@@ -870,6 +885,17 @@
             this.tabPageMethodic.Text = "Методики";
             this.tabPageMethodic.Enter += new System.EventHandler(this.tabPageMethodic_Enter);
             // 
+            // btnAddMethodic
+            // 
+            this.btnAddMethodic.BackgroundImage = global::Quantium.Properties.Resources.ic_add;
+            this.btnAddMethodic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddMethodic.Location = new System.Drawing.Point(280, 86);
+            this.btnAddMethodic.Name = "btnAddMethodic";
+            this.btnAddMethodic.Size = new System.Drawing.Size(23, 23);
+            this.btnAddMethodic.TabIndex = 54;
+            this.btnAddMethodic.UseVisualStyleBackColor = true;
+            this.btnAddMethodic.Click += new System.EventHandler(this.btnAddMethodic_Click_1);
+            // 
             // label27
             // 
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -1105,6 +1131,157 @@
             this.label1.Text = "Лазеротерапия при болезнях";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage1.Controls.Add(this.tbHumanModel1);
+            this.tabPage1.Controls.Add(this.label35);
+            this.tabPage1.Controls.Add(this.label31);
+            this.tabPage1.Controls.Add(this.label25);
+            this.tabPage1.Controls.Add(this.label23);
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.label15);
+            this.tabPage1.Controls.Add(this.label14);
+            this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.cbMethodicList1);
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Location = new System.Drawing.Point(25, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(332, 686);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Процедура ";
+            // 
+            // tbHumanModel1
+            // 
+            this.tbHumanModel1.Enabled = false;
+            this.tbHumanModel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHumanModel1.Location = new System.Drawing.Point(43, 298);
+            this.tbHumanModel1.Name = "tbHumanModel1";
+            this.tbHumanModel1.ReadOnly = true;
+            this.tbHumanModel1.Size = new System.Drawing.Size(239, 22);
+            this.tbHumanModel1.TabIndex = 47;
+            // 
+            // label35
+            // 
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.ForeColor = System.Drawing.Color.Black;
+            this.label35.Location = new System.Drawing.Point(50, 276);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(206, 19);
+            this.label35.TabIndex = 46;
+            this.label35.Text = "Выбранная модель человека:";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label31
+            // 
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label31.ForeColor = System.Drawing.Color.Black;
+            this.label31.Location = new System.Drawing.Point(6, 119);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(122, 21);
+            this.label31.TabIndex = 38;
+            this.label31.Text = "Время";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label25
+            // 
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label25.ForeColor = System.Drawing.Color.Black;
+            this.label25.Location = new System.Drawing.Point(6, 98);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(274, 21);
+            this.label25.TabIndex = 37;
+            this.label25.Text = "Дата процедуры";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label23.ForeColor = System.Drawing.Color.Black;
+            this.label23.Location = new System.Drawing.Point(6, 77);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(274, 21);
+            this.label23.TabIndex = 36;
+            this.label23.Text = "Процедура №";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(6, 56);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(274, 21);
+            this.label16.TabIndex = 35;
+            this.label16.Text = "Имя";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(6, 35);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(274, 21);
+            this.label15.TabIndex = 34;
+            this.label15.Text = "Фамилия";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(39, 3);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(274, 21);
+            this.label14.TabIndex = 33;
+            this.label14.Text = "Процедуры";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(34, 174);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(274, 21);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Методики лечения болезней";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.ForeColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(40, 225);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(128, 21);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "Выбор методики:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cbMethodicList1
+            // 
+            this.cbMethodicList1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMethodicList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbMethodicList1.FormattingEnabled = true;
+            this.cbMethodicList1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cbMethodicList1.Location = new System.Drawing.Point(43, 249);
+            this.cbMethodicList1.Name = "cbMethodicList1";
+            this.cbMethodicList1.Size = new System.Drawing.Size(239, 24);
+            this.cbMethodicList1.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.cbMethodicList1, " ");
+            this.cbMethodicList1.SelectionChangeCommitted += new System.EventHandler(this.cbMethodicList1_SelectionChangeCommitted);
+            // 
+            // label13
+            // 
+            this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label13.Location = new System.Drawing.Point(53, 208);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(229, 2);
+            this.label13.TabIndex = 32;
+            // 
             // label22
             // 
             this.label22.ForeColor = System.Drawing.Color.White;
@@ -1226,17 +1403,6 @@
             this.pictureBox1.WaitOnLoad = true;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            // 
-            // btnAddMethodic
-            // 
-            this.btnAddMethodic.BackgroundImage = global::Quantium.Properties.Resources.ic_add;
-            this.btnAddMethodic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddMethodic.Location = new System.Drawing.Point(280, 86);
-            this.btnAddMethodic.Name = "btnAddMethodic";
-            this.btnAddMethodic.Size = new System.Drawing.Size(23, 23);
-            this.btnAddMethodic.TabIndex = 54;
-            this.btnAddMethodic.UseVisualStyleBackColor = true;
-            this.btnAddMethodic.Click += new System.EventHandler(this.btnAddMethodic_Click_1);
             // 
             // buttonUpdate
             // 
@@ -1369,6 +1535,8 @@
             this.groupBox12.PerformLayout();
             this.tpDiseases.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.contextMenuStripPoint.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1477,6 +1645,19 @@
         private System.Windows.Forms.ComboBox cbMethodicList;
         private System.Windows.Forms.ListBox lbPoints;
         private System.Windows.Forms.Button btnAddMethodic;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cbMethodicList1;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tbHumanModel1;
+        private System.Windows.Forms.Label label35;
     }
 }
 
