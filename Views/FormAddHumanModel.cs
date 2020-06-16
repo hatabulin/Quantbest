@@ -109,13 +109,9 @@ namespace Quantium.Views
             CheckAllFields();
         }
 
-        private void tbName_Leave(object sender, EventArgs e)
-        {
-            _humanFilesModel.name = tbName.Text;
-        }
-
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            _humanFilesModel.name = tbName.Text;
             DataAccess.AddToHumanModelList(_humanFilesModel);
             Close();
         }
