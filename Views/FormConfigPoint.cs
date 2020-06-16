@@ -16,7 +16,7 @@ namespace Quantium.Views
 
         public FormConfigPoint(object pointModel)
         {
-            this.pointModel = (PointModel)pointModel;
+            this.pointModel = (PointModel) pointModel;
             InitializeComponent();
         }
 
