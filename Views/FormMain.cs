@@ -115,7 +115,7 @@ namespace Quantium
         }
         private void SendValueToSerial(int channelNumber, int value)
         {
-            string str = $"cfg:ch{channelNumber.ToString("X2")}={value.ToString("X2")}";
+            string str = $"cfg:ch{channelNumber:X2}={value:X2}";
             serialPort1.WriteLine(str);
         }
         private void btnConnect_Click(object sender, EventArgs e)
