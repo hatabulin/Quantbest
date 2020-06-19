@@ -238,18 +238,18 @@ namespace Quantium
                     pointModels.Clear();
                     if (dTable.Rows.Count > 0)
                     {
-                        for (int i = 0; i < dTable.Rows.Count; i++)
+                        foreach (DataRow v in dTable.Rows)
                         {
                             pointModels.Add(new PointModel(
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[1]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[2]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[3]),
+                                Convert.ToInt32(v.ItemArray[1]),
+                                Convert.ToInt32(v.ItemArray[2]),
+                                Convert.ToInt32(v.ItemArray[3]),
                                 0,
                                 0,
-                                dTable.Rows[i].ItemArray[4].ToString(),
-                                dTable.Rows[i].ItemArray[5].ToString(),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[0]),
-                                Convert.ToInt32(dTable.Rows[i].ItemArray[6]),
+                                v.ItemArray[4].ToString(),
+                                v.ItemArray[5].ToString(),
+                                Convert.ToInt32(v.ItemArray[0]),
+                                Convert.ToInt32(v.ItemArray[6]),
                                 0));
                         }
                     }

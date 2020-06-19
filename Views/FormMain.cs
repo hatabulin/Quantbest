@@ -41,7 +41,8 @@ namespace Quantium
         private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
         private const String TEXT_CONNECT = "OPEN";
         private const String TEXT_DISCONNECT = "CLOSE";
-        
+
+        private int timerProcedureCounter = 0;
         private const int pointRadius = 10;
         static float currentAlphaValue = 0.45f;
         private string mapFrontFileName, mapBackFileName;
@@ -114,7 +115,7 @@ namespace Quantium
         }
         private void SendValueToSerial(int channelNumber, int value)
         {
-            string str = "cfg:ch" + channelNumber.ToString("X2") + "=" + value.ToString("X2");
+            string str = $"cfg:ch{channelNumber.ToString("X2")}={value.ToString("X2")}";
             serialPort1.WriteLine(str);
         }
         private void btnConnect_Click(object sender, EventArgs e)
@@ -166,7 +167,6 @@ namespace Quantium
 
                     bitmap = AlphaBlending(new Bitmap(humanModelBackFileName), new Bitmap(mapBackFileName), currentAlphaValue);
                     pictureBox2.Image = bitmap;
-
                     vScrollBar1.Enabled = true;
                 }
                 else
@@ -192,14 +192,11 @@ namespace Quantium
                 if (mapFrontFileName != null && mapBackFileName != null)
                 {
                     currentAlphaValue = (float)(vScrollBar1.Minimum + vScrollBar1.Maximum - vScrollBar1.Value) / 100;
-                    if (humanModelFrontFileName != null) bitmap = new Bitmap(humanModelFrontFileName);
-                    else bitmap = new Bitmap(Properties.Resources.no_file);
+                    bitmap = humanModelFrontFileName != null ? new Bitmap(humanModelFrontFileName) : new Bitmap(Properties.Resources.no_file);
                     bitmap = AlphaBlending(bitmap, new Bitmap(mapFrontFileName), currentAlphaValue);
                     pictureBox1.Image = bitmap;
 
-                    if (humanModelBackFileName != null) bitmap = new Bitmap(humanModelBackFileName);
-                    else bitmap = new Bitmap(Properties.Resources.no_file);
-
+                    bitmap = humanModelBackFileName == null ? new Bitmap(Properties.Resources.no_file) : new Bitmap(humanModelBackFileName);
                     bitmap = AlphaBlending(bitmap, new Bitmap(mapBackFileName), currentAlphaValue);
                     pictureBox2.Image = bitmap;
                 }
@@ -230,7 +227,6 @@ namespace Quantium
             formAddPointToMethodic.Dispose();
             await Task.Delay(1);
 
-            //DataAccess.ReadMethodicTable(comboBoxPointsList, cbMethodicList.SelectedIndex + 1, pointModels);
             DrawHumanPictures();
             FlashPointsFromList(humanPointModels);
         }
@@ -269,7 +265,6 @@ namespace Quantium
         {
             DataAccess.RemoveRecordFromMethodicTable();
             await Task.Delay(1);
-//            DataAccess.UpdatePointsModel(pointModels);
             DrawHumanPictures();
             FlashPointsFromList(humanPointModels);
         }
@@ -279,7 +274,8 @@ namespace Quantium
 
             SendValueToSerial(index_value, (sender as TrackBar).Value);
 
-            switch (index_value) {
+            switch (index_value)
+            {
                 case 0: nudLaser1.Value = (sender as TrackBar).Value; break;
                 case 1: nudLaser2.Value = (sender as TrackBar).Value; break;
                 case 2: nudLaser3.Value = (sender as TrackBar).Value; break;
@@ -362,7 +358,6 @@ namespace Quantium
         private void tabPageMethodic_Enter(object sender, EventArgs e)
         {
             UpdateMethodicViews(cbMethodicList.SelectedIndex, true);
-//            UpdateHumanModelPoints(cbMethodicList.SelectedIndex, true);
         }
         private void UpdateMethodicViews(int index, bool reload)
         {
@@ -393,7 +388,7 @@ namespace Quantium
                 DataAccess.GetPointsFromHumanTable(humanPointModels, methodicItemModels[index].humanModelId);
                 if (humanPointModels.Count > 0)
                 {
-                    for (int i = 0; i < humanPointModels.Count; i++) lbHumanPoints.Items.Add(humanPointModels[i].pointname);
+                    foreach (PointModel v in humanPointModels) lbHumanPoints.Items.Add(v.pointname);
                 }
 
                 // Создаем список точек выдернутый с основной таблици методик.
@@ -461,13 +456,11 @@ namespace Quantium
 
         private void btnAddPoint_Click(object sender, EventArgs e)
         {
-//            int methodicIndex = cbMethodicList.SelectedIndex;
             CopyHumanPointWithAdditionalData(lbHumanPoints.SelectedIndex, cbMethodicList.SelectedIndex);
             UpdateSelectedPointsListbox(methodicItemModels[cbMethodicList.SelectedIndex].methodicId);
         }
         private void lbHumanPoints_DoubleClick(object sender, EventArgs e)
         {
-//            int methodicIndex = cbMethodicList.SelectedIndex;
             CopyHumanPointWithAdditionalData(lbHumanPoints.SelectedIndex, cbMethodicList.SelectedIndex);
             UpdateSelectedPointsListbox(methodicItemModels[cbMethodicList.SelectedIndex].methodicId);
         }
@@ -475,10 +468,8 @@ namespace Quantium
         {
             humanPointModels[humanPointsIndex].id_methodic = methodicItemModels[methodicIndex].methodicId;
             FormConfigPoint formConfigPoint = new FormConfigPoint(humanPointModels[lbHumanPoints.SelectedIndex]); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //formConfigPoint.SetPointModel(humanPointModels[lbHumanPoints.SelectedIndex]);
             formConfigPoint.ShowDialog();
             formConfigPoint.Dispose();
-//            DataAccess.AddToMainPointsTable(humanPointModels[lbHumanPoints.SelectedIndex]);
         }
 
         private void btnAddMethodic_Click_1(object sender, EventArgs e)
@@ -506,30 +497,13 @@ namespace Quantium
             if (i > -1) ttip.Show(humanPointModels[i].pointname, pictureBox2);
             else ttip.Hide(pictureBox2);
         }
-        private void NumericUpDownLaser_ValueChanged(object sender, EventArgs e)
-        {
-            int index = 0;
-            if (sender == nudLaser1) tbLaser1.Value = 0;
-            else if (sender == nudLaser1) index = 1;
-            else if (sender == nudLaser2) index = 2;
-            else if (sender == nudLaser3) index = 3;
-            else if (sender == nudLaser4) index = 4;
-            else if (sender == nudLaser5) index = 5;
-            else if (sender == nudLaser6) index = 6;
-            else if (sender == nudLaser7) index = 7;
-            else if (sender == nudLaser8) index = 8;
-            else if (sender == nudLaser9) index = 9;
-
-            //laserChannel[index].myLevelPwm = .Value;
-        }
         private void ComboBoxTimeLaser1_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
             ComboBox currComboBox = (ComboBox)sender;
 
             currComboBox.SelectedIndex = e.Index;
-            string text = currComboBox.Items[e.Index].ToString();
-            int textInteger = Convert.ToInt32(text);
+            int textInteger = Convert.ToInt32(currComboBox.Items[e.Index].ToString());
 
             Brush brush;
             if (textInteger > 15)
@@ -544,13 +518,11 @@ namespace Quantium
             {
                 brush = Brushes.Green;
             }
-            e.Graphics.DrawString(text, currComboBox.Font, brush, e.Bounds.X, e.Bounds.Y);
+            e.Graphics.DrawString(currComboBox.Items[e.Index].ToString(), currComboBox.Font, brush, e.Bounds.X, e.Bounds.Y);
         }
         public  void DrawPoint(int x, int y,String sideHuman)
         {
-            PictureBox pictureBox;
-            if (sideHuman != SIDE_BACK) pictureBox = pictureBox1; else pictureBox = pictureBox2;
-
+            PictureBox pictureBox = sideHuman != SIDE_BACK ? pictureBox1 : pictureBox2;
             Bitmap bmp = new Bitmap(pictureBox.Image, pictureBox.Image.Size.Width, pictureBox.Image.Size.Height);
             bmp.SetResolution(pictureBox.Image.HorizontalResolution, pictureBox.Image.VerticalResolution);
             bmp.GetPixel(x, y);
@@ -563,17 +535,23 @@ namespace Quantium
         {
             for (int i = 0; i < pointModels.Count; i++)
             {
-                if (pointModels[i].side == SIDE_FRONT)
+                switch (pointModels[i].side)
                 {
-                    using (var gr = Graphics.FromImage(pictureBox1.Image))
-                        gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
-                    pictureBox1.Invalidate();
-                }
-                else
-                {
-                    using (var gr = Graphics.FromImage(pictureBox2.Image))
-                        gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
-                    pictureBox2.Invalidate();
+                    case SIDE_FRONT:
+                        {
+                            using (var gr = Graphics.FromImage(pictureBox1.Image))
+                                gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                            pictureBox1.Invalidate();
+                            break;
+                        }
+
+                    default:
+                        {
+                            using (var gr = Graphics.FromImage(pictureBox2.Image))
+                                gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                            pictureBox2.Invalidate();
+                            break;
+                        }
                 }
             }
         }
@@ -590,17 +568,23 @@ namespace Quantium
                     j--;
                     for (int i = 0; i < pointModels.Count; i++)
                     {
-                        if (pointModels[i].side == SIDE_FRONT)
+                        switch (pointModels[i].side)
                         {
-                            using (var gr = Graphics.FromImage(pictureBox1.Image))
-                                gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
-                            pictureBox1.Invalidate();
-                        }
-                        else
-                        {
-                            using (var gr = Graphics.FromImage(pictureBox2.Image))
-                                gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
-                            pictureBox2.Invalidate();
+                            case SIDE_FRONT:
+                                {
+                                    using (var gr = Graphics.FromImage(pictureBox1.Image))
+                                        gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                    pictureBox1.Invalidate();
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    using (var gr = Graphics.FromImage(pictureBox2.Image))
+                                        gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                    pictureBox2.Invalidate();
+                                    break;
+                                }
                         }
                         await Task.Delay(1);// .Delay(1);
                     }
@@ -617,6 +601,44 @@ namespace Quantium
             pictureBox1.Update();
             pictureBox2.Invalidate();
         }
+
+        private void btnStartProcedures_Click(object sender, EventArgs e)
+        {
+            if (selectedPointModels.Count>0)
+            {
+                for (int i=0;i<selectedPointModels.Count;i++)
+                {
+                    SendValueToSerial(selectedPointModels[i].channel, selectedPointModels[i].power);
+                    Thread.Sleep(20);
+                }
+
+                timerProcedure.Enabled = true;
+                btnStartProcedures.Enabled = false;
+            }
+        }
+
+        private void timerProcedure_Tick(object sender, EventArgs e)
+        {
+            timerProcedureCounter++;
+            int currentCount = 0;
+
+            for (int i = 0; i < selectedPointModels.Count; i++)
+            {
+                if (selectedPointModels[i].time < timerProcedureCounter)
+                {
+                    SendValueToSerial(selectedPointModels[i].channel, 0);
+                    Thread.Sleep(20);
+                    currentCount++;
+                }
+                if (currentCount == selectedPointModels.Count)
+                {
+                    timerProcedure.Enabled = false;
+                    MessageBox.Show("Procedure ended !");
+                    btnStartProcedures.Enabled = true;
+                }
+            }
+        }
+
         Bitmap AlphaBlending(Image firstBitmap, Image secondBitmap, float alphaPercent)
         {
             if (alphaPercent < 0f || alphaPercent > 1f)
