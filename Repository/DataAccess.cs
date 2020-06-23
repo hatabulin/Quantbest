@@ -175,34 +175,16 @@ namespace Quantium
 
         public static Boolean isUserExists(String surname, String name)
         {
-            // DB db = new DB();
-
-            // DataTable table = new DataTable();
-
-            // MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-
-            // MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL", db.getConnection());
-            //command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginField.Text;
-
-            //adapter.SelectCommand = command;
-            //adapter.Fill(table);
             DataTable dTable = new DataTable();
             String sqlQuery;
             using (SQLiteConnection Connect = new SQLiteConnection($"Data Source={dbFileName}; Version=3;"))
             {
                 Connect.Open();
 
-               // string commandText = $"SELECT * FROM {ClientProcedureTableName} WHERE `surname` = @uL";
-               // command.Parameters.Add("@uL", SqlDbType.VarChar).Value = surname.Text;
-                // string commandText = $"INSERT INTO {ClientProcedureTableName}" +
-                //     $" ('surname','name', 'oxigenation_1', 'methodic_memo', 'human_model_id') VALUES('{surname}','{name}','{oxy1}', '{memo}', {humanModelId})";
-
                 sqlQuery = $"SELECT * FROM  {ClientProcedureTableName} WHERE surname = '{surname}' "; // добавить Имя и № процедуры
 
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                 adapter.Fill(dTable);
-                //if (dTable.Field.surname =surname) //  надо проверить есть ли совпадение в таблице по имени и фамилии и номеру и дате процедурыf
 
                 if (dTable.Rows.Count > 0)
                 {
