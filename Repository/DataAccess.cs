@@ -198,7 +198,7 @@ namespace Quantium
                 // string commandText = $"INSERT INTO {ClientProcedureTableName}" +
                 //     $" ('surname','name', 'oxigenation_1', 'methodic_memo', 'human_model_id') VALUES('{surname}','{name}','{oxy1}', '{memo}', {humanModelId})";
 
-                sqlQuery = $"SELECT * FROM  {ClientProcedureTableName} WHERE `surname` = surname "; // добавить Имя и № процедуры
+                sqlQuery = $"SELECT * FROM  {ClientProcedureTableName} WHERE surname = '{surname}' "; // добавить Имя и № процедуры
 
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
                 adapter.Fill(dTable);
