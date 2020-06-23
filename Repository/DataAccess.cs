@@ -81,9 +81,13 @@ namespace Quantium
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
 
-                commandText = $"CREATE TABLE IF NOT EXISTS [{ClientProcedureTableName}] ( [idclient] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                   $"[numberProcedure] INT, [date] DATE, [channel_number] INT, [time] INT, [power] INT, [name] NVARCHAR(32),[surname] NVARCHAR(32), [side] NVARCHAR(10), [point_name] NVARCHAR(10), " +
-                   $"[human_model_id] INT, [methodic_id] INT, FOREIGN KEY ([human_model_id]) REFERENCES [{ClientProcedureTableName}]([id]))";
+                // связать по relation mainPointsListTableName к этой базе 
+                commandText = $"CREATE TABLE IF NOT EXISTS [{ClientProcedureTableName}] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                   $"[numberProcedure] INT, [date] DATE, [channel_number] INT, [time] INT, [power] INT, [name] NVARCHAR(32),[surname] NVARCHAR(32)," +
+                   $" [side] NVARCHAR(10), [point_name] NVARCHAR(10), " +
+                   $"[human_model_id] INT, [methodic_id] INT, [oxigenation_1] INT, [oxigenation_2] INT,[sugar_1] INT, [sugar_2] INT, " +
+                   $"[pres_lo_1] INT,[pres_lo_2] INT,[pres_hi_1] INT,[pres_hi_2] INT, [methodic_memo] MEMO," +
+                   $" FOREIGN KEY ([human_model_id]) REFERENCES [{mainPointsListTableName}]([id]))";
                 Command = new SQLiteCommand(commandText, Connect);
                 Command.ExecuteNonQuery();
                                 
@@ -148,6 +152,70 @@ namespace Quantium
                 Command.ExecuteNonQuery();
             }
         }
+
+        public static void AddProcedureForMan(String surname , String name, String oxy1, String memo, int humanModelId)
+        {
+            using (SQLiteConnection Connect = new SQLiteConnection($"Data Source={dbFileName}; Version=3;"))
+            {
+                Connect.Open();
+
+                string commandText = $"INSERT INTO {ClientProcedureTableName}" +
+                    $" ('surname','name', 'oxigenation_1', 'methodic_memo', 'human_model_id') VALUES('{surname}','{name}','{oxy1}', '{memo}', {humanModelId})";
+
+                SQLiteCommand Command = new SQLiteCommand(commandText, Connect);  // Надо сделать поиск по фамиили и № процедуре и дате
+                Command.Parameters.AddWithValue("@surname", surname);
+                Command.Parameters.AddWithValue("@name", name);
+                Command.Parameters.AddWithValue("@oxigenation_1", oxy1);
+                Command.Parameters.AddWithValue("@methodic_memo", memo);
+                Command.Parameters.AddWithValue("@human_model_id", humanModelId);
+                Command.ExecuteNonQuery();
+            }
+        }
+
+
+        public static Boolean isUserExists(String surname, String name)
+        {
+            // DB db = new DB();
+
+            // DataTable table = new DataTable();
+
+            // MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+
+            // MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @uL", db.getConnection());
+            //command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginField.Text;
+
+            //adapter.SelectCommand = command;
+            //adapter.Fill(table);
+            DataTable dTable = new DataTable();
+            String sqlQuery;
+            using (SQLiteConnection Connect = new SQLiteConnection($"Data Source={dbFileName}; Version=3;"))
+            {
+                Connect.Open();
+
+               // string commandText = $"SELECT * FROM {ClientProcedureTableName} WHERE `surname` = @uL";
+               // command.Parameters.Add("@uL", SqlDbType.VarChar).Value = surname.Text;
+                // string commandText = $"INSERT INTO {ClientProcedureTableName}" +
+                //     $" ('surname','name', 'oxigenation_1', 'methodic_memo', 'human_model_id') VALUES('{surname}','{name}','{oxy1}', '{memo}', {humanModelId})";
+
+                sqlQuery = $"SELECT * FROM  {ClientProcedureTableName} WHERE `surname` = surname "; // добавить Имя и № процедуры
+
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, Connect);
+                adapter.Fill(dTable);
+                //if (dTable.Field.surname =surname) //  надо проверить есть ли совпадение в таблице по имени и фамилии и номеру и дате процедурыf
+
+                if (dTable.Rows.Count > 0)
+                {
+                   
+                    return true;
+                }
+
+                else
+                    return false;
+            }
+        
+        }
+
         public static void AddDisease(String name)
         {
             using (SQLiteConnection Connect = new SQLiteConnection($"Data Source={dbFileName}; Version=3;"))

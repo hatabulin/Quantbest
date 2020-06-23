@@ -381,6 +381,8 @@ namespace Quantium
             {
                 DataAccess.ReadMethodicListTable(methodicItemModels);
                 cbMethodicList.Items.Clear();
+                cbMethodicList1.Items.Clear();
+
                 if (methodicItemModels.Count > 0)
                 {
                     for (int i = 0; i < methodicItemModels.Count; i++)
@@ -633,6 +635,15 @@ namespace Quantium
             pictureBox1.Update();
             pictureBox2.Invalidate();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Procedure formProcedure = new Procedure();
+            formProcedure.ShowDialog();
+            formProcedure.Dispose();
+            UpdateMethodicViews(0, true);
+        }
+
         Bitmap AlphaBlending(Image firstBitmap, Image secondBitmap, float alphaPercent)
         {
             if (alphaPercent < 0f || alphaPercent > 1f)

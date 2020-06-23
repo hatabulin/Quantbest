@@ -33,7 +33,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpDriverSettings = new System.Windows.Forms.TabPage();
+            this.buttonUpdate = new Quantium.RoundButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonConnect = new Quantium.RoundButton();
             this.cbComPort = new System.Windows.Forms.ComboBox();
             this.groupBoxPwmPower = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -109,11 +111,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tpDiseases = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new Quantium.RoundButton();
             this.cbDiseaseType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbDisease = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.tbHumanModel1 = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -138,9 +142,8 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonUpdate = new Quantium.RoundButton();
-            this.buttonConnect = new Quantium.RoundButton();
-            this.button1 = new Quantium.RoundButton();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -233,6 +236,27 @@
             this.tpDriverSettings.TabIndex = 0;
             this.tpDriverSettings.Text = "Тест драйвера";
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.BackColor = System.Drawing.Color.Gray;
+            this.buttonUpdate.BackColor2 = System.Drawing.Color.LightGray;
+            this.buttonUpdate.BackgroundImage = global::Quantium.Properties.Resources.ic_refresh;
+            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonUpdate.ButtonRoundRadius = 10;
+            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonUpdate.ForeColor = System.Drawing.Color.Blue;
+            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(25, 24);
+            this.buttonUpdate.TabIndex = 19;
+            // 
             // groupBox2
             // 
             this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -245,6 +269,27 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор комп-порта";
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.BackColor = System.Drawing.Color.Gray;
+            this.buttonConnect.BackColor2 = System.Drawing.Color.LightGray;
+            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonConnect.ButtonRoundRadius = 10;
+            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonConnect.ForeColor = System.Drawing.Color.Blue;
+            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
+            this.buttonConnect.TabIndex = 17;
+            this.buttonConnect.Text = "OPEN";
+            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // cbComPort
             // 
@@ -1085,6 +1130,25 @@
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.BackColor2 = System.Drawing.Color.LightGray;
+            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
+            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
+            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.button1.ButtonRoundRadius = 10;
+            this.button1.ForeColor = System.Drawing.Color.Blue;
+            this.button1.Location = new System.Drawing.Point(48, 202);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 25);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Старт";
+            // 
             // cbDiseaseType
             // 
             this.cbDiseaseType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -1134,6 +1198,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.tbHumanModel1);
             this.tabPage1.Controls.Add(this.label35);
             this.tabPage1.Controls.Add(this.label31);
@@ -1152,6 +1219,17 @@
             this.tabPage1.Size = new System.Drawing.Size(332, 686);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Процедура ";
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = global::Quantium.Properties.Resources.ic_add;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(246, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(23, 23);
+            this.button2.TabIndex = 55;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tbHumanModel1
             // 
@@ -1224,7 +1302,7 @@
             this.label15.ForeColor = System.Drawing.Color.Black;
             this.label15.Location = new System.Drawing.Point(6, 35);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(274, 21);
+            this.label15.Size = new System.Drawing.Size(99, 21);
             this.label15.TabIndex = 34;
             this.label15.Text = "Фамилия";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1404,66 +1482,23 @@
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // buttonUpdate
+            // button4
             // 
-            this.buttonUpdate.BackColor = System.Drawing.Color.Gray;
-            this.buttonUpdate.BackColor2 = System.Drawing.Color.LightGray;
-            this.buttonUpdate.BackgroundImage = global::Quantium.Properties.Resources.ic_refresh;
-            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonUpdate.ButtonRoundRadius = 10;
-            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonUpdate.ForeColor = System.Drawing.Color.Blue;
-            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(25, 24);
-            this.buttonUpdate.TabIndex = 19;
+            this.button4.Location = new System.Drawing.Point(20, 394);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(108, 23);
+            this.button4.TabIndex = 56;
+            this.button4.Text = "Стар ";
+            this.button4.UseVisualStyleBackColor = true;
             // 
-            // buttonConnect
+            // button5
             // 
-            this.buttonConnect.BackColor = System.Drawing.Color.Gray;
-            this.buttonConnect.BackColor2 = System.Drawing.Color.LightGray;
-            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonConnect.ButtonRoundRadius = 10;
-            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonConnect.ForeColor = System.Drawing.Color.Blue;
-            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
-            this.buttonConnect.TabIndex = 17;
-            this.buttonConnect.Text = "OPEN";
-            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.BackColor2 = System.Drawing.Color.LightGray;
-            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
-            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
-            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.button1.ButtonRoundRadius = 10;
-            this.button1.ForeColor = System.Drawing.Color.Blue;
-            this.button1.Location = new System.Drawing.Point(48, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 25);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Старт";
+            this.button5.Location = new System.Drawing.Point(168, 394);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(114, 23);
+            this.button5.TabIndex = 57;
+            this.button5.Text = "Стоп";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -1658,6 +1693,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbHumanModel1;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
     }
 }
 
