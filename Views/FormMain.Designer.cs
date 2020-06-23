@@ -96,6 +96,7 @@
             this.btnAddMethodic = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.btnStartProcedures = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btnAddPoint = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -128,7 +129,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnStartProcedures = new System.Windows.Forms.Button();
             this.timerProcedure = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
@@ -955,6 +955,16 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Конфигуратор точек";
             // 
+            // btnStartProcedures
+            // 
+            this.btnStartProcedures.Location = new System.Drawing.Point(245, 364);
+            this.btnStartProcedures.Name = "btnStartProcedures";
+            this.btnStartProcedures.Size = new System.Drawing.Size(75, 23);
+            this.btnStartProcedures.TabIndex = 40;
+            this.btnStartProcedures.Text = "Пуск";
+            this.btnStartProcedures.UseVisualStyleBackColor = true;
+            this.btnStartProcedures.Click += new System.EventHandler(this.btnStartProcedures_Click);
+            // 
             // button3
             // 
             this.button3.BackgroundImage = global::Quantium.Properties.Resources.ic_left_arrow;
@@ -1301,16 +1311,6 @@
             this.pictureBox1.WaitOnLoad = true;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            // 
-            // btnStartProcedures
-            // 
-            this.btnStartProcedures.Location = new System.Drawing.Point(245, 364);
-            this.btnStartProcedures.Name = "btnStartProcedures";
-            this.btnStartProcedures.Size = new System.Drawing.Size(75, 23);
-            this.btnStartProcedures.TabIndex = 40;
-            this.btnStartProcedures.Text = "Пуск";
-            this.btnStartProcedures.UseVisualStyleBackColor = true;
-            this.btnStartProcedures.Click += new System.EventHandler(this.btnStartProcedures_Click);
             // 
             // timerProcedure
             // 

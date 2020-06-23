@@ -273,7 +273,7 @@ namespace Quantium
             int index_value = GetIndexFromTrackBarLaser(sender);
 
             SendValueToSerial(index_value, (sender as TrackBar).Value);
-
+/*
             switch (index_value)
             {
                 case 0: nudLaser1.Value = (sender as TrackBar).Value; break;
@@ -287,7 +287,7 @@ namespace Quantium
                 case 8: nudLaser9.Value = (sender as TrackBar).Value; break;
                 case 9: nudLaser10.Value = (sender as TrackBar).Value; break;
             }
-        }
+  */      }
         private int GetIndexFromTrackBarLaser(object sender)
         {
             int index_value = 0;
@@ -300,7 +300,8 @@ namespace Quantium
             else if (sender == tbLaser7) index_value = 6;
             else if (sender == tbLaser8) index_value = 7;
             else if (sender == tbLaser9) index_value = 8;
-            else if (sender == tbLaser10) index_value = 9;
+            else if (sender == tbLaser10) 
+                index_value = 9;
             return index_value;
         }
         private int CheckPositionOnPoint(MouseEventArgs e, String side)
