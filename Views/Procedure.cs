@@ -45,7 +45,7 @@ namespace Quantium.Views
             isexistSurname = DataAccess.isUserExists(surname.Text, name.Text);
             if  (isexistSurname=true)
              {
-                MessageBox.Show("Етот клиент" + surname + "  " + name + " и процедура  уже есть введите другую N процедуры");
+                MessageBox.Show("Этот клиент " + surname.Text  + " " +name.Text + " и процедура " + textBox10.Text+   "уже есть введите другую N процедуры");
 
             }
 
