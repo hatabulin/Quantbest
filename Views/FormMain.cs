@@ -609,10 +609,10 @@ namespace Quantium
             Boolean flag = false;
             if (selectedPointModels.Count>0)
             {
-                string str = "";
+                string str = "cfg:";
                 for (int i=0;i< 9;i++)
                 {
-                    str += $"cfg:ch{i:X2}=";
+                    str += $"ch{i:X2}=";
                     for (int y=0;y< selectedPointModels.Count;y++)
                     {
                         if (selectedPointModels[y].channel == i)
