@@ -633,7 +633,7 @@ namespace Quantium
             {
                 if (v.time < timerProcedureCounter)
                 {
-                    SendValueToSerial(selectedPointModels[i].channel, 0);
+                    SendValueToSerial(v.channel, 0);
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
