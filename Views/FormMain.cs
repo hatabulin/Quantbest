@@ -615,7 +615,7 @@ namespace Quantium
 
                 timerProcedureCounter = 0;
 
-                //serialPort1.WriteLine(str);
+                serialPort1.WriteLine(str);
                 //timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
@@ -633,7 +633,7 @@ namespace Quantium
             {
                 if (v.time < timerProcedureCounter)
                 {
-                    //SendValueToSerial(selectedPointModels[i].channel, 0);
+                    SendValueToSerial(selectedPointModels[i].channel, 0);
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
