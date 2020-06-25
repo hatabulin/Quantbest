@@ -612,7 +612,7 @@ namespace Quantium
                 string str = "";
                 for (int i=0;i< 9;i++)
                 {
-                    str += $"ch{i:X2}=";
+                    str += $"cfg:ch{i:X2}=";
                     for (int y=0;y< selectedPointModels.Count;y++)
                     {
                         if (selectedPointModels[y].channel == i)
@@ -647,7 +647,7 @@ namespace Quantium
                 if (selectedPointModels[i].time < timerProcedureCounter)
                 {
                     SendValueToSerial(selectedPointModels[i].channel, 0);
-                    Thread.Sleep(USB_TIME_SLEEP);
+                    //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
                 if (currentCount == selectedPointModels.Count)
