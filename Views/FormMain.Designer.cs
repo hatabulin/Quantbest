@@ -33,9 +33,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpDriverSettings = new System.Windows.Forms.TabPage();
-            this.buttonUpdate = new Quantium.RoundButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonConnect = new Quantium.RoundButton();
             this.cbComPort = new System.Windows.Forms.ComboBox();
             this.groupBoxPwmPower = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -112,7 +110,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tpDiseases = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new Quantium.RoundButton();
             this.cbDiseaseType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbDisease = new System.Windows.Forms.ComboBox();
@@ -130,6 +127,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timerProcedure = new System.Windows.Forms.Timer(this.components);
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnStopTimer = new System.Windows.Forms.Button();
+            this.buttonUpdate = new Quantium.RoundButton();
+            this.buttonConnect = new Quantium.RoundButton();
+            this.button1 = new Quantium.RoundButton();
             this.tabControl1.SuspendLayout();
             this.tpDriverSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -220,27 +222,6 @@
             this.tpDriverSettings.TabIndex = 0;
             this.tpDriverSettings.Text = "Тест драйвера";
             // 
-            // buttonUpdate
-            // 
-            this.buttonUpdate.BackColor = System.Drawing.Color.Gray;
-            this.buttonUpdate.BackColor2 = System.Drawing.Color.LightGray;
-            this.buttonUpdate.BackgroundImage = global::Quantium.Properties.Resources.ic_refresh;
-            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonUpdate.ButtonRoundRadius = 10;
-            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonUpdate.ForeColor = System.Drawing.Color.Blue;
-            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(25, 24);
-            this.buttonUpdate.TabIndex = 19;
-            // 
             // groupBox2
             // 
             this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -253,27 +234,6 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор комп-порта";
-            // 
-            // buttonConnect
-            // 
-            this.buttonConnect.BackColor = System.Drawing.Color.Gray;
-            this.buttonConnect.BackColor2 = System.Drawing.Color.LightGray;
-            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
-            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.buttonConnect.ButtonRoundRadius = 10;
-            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonConnect.ForeColor = System.Drawing.Color.Blue;
-            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
-            this.buttonConnect.TabIndex = 17;
-            this.buttonConnect.Text = "OPEN";
-            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // cbComPort
             // 
@@ -938,6 +898,8 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.btnStopTimer);
+            this.groupBox12.Controls.Add(this.label11);
             this.groupBox12.Controls.Add(this.btnStartProcedures);
             this.groupBox12.Controls.Add(this.button3);
             this.groupBox12.Controls.Add(this.btnAddPoint);
@@ -957,9 +919,9 @@
             // 
             // btnStartProcedures
             // 
-            this.btnStartProcedures.Location = new System.Drawing.Point(245, 364);
+            this.btnStartProcedures.Location = new System.Drawing.Point(180, 364);
             this.btnStartProcedures.Name = "btnStartProcedures";
-            this.btnStartProcedures.Size = new System.Drawing.Size(75, 23);
+            this.btnStartProcedures.Size = new System.Drawing.Size(68, 23);
             this.btnStartProcedures.TabIndex = 40;
             this.btnStartProcedures.Text = "Пуск";
             this.btnStartProcedures.UseVisualStyleBackColor = true;
@@ -1124,25 +1086,6 @@
             this.groupBox1.Size = new System.Drawing.Size(191, 246);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Gray;
-            this.button1.BackColor2 = System.Drawing.Color.LightGray;
-            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
-            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
-            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
-            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
-            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
-            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
-            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
-            this.button1.ButtonRoundRadius = 10;
-            this.button1.ForeColor = System.Drawing.Color.Blue;
-            this.button1.Location = new System.Drawing.Point(48, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 25);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Старт";
             // 
             // cbDiseaseType
             // 
@@ -1316,6 +1259,87 @@
             // 
             this.timerProcedure.Interval = 1000;
             this.timerProcedure.Tick += new System.EventHandler(this.timerProcedure_Tick);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(122, 371);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(52, 16);
+            this.label11.TabIndex = 55;
+            this.label11.Text = "label11";
+            // 
+            // btnStopTimer
+            // 
+            this.btnStopTimer.Enabled = false;
+            this.btnStopTimer.Location = new System.Drawing.Point(254, 364);
+            this.btnStopTimer.Name = "btnStopTimer";
+            this.btnStopTimer.Size = new System.Drawing.Size(66, 23);
+            this.btnStopTimer.TabIndex = 56;
+            this.btnStopTimer.Text = "Стоп";
+            this.btnStopTimer.UseVisualStyleBackColor = true;
+            this.btnStopTimer.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.BackColor = System.Drawing.Color.Gray;
+            this.buttonUpdate.BackColor2 = System.Drawing.Color.LightGray;
+            this.buttonUpdate.BackgroundImage = global::Quantium.Properties.Resources.ic_refresh;
+            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUpdate.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonUpdate.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonUpdate.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonUpdate.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonUpdate.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonUpdate.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonUpdate.ButtonRoundRadius = 10;
+            this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonUpdate.ForeColor = System.Drawing.Color.Blue;
+            this.buttonUpdate.Location = new System.Drawing.Point(253, 26);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(25, 24);
+            this.buttonUpdate.TabIndex = 19;
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.BackColor = System.Drawing.Color.Gray;
+            this.buttonConnect.BackColor2 = System.Drawing.Color.LightGray;
+            this.buttonConnect.ButtonBorderColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.buttonConnect.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.buttonConnect.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.buttonConnect.ButtonPressedColor = System.Drawing.Color.Red;
+            this.buttonConnect.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.buttonConnect.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.buttonConnect.ButtonRoundRadius = 10;
+            this.buttonConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonConnect.ForeColor = System.Drawing.Color.Blue;
+            this.buttonConnect.Location = new System.Drawing.Point(167, 21);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(64, 23);
+            this.buttonConnect.TabIndex = 17;
+            this.buttonConnect.Text = "OPEN";
+            this.buttonConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.BackColor2 = System.Drawing.Color.LightGray;
+            this.button1.ButtonBorderColor = System.Drawing.Color.Black;
+            this.button1.ButtonHighlightColor = System.Drawing.Color.Orange;
+            this.button1.ButtonHighlightColor2 = System.Drawing.Color.OrangeRed;
+            this.button1.ButtonHighlightForeColor = System.Drawing.Color.Black;
+            this.button1.ButtonPressedColor = System.Drawing.Color.Red;
+            this.button1.ButtonPressedColor2 = System.Drawing.Color.Maroon;
+            this.button1.ButtonPressedForeColor = System.Drawing.Color.White;
+            this.button1.ButtonRoundRadius = 10;
+            this.button1.ForeColor = System.Drawing.Color.Blue;
+            this.button1.Location = new System.Drawing.Point(48, 202);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 25);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Старт";
             // 
             // FormMain
             // 
@@ -1497,6 +1521,8 @@
         private System.Windows.Forms.Button btnAddMethodic;
         private System.Windows.Forms.Button btnStartProcedures;
         private System.Windows.Forms.Timer timerProcedure;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnStopTimer;
     }
 }
 

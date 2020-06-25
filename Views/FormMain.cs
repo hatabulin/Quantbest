@@ -29,24 +29,24 @@ namespace Quantium
         private const byte WHITE = 3;
         private const byte BLUE = 3;
         private const byte BLACK = 3;
-
         private const byte USB_TIME_SLEEP = 80; // 50 задержка между переключением лазеров 
+        private const int MAX_CHANNELS = 10;
+        private const int pointRadius = 10;
 
         public const String SIDE_FRONT = "Front";
         public const String SIDE_BACK = "Back";
-
-        public static LaserChannel[] laserChannel = {
-            new LaserChannel(0,10), new LaserChannel(100, 10), new LaserChannel(50, 10), new LaserChannel(255, 10), new LaserChannel(128, 10),
-            new LaserChannel(100, 10), new LaserChannel(10, 10), new LaserChannel(30, 10), new LaserChannel(40, 15), new LaserChannel(100, 20)};
-        private string[] ports;
         private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
         private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
         private const String TEXT_CONNECT = "OPEN";
         private const String TEXT_DISCONNECT = "CLOSE";
 
+        public static LaserChannel[] laserChannel = {
+            new LaserChannel(0,10), new LaserChannel(100, 10), new LaserChannel(50, 10), new LaserChannel(255, 10), new LaserChannel(128, 10),
+            new LaserChannel(100, 10), new LaserChannel(10, 10), new LaserChannel(30, 10), new LaserChannel(40, 15), new LaserChannel(100, 20)};
+        private string[] ports;
+
         private int timerProcedureCounter = 0;
-        private const int pointRadius = 10;
-        static float currentAlphaValue = 0.45f;
+        private float currentAlphaValue = 0.45f;
         private string mapFrontFileName, mapBackFileName;
         private string humanModelFrontFileName, humanModelBackFileName;
         private readonly List<Brush> colorsBrush = new List<Brush> { Brushes.Red, Brushes.Green, Brushes.Yellow, Brushes.White, Brushes.Blue, Brushes.Black };
@@ -58,9 +58,6 @@ namespace Quantium
         private List<HumanModel> humanModels = new List<HumanModel>();
         
         ToolTip ttip = new ToolTip();
-
-//        FormAddPointToMethodic formAddPointToMethodic;
-//        FormDisease formDisease;
 
         public FormMain()
         {
@@ -275,21 +272,7 @@ namespace Quantium
             int index_value = GetIndexFromTrackBarLaser(sender);
 
             SendValueToSerial(index_value, (sender as TrackBar).Value);
-/*
-            switch (index_value)
-            {
-                case 0: nudLaser1.Value = (sender as TrackBar).Value; break;
-                case 1: nudLaser2.Value = (sender as TrackBar).Value; break;
-                case 2: nudLaser3.Value = (sender as TrackBar).Value; break;
-                case 3: nudLaser4.Value = (sender as TrackBar).Value; break;
-                case 4: nudLaser5.Value = (sender as TrackBar).Value; break;
-                case 5: nudLaser6.Value = (sender as TrackBar).Value; break;
-                case 6: nudLaser7.Value = (sender as TrackBar).Value; break;
-                case 7: nudLaser8.Value = (sender as TrackBar).Value; break;
-                case 8: nudLaser9.Value = (sender as TrackBar).Value; break;
-                case 9: nudLaser10.Value = (sender as TrackBar).Value; break;
-            }
-  */      }
+      }
         private int GetIndexFromTrackBarLaser(object sender)
         {
             int index_value = 0;
@@ -372,9 +355,9 @@ namespace Quantium
                 cbMethodicList.Items.Clear();
                 if (methodicItemModels.Count > 0)
                 {
-                    for (int i = 0; i < methodicItemModels.Count; i++)
+                    foreach (MethodicItemModel v in methodicItemModels)
                     {
-                        cbMethodicList.Items.Add(methodicItemModels[i].name);
+                        cbMethodicList.Items.Add(v.name);
                     }
                     index = 0;
                     cbMethodicList.SelectedIndex = index;
@@ -405,7 +388,9 @@ namespace Quantium
             DataAccess.GetPointsFromMainTable(selectedPointModels, methodicId);
             if (selectedPointModels.Count > 0)
             {
-                for (int i = 0; i < selectedPointModels.Count; i++) lbSelectedPoints.Items.Add(selectedPointModels[i].pointname);
+                foreach (PointModel v in selectedPointModels) 
+                    lbSelectedPoints.Items.Add(v.pointname);
+                
                 FlashPointsFromList(selectedPointModels);
             }
         }
@@ -418,9 +403,9 @@ namespace Quantium
                 cbHumanModel.Items.Clear();
                 if (humanModels.Count > 0)
                 {
-                    for (int i = 0; i < humanModels.Count; i++)
+                    foreach (HumanModel v in humanModels)
                     {
-                        cbHumanModel.Items.Add(humanModels[i].name);
+                        cbHumanModel.Items.Add(v.name);
                     }
                     index = 0;
                 }
@@ -433,9 +418,9 @@ namespace Quantium
                 DataAccess.GetPointsFromHumanTable(humanPointModels, humanModels[index].id_human_model);
                 if (humanPointModels.Count > 0)
                 {
-                    for (int i = 0; i < humanPointModels.Count; i++)
+                    foreach (PointModel v in humanPointModels)
                     {
-                        lbPoints.Items.Add(humanPointModels[i].pointname);
+                        lbPoints.Items.Add(v.pointname);
                     }
                 }
 
@@ -469,7 +454,7 @@ namespace Quantium
         private void CopyHumanPointWithAdditionalData(int humanPointsIndex, int methodicIndex)
         {
             humanPointModels[humanPointsIndex].id_methodic = methodicItemModels[methodicIndex].methodicId;
-            FormConfigPoint formConfigPoint = new FormConfigPoint(humanPointModels[lbHumanPoints.SelectedIndex]); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            FormConfigPoint formConfigPoint = new FormConfigPoint(humanPointModels[lbHumanPoints.SelectedIndex]); // 
             formConfigPoint.ShowDialog();
             formConfigPoint.Dispose();
         }
@@ -535,14 +520,14 @@ namespace Quantium
         }
         private void DrawPointsFromList(List<PointModel> pointModels, Brush color)
         {
-            for (int i = 0; i < pointModels.Count; i++)
+            foreach (PointModel v in pointModels)
             {
-                switch (pointModels[i].side)
+                switch (v.side)
                 {
                     case SIDE_FRONT:
                         {
                             using (var gr = Graphics.FromImage(pictureBox1.Image))
-                                gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                gr.FillEllipse(color, v.coordX, v.coordY, pointRadius, pointRadius);
                             pictureBox1.Invalidate();
                             break;
                         }
@@ -550,7 +535,7 @@ namespace Quantium
                     default:
                         {
                             using (var gr = Graphics.FromImage(pictureBox2.Image))
-                                gr.FillEllipse(color, pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                gr.FillEllipse(color, v.coordX, v.coordY, pointRadius, pointRadius);
                             pictureBox2.Invalidate();
                             break;
                         }
@@ -568,14 +553,14 @@ namespace Quantium
                 while (j>0)
                 {
                     j--;
-                    for (int i = 0; i < pointModels.Count; i++)
+                    foreach (PointModel v in pointModels)
                     {
-                        switch (pointModels[i].side)
+                        switch (v.side)
                         {
                             case SIDE_FRONT:
                                 {
                                     using (var gr = Graphics.FromImage(pictureBox1.Image))
-                                        gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, pointRadius, pointRadius);
                                     pictureBox1.Invalidate();
                                     break;
                                 }
@@ -583,7 +568,7 @@ namespace Quantium
                             default:
                                 {
                                     using (var gr = Graphics.FromImage(pictureBox2.Image))
-                                        gr.FillEllipse(colorsBrush[j], pointModels[i].coordX, pointModels[i].coordY, pointRadius, pointRadius);
+                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, pointRadius, pointRadius);
                                     pictureBox2.Invalidate();
                                     break;
                                 }
@@ -610,14 +595,14 @@ namespace Quantium
             if (selectedPointModels.Count>0)
             {
                 string str = "cfg:";
-                for (int i=0;i< 9;i++)
+                for (int i=0;i<MAX_CHANNELS-1;i++)
                 {
                     str += $"ch{i:X2}=";
-                    for (int y=0;y< selectedPointModels.Count;y++)
+                    foreach (PointModel v in selectedPointModels)
                     {
-                        if (selectedPointModels[y].channel == i)
+                        if (v.channel == i)
                         {
-                            str += selectedPointModels[y].power.ToString("X2").ToLower() + ",";
+                            str += v.power.ToString("X2").ToLower() + ",";
                             flag = true;
                             continue;
                         }
@@ -630,23 +615,25 @@ namespace Quantium
 
                 timerProcedureCounter = 0;
 
-                serialPort1.WriteLine(str);
+                //serialPort1.WriteLine(str);
                 //timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
+                btnStopTimer.Enabled = true;
             }
         }
 
         private void timerProcedure_Tick(object sender, EventArgs e)
         {
             timerProcedureCounter++;
+            label11.Text = "cnt:" + timerProcedureCounter;
             int currentCount = 0;
 
-            for (int i = 0; i < selectedPointModels.Count; i++)
+            foreach (PointModel v in selectedPointModels)
             {
-                if (selectedPointModels[i].time < timerProcedureCounter)
+                if (v.time < timerProcedureCounter)
                 {
-                    SendValueToSerial(selectedPointModels[i].channel, 0);
+                    //SendValueToSerial(selectedPointModels[i].channel, 0);
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
@@ -656,8 +643,16 @@ namespace Quantium
                     timerProcedure.Enabled = false;
                     MessageBox.Show("Procedure ended !");
                     btnStartProcedures.Enabled = true;
+                    btnStopTimer.Enabled = false;
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timerProcedure.Enabled = false;
+            btnStartProcedures.Enabled = true;
+            btnStopTimer.Enabled = false;
         }
 
         Bitmap AlphaBlending(Image firstBitmap, Image secondBitmap, float alphaPercent)
