@@ -30,7 +30,7 @@ namespace Quantium
         private const byte BLUE = 3;
         private const byte BLACK = 3;
 
-        private const byte USB_TIME_SLEEP = 50;
+        private const byte USB_TIME_SLEEP = 80; // 50 задержка между переключением лазеров 
 
         public const String SIDE_FRONT = "Front";
         public const String SIDE_BACK = "Back";
