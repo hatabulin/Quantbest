@@ -118,7 +118,7 @@ namespace Quantium
         private void SendValueToSerial(int channelNumber, int value)
         {
             string str = $"cfg:ch{channelNumber:X2}={value:X2}";
-            serialPort1.WriteLine(str);
+            serialPort1.WriteLine(str.ToLower());
         }
         private void btnConnect_Click(object sender, EventArgs e)
         {
@@ -302,8 +302,7 @@ namespace Quantium
             else if (sender == tbLaser7) index_value = 6;
             else if (sender == tbLaser8) index_value = 7;
             else if (sender == tbLaser9) index_value = 8;
-            else if (sender == tbLaser10) 
-                index_value = 9;
+            else if (sender == tbLaser10) index_value = 9;
             return index_value;
         }
         private int CheckPositionOnPoint(MouseEventArgs e, String side)
@@ -607,16 +606,32 @@ namespace Quantium
 
         private void btnStartProcedures_Click(object sender, EventArgs e)
         {
+            Boolean flag = false;
             if (selectedPointModels.Count>0)
             {
-                for (int i=0;i<selectedPointModels.Count;i++)
+                string str = "";
+                for (int i=0;i< 9;i++)
                 {
-                    SendValueToSerial(selectedPointModels[i].channel, selectedPointModels[i].power);
-                    Thread.Sleep(USB_TIME_SLEEP);
+                    str += $"ch{i:X2}=";
+                    for (int y=0;y< selectedPointModels.Count;y++)
+                    {
+                        if (selectedPointModels[y].channel == i)
+                        {
+                            str += selectedPointModels[y].power.ToString("X2").ToLower() + ",";
+                            flag = true;
+                            continue;
+                        }
+                    }
+                    if (flag != true)
+                    {
+                        str += "00,";
+                    } else flag = false;
                 }
 
                 timerProcedureCounter = 0;
-                timerProcedure.Start();
+
+                serialPort1.WriteLine(str);
+                //timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
             }
@@ -637,7 +652,7 @@ namespace Quantium
                 }
                 if (currentCount == selectedPointModels.Count)
                 {
-                    timerProcedure.Stop();
+                    //timerProcedure.Stop();
                     timerProcedure.Enabled = false;
                     MessageBox.Show("Procedure ended !");
                     btnStartProcedures.Enabled = true;
