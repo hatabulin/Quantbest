@@ -30,6 +30,8 @@ namespace Quantium
         private const byte BLUE = 3;
         private const byte BLACK = 3;
 
+        private const byte USB_TIME_SLEEP = 50;
+
         public const String SIDE_FRONT = "Front";
         public const String SIDE_BACK = "Back";
 
@@ -610,7 +612,7 @@ namespace Quantium
                 for (int i=0;i<selectedPointModels.Count;i++)
                 {
                     SendValueToSerial(selectedPointModels[i].channel, selectedPointModels[i].power);
-                    Thread.Sleep(20);
+                    Thread.Sleep(USB_TIME_SLEEP);
                 }
 
                 timerProcedureCounter = 0;
@@ -627,10 +629,10 @@ namespace Quantium
 
             for (int i = 0; i < selectedPointModels.Count; i++)
             {
-                if (selectedPointModels[i].time < timerProcedureCounter)
+                if (selectedPointModels[i].time > timerProcedureCounter)
                 {
                     SendValueToSerial(selectedPointModels[i].channel, 0);
-                    Thread.Sleep(50);
+                    Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
                 if (currentCount == selectedPointModels.Count)
