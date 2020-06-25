@@ -630,7 +630,7 @@ namespace Quantium
                 if (selectedPointModels[i].time < timerProcedureCounter)
                 {
                     SendValueToSerial(selectedPointModels[i].channel, 0);
-                    Thread.Sleep(20);
+                    Thread.Sleep(50);
                     currentCount++;
                 }
                 if (currentCount == selectedPointModels.Count)
