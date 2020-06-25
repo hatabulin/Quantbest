@@ -613,6 +613,8 @@ namespace Quantium
                     Thread.Sleep(20);
                 }
 
+                timerProcedureCounter = 0;
+                timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
             }
@@ -633,6 +635,7 @@ namespace Quantium
                 }
                 if (currentCount == selectedPointModels.Count)
                 {
+                    timerProcedure.Stop();
                     timerProcedure.Enabled = false;
                     MessageBox.Show("Procedure ended !");
                     btnStartProcedures.Enabled = true;
