@@ -29,14 +29,14 @@ namespace Quantium
         private const byte WHITE = 3;
         private const byte BLUE = 3;
         private const byte BLACK = 3;
-        private const byte USB_TIME_SLEEP = 80; // 50 задержка между переключением лазеров 
+        private const byte USB_TIME_SLEEP = 1;
         private const int MAX_CHANNELS = 10;
-        private const int pointRadius = 10;
+        private const int POINT_RADIUS = 10;
 
         public const String SIDE_FRONT = "Front";
         public const String SIDE_BACK = "Back";
-        private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
-        private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
+//        private const String TEST_STRING_ON_ALL = "cfg:ch00=ff,ch01=ff,ch02:ff,ch03:ff,ch04:ff,ch05:ff,ch06:ff,ch07:ff,ch08:ff,ch09:ff";
+//        private const String TEST_STRING_OFF_ALL = "cfg:ch00=00,ch01=00,ch02=00,ch03=00,ch04=00,ch05=00,ch06=00,ch07=00,ch08=00,ch09=00";
         private const String TEXT_CONNECT = "OPEN";
         private const String TEXT_DISCONNECT = "CLOSE";
 
@@ -117,6 +117,7 @@ namespace Quantium
         private void PrepareAndSendValueToSerial(int channelNumber, int value)
         {
             string str = $"cfg:ch{channelNumber:X2}={value:X2}";
+            Console.WriteLine(str);
             SendDataToUart(str);
         }
 
@@ -142,9 +143,9 @@ namespace Quantium
                     {
                         serialPort1.PortName = ports[cbComPort.SelectedIndex];
                         serialPort1.Open();
-                        serialPort1.WriteLine(TEST_STRING_ON_ALL);
-                        System.Threading.Thread.Sleep(100);
-                        serialPort1.WriteLine(TEST_STRING_OFF_ALL);
+                        SendFillChannels(255);
+                        Thread.Sleep(USB_TIME_SLEEP);
+                        SendClearChannels();
                         groupBoxPwmPower.Enabled = true;
                         buttonConnect.Text = TEXT_DISCONNECT;
                     }
@@ -309,10 +310,10 @@ namespace Quantium
             int y = e.Y;
             for (int i = 0; i < humanPointModels.Count; i++)
             {
-                if (x > (humanPointModels[i].coordX - pointRadius) &&
-                    x < (humanPointModels[i].coordX + pointRadius + 1) &&
-                    y > (humanPointModels[i].coordY - pointRadius - 1) &&
-                    y < (humanPointModels[i].coordY + pointRadius + 1) &&
+                if (x > (humanPointModels[i].coordX - POINT_RADIUS) &&
+                    x < (humanPointModels[i].coordX + POINT_RADIUS + 1) &&
+                    y > (humanPointModels[i].coordY - POINT_RADIUS - 1) &&
+                    y < (humanPointModels[i].coordY + POINT_RADIUS + 1) &&
                     humanPointModels[i].side == side) return i;
             }
             return -1;
@@ -530,7 +531,7 @@ namespace Quantium
             bmp.GetPixel(x, y);
 
             using (var gr = Graphics.FromImage(pictureBox.Image))
-                gr.FillEllipse(Brushes.Green, x, y, pointRadius, pointRadius);
+                gr.FillEllipse(Brushes.Green, x, y, POINT_RADIUS, POINT_RADIUS);
             pictureBox.Invalidate();
         }
         private void DrawPointsFromList(List<PointModel> pointModels, Brush color)
@@ -542,7 +543,7 @@ namespace Quantium
                     case SIDE_FRONT:
                         {
                             using (var gr = Graphics.FromImage(pictureBox1.Image))
-                                gr.FillEllipse(color, v.coordX, v.coordY, pointRadius, pointRadius);
+                                gr.FillEllipse(color, v.coordX, v.coordY, POINT_RADIUS, POINT_RADIUS);
                             pictureBox1.Invalidate();
                             break;
                         }
@@ -550,7 +551,7 @@ namespace Quantium
                     default:
                         {
                             using (var gr = Graphics.FromImage(pictureBox2.Image))
-                                gr.FillEllipse(color, v.coordX, v.coordY, pointRadius, pointRadius);
+                                gr.FillEllipse(color, v.coordX, v.coordY, POINT_RADIUS, POINT_RADIUS);
                             pictureBox2.Invalidate();
                             break;
                         }
@@ -575,7 +576,7 @@ namespace Quantium
                             case SIDE_FRONT:
                                 {
                                     using (var gr = Graphics.FromImage(pictureBox1.Image))
-                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, pointRadius, pointRadius);
+                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, POINT_RADIUS, POINT_RADIUS);
                                     pictureBox1.Invalidate();
                                     break;
                                 }
@@ -583,7 +584,7 @@ namespace Quantium
                             default:
                                 {
                                     using (var gr = Graphics.FromImage(pictureBox2.Image))
-                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, pointRadius, pointRadius);
+                                        gr.FillEllipse(colorsBrush[j], v.coordX, v.coordY, POINT_RADIUS, POINT_RADIUS);
                                     pictureBox2.Invalidate();
                                     break;
                                 }
@@ -606,36 +607,57 @@ namespace Quantium
 
         private void btnStartProcedures_Click(object sender, EventArgs e)
         {
-            Boolean flag = false;
             if (selectedPointModels.Count>0)
             {
-                string str = "cfg:";
-                for (int i=0;i<MAX_CHANNELS;i++)
-                {
-                    str += $"ch{i:X2}=";
-                    foreach (PointModel v in selectedPointModels)
-                    {
-                        if (v.channel == i)
-                        {
-                            str += v.power.ToString("X2").ToLower() + ",";
-                            flag = true;
-                        }
-                    }
-                    if (flag != true)
-                    {
-                        str += "00,";
-                    } else flag = false;
-                }
+                SendPointModelToUart();
 
                 timerProcedureCounter = 0;
                 currentCount = 0;
-                Console.WriteLine("Initialization string: " + str);
-                SendDataToUart(str);
 
-                //timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
                 btnStopTimer.Enabled = true;
+            }
+            //timerProcedure.Start();
+        }
+
+        private void SendClearChannels()
+        {
+            string str = "cfg:";
+            for (int i=0; i<MAX_CHANNELS; i++)
+            {
+                str = $"cfg:ch{i:X2}=00\n\r".ToLower();
+                SendDataToUart(str);
+                Thread.Sleep(USB_TIME_SLEEP);
+            }
+
+        }
+        private void SendFillChannels(int value)
+        {
+            for (int i = 0; i < MAX_CHANNELS; i++)
+            {
+                SendDataToUart($"cfg:ch{i:X2}={value:X2}\n\r".ToLower());
+                Thread.Sleep(USB_TIME_SLEEP);
+            }
+        }
+
+        private void SendPointModelToUart()
+        {
+            string str = "cfg:";
+/*
+            foreach (PointModel v in selectedPointModels)
+            {
+                str += $"ch{v.channel:X2}=";
+                str += $"{v.power.ToString("X2").ToLower()},";
+            }
+            Console.WriteLine("Initialization string: " + str);
+            SendDataToUart(str);
+*/
+            foreach (PointModel v in selectedPointModels)
+            {
+                str = $"cfg:ch{v.channel:X2}={v.power:X2},".ToLower();
+                SendDataToUart(str);
+                Thread.Sleep(USB_TIME_SLEEP);
             }
         }
 
@@ -649,6 +671,7 @@ namespace Quantium
                 if (v.time == timerProcedureCounter)
                 {
                     PrepareAndSendValueToSerial(v.channel, 0);
+                    
                     Console.WriteLine("power off channel:" + v.channel);
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
@@ -667,10 +690,15 @@ namespace Quantium
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SendDataToUart(TEST_STRING_OFF_ALL);
+            SendClearChannels();
             timerProcedure.Enabled = false;
             btnStartProcedures.Enabled = true;
             btnStopTimer.Enabled = false;
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (serialPort1.IsOpen) serialPort1.Close();
         }
 
         Bitmap AlphaBlending(Image firstBitmap, Image secondBitmap, float alphaPercent)
