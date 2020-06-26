@@ -610,7 +610,7 @@ namespace Quantium
             if (selectedPointModels.Count>0)
             {
                 string str = "cfg:";
-                for (int i=0;i<MAX_CHANNELS-1;i++)
+                for (int i=0;i<MAX_CHANNELS;i++)
                 {
                     str += $"ch{i:X2}=";
                     foreach (PointModel v in selectedPointModels)
@@ -619,7 +619,6 @@ namespace Quantium
                         {
                             str += v.power.ToString("X2").ToLower() + ",";
                             flag = true;
-                            continue;
                         }
                     }
                     if (flag != true)
@@ -630,6 +629,7 @@ namespace Quantium
 
                 timerProcedureCounter = 0;
                 currentCount = 0;
+                Console.WriteLine("Initialization string: " + str);
                 SendDataToUart(str);
 
                 //timerProcedure.Start();
@@ -667,6 +667,7 @@ namespace Quantium
 
         private void button2_Click(object sender, EventArgs e)
         {
+            SendDataToUart(TEST_STRING_OFF_ALL);
             timerProcedure.Enabled = false;
             btnStartProcedures.Enabled = true;
             btnStopTimer.Enabled = false;
