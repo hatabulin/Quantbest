@@ -46,6 +46,8 @@ namespace Quantium
         private string[] ports;
 
         private int timerProcedureCounter = 0;
+        private int currentCount = 0;
+
         private float currentAlphaValue = 0.45f;
         private string mapFrontFileName, mapBackFileName;
         private string humanModelFrontFileName, humanModelBackFileName;
@@ -112,11 +114,24 @@ namespace Quantium
 
             tabControl1.SelectedIndex = 2; // 0 - Driver settings tabpage, 1 - Human models tabpage, 2 - Methodic tabPage, 3 - Disease tabpage
         }
-        private void SendValueToSerial(int channelNumber, int value)
+        private void PrepareAndSendValueToSerial(int channelNumber, int value)
         {
             string str = $"cfg:ch{channelNumber:X2}={value:X2}";
-            serialPort1.WriteLine(str.ToLower());
+            SendDataToUart(str);
         }
+
+        private void SendDataToUart(string str)
+        {
+            try
+            {
+                serialPort1.WriteLine(str.ToLower());
+            }
+            catch
+            {
+                Console.WriteLine("UART error:");
+            }
+        }
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (buttonConnect.Text != TEXT_DISCONNECT)
@@ -271,7 +286,7 @@ namespace Quantium
         {
             int index_value = GetIndexFromTrackBarLaser(sender);
 
-            SendValueToSerial(index_value, (sender as TrackBar).Value);
+            PrepareAndSendValueToSerial(index_value, (sender as TrackBar).Value);
       }
         private int GetIndexFromTrackBarLaser(object sender)
         {
@@ -614,8 +629,9 @@ namespace Quantium
                 }
 
                 timerProcedureCounter = 0;
+                currentCount = 0;
+                SendDataToUart(str);
 
-                serialPort1.WriteLine(str);
                 //timerProcedure.Start();
                 timerProcedure.Enabled = true;
                 btnStartProcedures.Enabled = false;
@@ -627,24 +643,25 @@ namespace Quantium
         {
             timerProcedureCounter++;
             label11.Text = "cnt:" + timerProcedureCounter;
-            int currentCount = 0;
 
             foreach (PointModel v in selectedPointModels)
             {
-                if (v.time < timerProcedureCounter)
+                if (v.time == timerProcedureCounter)
                 {
-                    SendValueToSerial(v.channel, 0);
+                    PrepareAndSendValueToSerial(v.channel, 0);
+                    Console.WriteLine("power off channel:" + v.channel);
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
-                if (currentCount == selectedPointModels.Count)
-                {
-                    //timerProcedure.Stop();
-                    timerProcedure.Enabled = false;
-                    MessageBox.Show("Procedure ended !");
-                    btnStartProcedures.Enabled = true;
-                    btnStopTimer.Enabled = false;
-                }
+            }
+
+            if (currentCount == selectedPointModels.Count)
+            {
+                //timerProcedure.Stop();
+                timerProcedure.Enabled = false;
+                MessageBox.Show("Procedure ended !");
+                btnStartProcedures.Enabled = true;
+                btnStopTimer.Enabled = false;
             }
         }
 
