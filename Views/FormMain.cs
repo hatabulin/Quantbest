@@ -29,7 +29,7 @@ namespace Quantium
         private const byte WHITE = 3;
         private const byte BLUE = 3;
         private const byte BLACK = 3;
-        private const byte USB_TIME_SLEEP = 1;
+        private const byte USB_TIME_SLEEP = 5;
         private const int MAX_CHANNELS = 10;
         private const int POINT_RADIUS = 10;
 
