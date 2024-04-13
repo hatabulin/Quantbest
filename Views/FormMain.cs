@@ -4,20 +4,13 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
-using System.Resources;
-using Microsoft.Data.Sqlite;
-using System.IO;
-using PCLStorage;
-using System.IO.Packaging;
-using System.Data.SQLite;
-using System.Configuration;
-using Dapper;
-using System.Linq;
-using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Quantium.Model;
 using Quantium.Views;
+using System.Text.Json;
+using static Quantium.FormMain;
+using System.Linq;
 
 namespace Quantium
 {
@@ -114,18 +107,51 @@ namespace Quantium
 
             tabControl1.SelectedIndex = 2; // 0 - Driver settings tabpage, 1 - Human models tabpage, 2 - Methodic tabPage, 3 - Disease tabpage
         }
-        private void PrepareAndSendValueToSerial(int channelNumber, int value)
+
+        public class ChannelType
         {
-            string str = $"cfg:ch{channelNumber:X2}={value:X2}";
-            Console.WriteLine(str);
-            SendDataToUart(str);
+            public int Id { get; set; }
+            public int Value { get; set; }
+
+            public ChannelType(int channel, int value)
+            {
+                Id = channel;
+                Value = value;
+            }
         }
 
-        private void SendDataToUart(string str)
+        public class LedMessage
         {
+            public string Type { get; set; }
+
+            public Dictionary<string, ChannelType> Data { get; set;}
+
+            public LedMessage(Dictionary<string, ChannelType> data)
+            {
+                Type = "brightness";
+                Data = data;
+            }
+        }
+
+/*
+    Request: {"type":"brightness","data":{"channel":{"id":1,"value":25},"channel":{"id":2,"value":128}}}
+    Response: {"type":"brightness","status":"success"}
+*/
+        private void PrepareAndSendValueToSerial(ChannelType channel)
+        {
+            Dictionary<string, ChannelType> dict = new Dictionary<string, ChannelType>();
+
+            channel.Id += 1;            
+            dict.Add("channel", channel);
+
+            var options = new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower};
+            string jsonString = JsonSerializer.Serialize(new LedMessage(dict), options);
+
+            Console.WriteLine(jsonString);
+
             try
             {
-                serialPort1.WriteLine(str.ToLower());
+                serialPort1.WriteLine(jsonString.ToLower());
             }
             catch
             {
@@ -143,9 +169,9 @@ namespace Quantium
                     {
                         serialPort1.PortName = ports[cbComPort.SelectedIndex];
                         serialPort1.Open();
-                        SendFillChannels(255);
+                        FillAllChannels(255);
                         Thread.Sleep(USB_TIME_SLEEP);
-                        SendClearChannels();
+                        ClearAllChannels();
                         groupBoxPwmPower.Enabled = true;
                         buttonConnect.Text = TEXT_DISCONNECT;
                     }
@@ -285,9 +311,8 @@ namespace Quantium
         }
         private void TrackBarLaser_Scroll(object sender, EventArgs e)
         {
-            int index_value = GetIndexFromTrackBarLaser(sender);
-
-            PrepareAndSendValueToSerial(index_value, (sender as TrackBar).Value);
+//            PrepareAndSendValueToSerial(index_value, (sender as TrackBar).Value);
+            PrepareAndSendValueToSerial(new ChannelType(GetIndexFromTrackBarLaser(sender), (sender as TrackBar).Value));
       }
         private int GetIndexFromTrackBarLaser(object sender)
         {
@@ -609,7 +634,7 @@ namespace Quantium
         {
             if (selectedPointModels.Count>0)
             {
-                SendPointModelToUart();
+                PointModelToUart();
 
                 timerProcedureCounter = 0;
                 currentCount = 0;
@@ -621,42 +646,29 @@ namespace Quantium
             //timerProcedure.Start();
         }
 
-        private void SendClearChannels()
+        private void ClearAllChannels()
         {
-            string str = "cfg:";
             for (int i=0; i<MAX_CHANNELS; i++)
             {
-                str = $"cfg:ch{i:X2}=00\n\r".ToLower();
-                SendDataToUart(str);
+                PrepareAndSendValueToSerial(new ChannelType(i, 0));
                 Thread.Sleep(USB_TIME_SLEEP);
             }
 
         }
-        private void SendFillChannels(int value)
+        private void FillAllChannels(int value)
         {
             for (int i = 0; i < MAX_CHANNELS; i++)
             {
-                SendDataToUart($"cfg:ch{i:X2}={value:X2}\n\r".ToLower());
+                PrepareAndSendValueToSerial(new ChannelType(i, value));
                 Thread.Sleep(USB_TIME_SLEEP);
             }
         }
 
-        private void SendPointModelToUart()
+        private void PointModelToUart()
         {
-            string str = "cfg:";
-/*
             foreach (PointModel v in selectedPointModels)
             {
-                str += $"ch{v.channel:X2}=";
-                str += $"{v.power.ToString("X2").ToLower()},";
-            }
-            Console.WriteLine("Initialization string: " + str);
-            SendDataToUart(str);
-*/
-            foreach (PointModel v in selectedPointModels)
-            {
-                str = $"cfg:ch{v.channel:X2}={v.power:X2},".ToLower();
-                SendDataToUart(str);
+                PrepareAndSendValueToSerial(new ChannelType(v.channel, v.power));
                 Thread.Sleep(USB_TIME_SLEEP);
             }
         }
@@ -670,9 +682,7 @@ namespace Quantium
             {
                 if (v.time == timerProcedureCounter)
                 {
-                    PrepareAndSendValueToSerial(v.channel, 0);
-                    
-                    Console.WriteLine("power off channel:" + v.channel);
+                    PrepareAndSendValueToSerial(new ChannelType(v.channel, 0));
                     //Thread.Sleep(USB_TIME_SLEEP);
                     currentCount++;
                 }
@@ -690,7 +700,7 @@ namespace Quantium
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SendClearChannels();
+            ClearAllChannels();
             timerProcedure.Enabled = false;
             btnStartProcedures.Enabled = true;
             btnStopTimer.Enabled = false;
